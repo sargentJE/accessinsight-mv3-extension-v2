@@ -1,7 +1,7 @@
 // content.js — overlay + keyboardable panel, with rule filter and DevTools messaging
 (function() {
   const DEBUG = false;
-  if (window.top !== window) return;
+  const IS_TOP = (window.top === window);
   const STATE_KEY = '__a11yOverlayState';
   const getState = () => (window[STATE_KEY] ||= { enabled: false, findings: [], index: -1 });
   const setState = (patch) => Object.assign(getState(), patch);
@@ -16,38 +16,40 @@
   let engineProfile = 'default';
   let hideNeedsReview = false;
 
-  let host = document.getElementById('a11y-overlay-root-host');
-  if (!host) {
-    host = document.createElement('div');
-    host.id = 'a11y-overlay-root-host';
-    host.style.all = 'initial';
-    host.style.position = 'fixed';
-    host.style.zIndex = '2147483647';
-    host.style.top = '0'; host.style.left = '0'; host.style.width = '0'; host.style.height = '0';
-    document.documentElement.appendChild(host);
+  let host = null, shadow = null, container = null;
+  if (IS_TOP) {
+    host = document.getElementById('a11y-overlay-root-host');
+    if (!host) {
+      host = document.createElement('div');
+      host.id = 'a11y-overlay-root-host';
+      host.style.all = 'initial';
+      host.style.position = 'fixed';
+      host.style.zIndex = '2147483647';
+      host.style.top = '0'; host.style.left = '0'; host.style.width = '0'; host.style.height = '0';
+      document.documentElement.appendChild(host);
+    }
+    if (!host.hasAttribute('tabindex')) host.setAttribute('tabindex', '-1');
+    shadow = host.shadowRoot || host.attachShadow({ mode: 'open' });
+    container = document.createElement('div');
+    container.id = 'a11y-overlay-root';
+    shadow.appendChild(container);
   }
-  // Ensure a safe focusable fallback target exists when closing the panel
-  if (!host.hasAttribute('tabindex')) host.setAttribute('tabindex', '-1');
-  const shadow = host.shadowRoot || host.attachShadow({ mode: 'open' });
-  const container = document.createElement('div');
-  container.id = 'a11y-overlay-root';
-  shadow.appendChild(container);
 
-  container.innerHTML = `
+  if (IS_TOP) container.innerHTML = `
     <style>
       :host, #a11y-overlay-root { all: initial; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
       .layer { position: fixed; inset: 0; pointer-events: none; }
       .box { position: fixed; border: 2px solid #ff3b30; border-radius: 3px; box-shadow: 0 0 0 2px rgba(0,0,0,.2); background: rgba(255,59,48,0.08); pointer-events: none; }
       .label { position: fixed; transform: translateY(-100%); background: #ff3b30; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; line-height: 1.4; pointer-events: none; }
-      .panel { position: fixed; top: 0; right: 0; width: 380px; max-width: 92vw; height: 100vh; background: #111; color: #fff; border-left: 2px solid #ff3b30; box-shadow: -6px 0 16px rgba(0,0,0,.4); display: none; flex-direction: column; gap: 0; pointer-events: auto; z-index: 2147483647; }
+      .panel { position: fixed; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 380px; max-width: min(92vw, 480px); height: calc(100vh - 24px); background: #111; color: #fff; border-left: 2px solid #ff3b30; box-shadow: -6px 0 16px rgba(0,0,0,.4); display: none; flex-direction: column; gap: 0; pointer-events: auto; z-index: 2147483647; box-sizing: border-box; border-radius: 8px; }
       .panel[aria-hidden="false"] { display: flex; }
       .panel header { padding: 12px 14px; border-bottom: 1px solid #333; background: #1a1a1a; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
       .panel h1 { font-size: 16px; margin: 0; }
       .counts { font-size: 12px; color: #bdbdbd; padding: 0 14px 6px; }
-      .panel .controls { display: flex; gap: 8px; align-items: center; }
+      .panel .controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
       .panel button, .panel select { background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 8px; padding: 6px 10px; cursor: pointer; }
       .panel button:focus, .panel select:focus { outline: 2px solid #ff3b30; outline-offset: 2px; }
-      .list { overflow: auto; padding: 8px 0; height: calc(100vh - 54px - 66px); }
+      .list { overflow: auto; padding: 8px 0; height: calc(100vh - 24px - 54px - 66px); }
       .item { display: grid; grid-template-columns: auto 1fr; gap: 6px 10px; padding: 10px 14px; border-bottom: 1px solid #2a2a2a; }
       .item[aria-selected="true"] { background: #1f1f1f; }
       .item .idx { font-weight: 700; color: #ffb4ae; }
@@ -74,15 +76,15 @@
     </aside>
   `;
 
-  const layer = container.querySelector('#highlight-layer');
-  const panel = container.querySelector('.panel');
-  const listEl = container.querySelector('#list');
-  const countsEl = container.querySelector('#counts');
-  const live = container.querySelector('#live');
-  const btnClose = container.querySelector('#btn-close');
-  const btnRescan = container.querySelector('#btn-rescan');
-  const btnClear = container.querySelector('#btn-clear-results');
-  const ruleFilter = container.querySelector('#rule-filter');
+  const layer = IS_TOP ? container.querySelector('#highlight-layer') : null;
+  const panel = IS_TOP ? container.querySelector('.panel') : null;
+  const listEl = IS_TOP ? container.querySelector('#list') : null;
+  const countsEl = IS_TOP ? container.querySelector('#counts') : null;
+  const live = IS_TOP ? container.querySelector('#live') : null;
+  const btnClose = IS_TOP ? container.querySelector('#btn-close') : null;
+  const btnRescan = IS_TOP ? container.querySelector('#btn-rescan') : null;
+  const btnClear = IS_TOP ? container.querySelector('#btn-clear-results') : null;
+  const ruleFilter = IS_TOP ? container.querySelector('#rule-filter') : { value: '' };
   let previouslyFocused = null;
   let ignores = { selectors: new Set(), rules: new Set() };
   let scanOptions = { live: false, viewportOnly: false, shadow: false, iframes: false, hideNeedsReview: false };
@@ -129,6 +131,7 @@
   }
 
   function buildHighlights(findings) {
+    if (!IS_TOP) return;
     clearHighlights();
     const filter = ruleFilter.value;
     const filtered = findings
@@ -145,7 +148,7 @@
   }
 
   function buildListItem(item, idx) {
-    const div = document.createElement('div'); div.className = 'item'; div.setAttribute('role','option'); div.setAttribute('data-idx', String(idx)); div.tabIndex = -1;
+    const div = document.createElement('div'); if (!IS_TOP) return div; div.className = 'item'; div.setAttribute('role','option'); div.setAttribute('data-idx', String(idx)); div.tabIndex = -1;
     const idxEl = document.createElement('div'); idxEl.className = 'idx'; idxEl.textContent = String(idx + 1);
     const body = document.createElement('div');
     const msg = document.createElement('div'); msg.className = 'msg'; msg.textContent = `${item.message}`;
@@ -160,6 +163,7 @@
   }
 
   function renderList() {
+    if (!IS_TOP) return;
     const s = getState();
     const filter = ruleFilter.value;
     const items = s.findings
@@ -172,6 +176,7 @@
   }
 
   function selectIndex(newIndex) {
+    if (!IS_TOP) return;
     const s = getState();
     const filter = ruleFilter.value;
     const items = s.findings.filter(f => !filter || f.ruleId === filter);
@@ -183,6 +188,7 @@
   }
 
   function flash(el) {
+    if (!IS_TOP) return;
     const r = el.getBoundingClientRect();
     const pulse = document.createElement('div');
     pulse.className = 'box';
@@ -190,9 +196,10 @@
     layer.appendChild(pulse); requestAnimationFrame(() => pulse.style.opacity = '0'); setTimeout(() => pulse.remove(), 900);
   }
 
-  function announce(msg) { live.textContent = ''; setTimeout(() => (live.textContent = msg), 10); }
+  function announce(msg) { if (!IS_TOP) return; live.textContent = ''; setTimeout(() => (live.textContent = msg), 10); }
 
   function populateRuleFilter() {
+    if (!IS_TOP) return;
     const ids = (window.__a11yEngine && window.__a11yEngine.allRuleIds) ? window.__a11yEngine.allRuleIds : [];
     ruleFilter.innerHTML = '<option value=\"\">All rules</option>' + ids.map(id => `<option value=\"${id}\">${id}</option>`).join('');
   }
@@ -223,8 +230,9 @@
       results = results.filter(f => !f.needsReview);
     }
     const filtered = results.filter(f => !ignores.rules.has(f.ruleId) && !ignores.selectors.has(f.selector));
+    try { window.__A11Y_LAST_RESULTS__ = filtered; } catch {}
     setState({ findings: filtered, index: filtered.length ? 0 : -1 });
-    renderList(); buildHighlights(results); announce(`${filtered.length} issues found`);
+    if (IS_TOP) { renderList(); buildHighlights(results); announce(`${filtered.length} issues found`); }
     try {
       const scanMs = Math.max(0, Math.round(performance.now() - t0));
       chrome.runtime.sendMessage(
@@ -235,12 +243,14 @@
   }
 
   function openPanel() {
+    if (!IS_TOP) return;
     previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     panel.removeAttribute('inert');
     panel.setAttribute('aria-hidden', 'false');
     listEl.focus();
   }
   function closePanel() {
+    if (!IS_TOP) return;
     const isInside = panel.contains(document.activeElement);
     const fallback = host; // reliable, focusable fallback
     const target = (previouslyFocused && document.contains(previouslyFocused) && !panel.contains(previouslyFocused)) ? previouslyFocused : fallback;
@@ -260,6 +270,7 @@
   }
 
   function togglePanel() {
+    if (!IS_TOP) return;
     const s = getState(); const enabled = !s.enabled; setState({ enabled });
     if (enabled) {
       populateRuleFilter(); scanNow(); openPanel(); layer.setAttribute('aria-hidden','false');
@@ -268,18 +279,18 @@
     } else { closePanel(); clearHighlights(); layer.setAttribute('aria-hidden','true'); }
   }
 
-  btnClose.addEventListener('click', () => togglePanel());
-  btnRescan.addEventListener('click', () => scanNow());
-  btnClear.addEventListener('click', () => {
+  btnClose?.addEventListener('click', () => togglePanel());
+  btnRescan?.addEventListener('click', () => scanNow());
+  btnClear?.addEventListener('click', () => {
     setState({ findings: [], index: -1 });
     renderList();
     clearHighlights();
     try { chrome.runtime.sendMessage({ type: 'findings', findings: [], allRuleIds: (window.__a11yEngine?.allRuleIds || []), enabledRules: (window.__a11yConfig?.enabledRules || []), scanMs: 0 }, () => void chrome.runtime.lastError); } catch {}
     announce('Results cleared');
   });
-  ruleFilter.addEventListener('change', () => { renderList(); buildHighlights(getState().findings); });
+  IS_TOP && ruleFilter.addEventListener('change', () => { renderList(); buildHighlights(getState().findings); });
 
-  listEl.addEventListener('keydown', (e) => {
+  listEl?.addEventListener('keydown', (e) => {
     const s = getState(); if (!s.enabled) return;
     if (e.key === 'ArrowDown') { e.preventDefault(); selectIndex((s.index < 0 ? 0 : s.index) + 1); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); selectIndex((s.index < 0 ? 0 : s.index) - 1); }
@@ -290,13 +301,13 @@
   chrome.runtime.onMessage.addListener((msg) => {
     if (!msg || !msg.type) return;
     if (DEBUG) try { console.debug('[A11y][CS] Received', msg.type); } catch {}
-    if (msg.type === 'toggle-panel') togglePanel();
-    if (msg.type === 'next-finding') { const s = getState(); selectIndex((s.index < 0 ? 0 : s.index) + 1); }
-    if (msg.type === 'previous-finding') { const s = getState(); selectIndex((s.index < 0 ? 0 : s.index) - 1); }
+    if (msg.type === 'toggle-panel') { if (IS_TOP) togglePanel(); else scanNow(); }
+    if (msg.type === 'next-finding') { if (IS_TOP) { const s = getState(); selectIndex((s.index < 0 ? 0 : s.index) + 1); } }
+    if (msg.type === 'previous-finding') { if (IS_TOP) { const s = getState(); selectIndex((s.index < 0 ? 0 : s.index) - 1); } }
     if (msg.type === 'request-findings') {
       try {
         chrome.runtime.sendMessage(
-          { type: 'findings', findings: getState().findings, allRuleIds: (window.__a11yEngine?.allRuleIds || []), enabledRules: (window.__a11yConfig?.enabledRules || []) },
+          { type: 'findings', findings: getState().findings, allRuleIds: (window.__a11yEngine?.allRuleIds || []), enabledRules: (window.__a11yConfig?.enabledRules || []), ruleMeta: (window.__a11yEngine?.ruleMeta || null) },
           () => void chrome.runtime.lastError
         );
       } catch {}

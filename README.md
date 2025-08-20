@@ -50,7 +50,7 @@ Powerful overlay + DevTools panel with presets (axe, Lighthouse, IBM), scan opti
   - Filter by rule, impact, and minimum confidence.
   - Configure: Viewport‑only, Scan shadow DOM, Scan iframes, Live.
   - Select a finding to view guidance and actions (Reveal in Elements).
-  - Export findings as JSON/SARIF/HTML.
+  - Export findings as JSON/SARIF/HTML/CSV (exports respect filters/search/ignores).
   - Ignore a rule or selector; Clear Ignores resets per‑host ignores.
 
 ## Keyboard Shortcuts
@@ -69,7 +69,8 @@ Powerful overlay + DevTools panel with presets (axe, Lighthouse, IBM), scan opti
 - **Viewport only**: limit expensive checks to on‑screen elements.
 - **Live**: debounced `MutationObserver` rescans with automatic backoff on very dynamic pages (status pill shows “Live paused”).
 - **Shadow DOM**: traverse open shadow roots for naming/contrast when enabled.
-- **Iframes**: injects into all frames (where allowed) and aggregates results.
+- **Iframes**: injects into all same‑origin frames and aggregates results.
+  - Note: Cross‑origin iframes cannot be scanned due to browser security.
 
 ## Ignores & Persistence
 - Ignores: by rule ID or CSS selector; persisted per host in `localStorage`. “Clear Ignores” removes them.
@@ -103,6 +104,7 @@ Powerful overlay + DevTools panel with presets (axe, Lighthouse, IBM), scan opti
 - No findings: check filters (rule/impact/confidence) and Enabled rules. Set confidence ≤ 0.95. Uncheck “Hide needsReview”. Disable “Viewport only” if testing off‑screen content.
 - Live paused: indicates dynamic‑page backoff; it resumes automatically, or disable Live.
 - Shadow DOM/iframes: enable their options. Only open shadow roots are traversed; cross‑origin iframes may be inaccessible.
+- Compare axe: Some sites use CSP that blocks loading axe‑core from a CDN. Use the inline status readout or run the fallback script `parity/axe_compare.js` in the page Console.
 
 ## Development
 - Messaging: DevTools connects to background via a named port; background ensures injection then forwards to content. Content returns `findings` (plus `allRuleIds`, scan ms) and `live-status`.
@@ -114,7 +116,7 @@ Powerful overlay + DevTools panel with presets (axe, Lighthouse, IBM), scan opti
 All analysis runs locally in the inspected page. The extension does not transmit page data. Per‑host preferences (ignores, scan options, preset) are stored locally.
 
 ## Changelog
-- 0.2.0 — MV3 programmatic injection; robust DevTools panel; presets; scan options (live/viewport/shadow/iframes); improved ANDC; contrast/background compositing; ignores; exports (JSON/SARIF/HTML); performance and stability fixes.
+- 0.2.0 — MV3 programmatic injection; robust DevTools panel; presets; scan options (live/viewport/shadow/iframes); improved ANDC; contrast/background compositing; ignores; exports (JSON/SARIF/HTML/CSV); performance and stability fixes.
 
 ## Roadmap
 - More spec‑aligned Name & Description Computation (ANDC) edge cases and ARIA mappings.

@@ -42,7 +42,8 @@
     'aria-allowed-role': { helpUrl: 'https://www.w3.org/TR/wai-aria-1.2/#role_definitions', defaultImpact: 'moderate', tags: ['wcag2a','wcag412'] },
     'aria-required-children': { helpUrl: 'https://www.w3.org/TR/wai-aria-1.2/#childrenArePresentational', defaultImpact: 'serious', tags: ['wcag2a','wcag412'] },
     'aria-required-parent': { helpUrl: 'https://www.w3.org/TR/wai-aria-1.2/#ariaRoleAttribute', defaultImpact: 'serious', tags: ['wcag2a','wcag412'] },
-    'table-headers-association': { helpUrl: 'https://www.w3.org/WAI/WCAG21/Techniques/html/H43', defaultImpact: 'serious', tags: ['wcag2a','wcag131'] }
+    'table-headers-association': { helpUrl: 'https://www.w3.org/WAI/WCAG21/Techniques/html/H43', defaultImpact: 'serious', tags: ['wcag2a','wcag131'] },
+    'table-caption': { helpUrl: 'https://www.w3.org/WAI/WCAG21/Techniques/html/H39', defaultImpact: 'moderate', tags: ['wcag2a','wcag131'] }
   };
 
   const isElementVisible = (el) => {
@@ -98,6 +99,40 @@
     }
     return pieces.join(' ').replace(/\s+/g, ' ').trim();
   };
+
+  // ANDC helpers: ignore presentational containers and aria-hidden descendants
+  function isPresentational(el) {
+    if (!(el instanceof Element)) return false;
+    const role = (el.getAttribute('role')||'').trim().toLowerCase();
+    return role === 'presentation' || role === 'none';
+  }
+
+  function collectTextForName(root) {
+    // Depth-first collect visible text, respecting aria-hidden and adding IMG @alt where present
+    let out = '';
+    const stack = [root];
+    const seen = new Set();
+    while (stack.length) {
+      const n = stack.pop();
+      if (!n || seen.has(n)) continue; seen.add(n);
+      if (n.nodeType === Node.ELEMENT_NODE) {
+        const el = n;
+        if (el.getAttribute && el.getAttribute('aria-hidden') === 'true') continue;
+        if (isPresentational(el)) {
+          // still include children (presentation affects semantics, not necessarily visibility)
+        }
+        if (el.tagName === 'IMG') {
+          const alt = (el.getAttribute('alt')||'').trim();
+          if (alt) out += ' ' + alt;
+        }
+        for (let i = el.childNodes.length - 1; i >= 0; i--) stack.push(el.childNodes[i]);
+      } else if (n.nodeType === Node.TEXT_NODE) {
+        const t = (n.nodeValue || '').trim();
+        if (t) out += ' ' + t;
+      }
+    }
+    return out.replace(/\s+/g, ' ').trim();
+  }
 
   const isFocusableByHeuristic = (el) => {
     if (!(el instanceof Element)) return false;
@@ -162,7 +197,7 @@
     }
     // 5) Name from content (subset of roles/elements that allow it)
     const nameFromContent = (function() {
-      const rolesAllowContent = new Set(['button','link','tab','menuitem','switch','checkbox']);
+      const rolesAllowContent = new Set(['button','link','tab','menuitem','menuitemcheckbox','menuitemradio','option','switch','checkbox']);
       const tag = el.tagName;
       if (tag === 'BUTTON' || tag === 'SUMMARY') return true;
       if (tag === 'A' && el.hasAttribute('href')) return true;
@@ -170,23 +205,11 @@
       if (role && rolesAllowContent.has(role)) return true;
       return false;
     })();
-    if (nameFromContent) {
+    if (nameFromContent && !isPresentational(el)) {
       if (_visited.has(el)) return { name: '', evidence };
       _visited.add(el);
-      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-      let text = '', node;
-      while ((node = walker.nextNode())) {
-        const p = node.parentElement;
-        if (p && p.getAttribute && p.getAttribute('aria-hidden') === 'true') continue;
-        text += ' ' + (node.nodeValue || '');
-      }
-      const txt = text.replace(/\s+/g, ' ').trim();
+      const txt = collectTextForName(el);
       if (txt) { evidence.sources.push({ source: 'subtree text', text: txt }); accNameCache.set(el, txt); return { name: txt, evidence }; }
-      const img = el.querySelector('img[alt]');
-      if (img && img.getAttribute('alt')) {
-        const t = img.getAttribute('alt').trim();
-        if (t) { evidence.sources.push({ source: 'img child alt', text: t }); accNameCache.set(el, t); return { name: t, evidence }; }
-      }
     }
     // 6) Title fallback
     if (el.hasAttribute('title')) {
@@ -195,6 +218,30 @@
     }
     accNameCache.set(el, '');
     return { name: '', evidence };
+  }
+
+  // Accessible Description (subset): aria-describedby > aria-description > title
+  const accDescCache = new WeakMap();
+  function getAccDescription(el) {
+    if (!(el instanceof Element)) return { description: '', evidence: { sources: [] } };
+    const cached = accDescCache.get(el);
+    if (cached) return cached;
+    const evidence = { sources: [] };
+    if (el.hasAttribute('aria-describedby')) {
+      const txt = textFromIds(el.getAttribute('aria-describedby'));
+      if (txt) { const out = { description: txt, evidence: { sources: [{ source: 'aria-describedby', text: txt }] } }; accDescCache.set(el, out); return out; }
+    }
+    if (el.hasAttribute('aria-description')) {
+      const txt = (el.getAttribute('aria-description')||'').trim();
+      if (txt) { const out = { description: txt, evidence: { sources: [{ source: 'aria-description', text: txt }] } }; accDescCache.set(el, out); return out; }
+    }
+    if (el.hasAttribute('title')) {
+      const txt = (el.getAttribute('title')||'').trim();
+      if (txt) { const out = { description: txt, evidence: { sources: [{ source: 'title', text: txt }] } }; accDescCache.set(el, out); return out; }
+    }
+    const out = { description: '', evidence };
+    accDescCache.set(el, out);
+    return out;
   }
 
   function parseColorToRgb(str) {
@@ -562,6 +609,29 @@
         });
         if (badTds.length) {
           out.push(makeFinding({ ruleId: 'table-headers-association', impact: 'serious', message: 'Some table data cells are not associated with headers via scope or headers/id.', el: table, wcag: ['1.3.1'], evidence: { sample: badTds.slice(0,3).map(cssPath) }, confidence: 0.8 }));
+        }
+      }
+      return out;
+    }
+  };
+
+  // Table completeness: caption presence (advisory but useful)
+  const ruleTableCaption = {
+    id: 'table-caption',
+    description: 'Data tables should include a <caption> describing the table contents',
+    evaluate() {
+      const out = [];
+      const tables = Array.from(document.querySelectorAll('table'));
+      for (const table of tables) {
+        const hasTh = !!table.querySelector('th');
+        if (!hasTh) continue; // likely layout table, skip
+        const hasCaption = !!table.querySelector(':scope > caption');
+        if (!hasCaption) {
+          out.push(makeFinding({
+            ruleId: 'table-caption', impact: 'moderate',
+            message: 'Data table is missing a <caption> describing its contents.',
+            el: table, wcag: ['1.3.1'], confidence: 0.8
+          }));
         }
       }
       return out;
@@ -1165,6 +1235,7 @@
     , ruleAriaRequiredChildren
     , ruleAriaRequiredParent
     , ruleTableHeadersAssociation
+    , ruleTableCaption
   ];
 
   function runEnabledRules(enabledIds) {

@@ -37,6 +37,22 @@
       <button id="btn-reset-preset" style="display:none">Reset to Preset</button>
       <select id="filter-rule"><option value="">All rules</option></select>
       <select id="filter-impact"><option value="">All severities</option><option value="critical">critical</option><option value="serious">serious</option><option value="moderate">moderate</option><option value="minor">minor</option></select>
+      <input id="search" type="search" placeholder="Search (rule, selector, message)" style="min-width:220px" />
+      <label style="display:inline-flex;align-items:center;gap:6px">Sort
+        <select id="sort">
+          <option value="impact">Impact (desc)</option>
+          <option value="confidence">Confidence (desc)</option>
+          <option value="rule">Rule</option>
+          <option value="selector">Selector</option>
+        </select>
+      </label>
+      <label style="display:inline-flex;align-items:center;gap:6px">Group
+        <select id="group">
+          <option value="none">None</option>
+          <option value="rule">By rule</option>
+          <option value="impact">By impact</option>
+        </select>
+      </label>
       <label style="display:inline-flex;align-items:center;gap:6px">Min conf <span id="conf-val">0.0</span>
         <input id="min-conf" type="range" min="0" max="0.95" step="0.05" value="0" />
       </label>
@@ -48,6 +64,9 @@
       <button id="btn-copy-json">Copy JSON</button>
       <button id="btn-download-sarif">Download SARIF</button>
       <button id="btn-download-html">Download HTML</button>
+      <button id="btn-download-csv">Download CSV</button>
+      <button id="btn-compare-axe" title="Run axe-core in page and compare">Compare axe</button>
+      <span id="axe-status" class="pill" style="display:none"></span>
       <button id="btn-clear-results-dev">Clear All</button>
       <button id="btn-clear-ignores">Clear Ignores</button>
     </div>

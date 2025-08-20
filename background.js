@@ -2,7 +2,7 @@
 const DEBUG = false;
 const devtoolsPorts = new Map(); // tabId -> Port
 // Aggregate frame findings per tab over a short window to avoid flicker
-const frameAggregators = new Map(); // tabId -> { timer, findings, allRuleIds:Set, enabledRules:Set, maxScanMs }
+const frameAggregators = new Map(); // tabId -> { timer, findings, allRuleIds:Set, enabledRules:Set, maxScanMs, ruleMeta }
 
 function ensureInjected(tabId, done) {
   if (DEBUG) try { console.debug('[A11y][BG] ensureInjected → tab', tabId); } catch {}
@@ -46,7 +46,7 @@ chrome.runtime.onConnect.addListener((port) => {
     if (DEBUG) try { console.debug('[A11y][BG] Port→Content', tabId, msg && msg.type); } catch {}
     if (!isNaN(tabId)) {
       const go = () => chrome.tabs.sendMessage(tabId, msg, () => void chrome.runtime.lastError);
-      if (msg && msg.type === 'set-scan-options' && msg.iframes) {
+      if (msg && ((msg.type === 'set-scan-options' && msg.iframes) || (msg.type === 'apply-config' && msg.iframes))) {
         // Ensure all frames are injected before proceeding
         injectAllFrames(tabId, go);
       } else {
@@ -65,23 +65,34 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
   // Aggregate 'findings' from multiple frames into a single message
   if (msg && msg.type === 'findings') {
     let agg = frameAggregators.get(tabId);
-    if (!agg) { agg = { timer: 0, findings: [], allRuleIds: new Set(), enabledRules: new Set(), maxScanMs: 0 }; frameAggregators.set(tabId, agg); }
+    if (!agg) { agg = { timer: 0, findings: [], allRuleIds: new Set(), enabledRules: new Set(), maxScanMs: 0, ruleMeta: null }; frameAggregators.set(tabId, agg); }
     try {
       if (Array.isArray(msg.findings)) agg.findings.push(...msg.findings);
       if (Array.isArray(msg.allRuleIds)) msg.allRuleIds.forEach((id) => agg.allRuleIds.add(id));
       if (Array.isArray(msg.enabledRules)) msg.enabledRules.forEach((id) => agg.enabledRules.add(id));
       if (typeof msg.scanMs === 'number') agg.maxScanMs = Math.max(agg.maxScanMs, msg.scanMs);
+      if (msg.ruleMeta) agg.ruleMeta = msg.ruleMeta;
     } catch {}
     if (agg.timer) clearTimeout(agg.timer);
     agg.timer = setTimeout(() => {
+      // Dedupe findings across frames by (ruleId, selector, message)
+      const seen = new Set();
+      const deduped = [];
+      for (const f of agg.findings) {
+        try {
+          const key = `${f.ruleId}|||${f.selector}|||${f.message}`;
+          if (!seen.has(key)) { seen.add(key); deduped.push(f); }
+        } catch { deduped.push(f); }
+      }
       const payload = {
         _from: 'content',
         type: 'findings',
         tabId,
-        findings: agg.findings,
+        findings: deduped,
         allRuleIds: Array.from(agg.allRuleIds),
         enabledRules: Array.from(agg.enabledRules),
-        scanMs: agg.maxScanMs
+        scanMs: agg.maxScanMs,
+        ...(agg.ruleMeta ? { ruleMeta: agg.ruleMeta } : {})
       };
       frameAggregators.delete(tabId);
       port.postMessage(payload);
