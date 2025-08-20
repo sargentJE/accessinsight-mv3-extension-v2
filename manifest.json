@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "A11y Inspector Overlay (Pro Demo)",
+  "version": "0.2.0",
+  "description": "Overlay + keyboardable panel with core WCAG rules and a DevTools panel (export JSON/SARIF, rule toggles).",
+  "action": {
+    "default_title": "Toggle A11y Panel"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "scripting",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "toggle-panel": {
+      "suggested_key": {
+        "default": "Alt+Shift+A",
+        "mac": "Alt+Shift+A"
+      },
+      "description": "Toggle accessibility panel"
+    },
+    "next-finding": {
+      "suggested_key": {
+        "default": "Alt+Shift+N",
+        "mac": "Alt+Shift+N"
+      },
+      "description": "Focus next finding"
+    },
+    "previous-finding": {
+      "suggested_key": {
+        "default": "Alt+Shift+P",
+        "mac": "Alt+Shift+P"
+      },
+      "description": "Focus previous finding"
+    }
+  },
+  
+  "devtools_page": "devtools.html"
+}

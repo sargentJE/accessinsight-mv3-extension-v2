@@ -1,0 +1,71 @@
+{
+  "default": {
+    "enabledRuleIds": [],
+    "minConfidence": 0,
+    "engineProfile": "default",
+    "live": false,
+    "viewportOnly": false,
+    "hideNeedsReview": false
+  },
+  "axe": {
+    "enabledRuleIds": [
+      "img-alt",
+      "button-name",
+      "link-name",
+      "aria-hidden-focus",
+      "meta-viewport",
+      "list"
+    ],
+    "minConfidence": 0,
+    "engineProfile": "axe",
+    "live": false,
+    "viewportOnly": false,
+    "hideNeedsReview": true
+  },
+  "lighthouse": {
+    "enabledRuleIds": [
+      "img-alt",
+      "button-name",
+      "link-name",
+      "label-control",
+      "control-name",
+      "contrast-text",
+      "html-lang",
+      "document-title",
+      "meta-viewport",
+      "target-size",
+      "duplicate-ids",
+      "dl-structure"
+    ],
+    "minConfidence": 0,
+    "engineProfile": "lighthouse",
+    "live": false,
+    "viewportOnly": false,
+    "hideNeedsReview": false
+  },
+  "ibm": {
+    "enabledRuleIds": [
+      "aria-role-valid",
+      "aria-required-props",
+      "aria-attr-valid",
+      "aria-presentation-misuse",
+      "headings-order",
+      "landmarks",
+      "region-name",
+      "iframe-title",
+      "html-lang",
+      "document-title",
+      "contrast-text",
+      "label-control",
+      "control-name",
+      "interactive-role-focusable",
+      "duplicate-ids"
+    ],
+    "minConfidence": 0,
+    "engineProfile": "ibm",
+    "live": false,
+    "viewportOnly": false,
+    "hideNeedsReview": false
+  }
+}
+

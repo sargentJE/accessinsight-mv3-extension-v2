@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <title>A11y Panel</title>
+  <style>
+    :root { --g: 8px; }
+    body { margin: 0; font: 13px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #eaeaea; background: #202124; }
+    header { display: grid; grid-template-columns: 1fr; gap: var(--g); padding: 8px 10px; border-bottom: 1px solid #3a3a3a; background: #1f1f1f; }
+    @media (min-width: 900px) { header { grid-template-columns: auto 1fr; align-items: center; } }
+    h1 { margin: 0; font-size: 14px; }
+    .controls { display: flex; flex-wrap: wrap; gap: var(--g); align-items: center; }
+    button, select, input[type="range"] { background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; padding: 6px 8px; cursor: pointer; }
+    button:hover, select:hover { background: #333; }
+    main { display: grid; grid-template-columns: 1fr; gap: 0; height: calc(100vh - 46px); }
+    @media (min-width: 1100px) { main { grid-template-columns: 1fr 360px; } }
+    .left, .right { overflow: auto; }
+    .list { padding: 8px 0; }
+    .item { padding: 8px 10px; border-bottom: 1px solid #303134; display: grid; gap: 4px; }
+    .item .meta { font-size: 12px; color: #bdbdbd; }
+    .kvs { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; background: #1d1e1f; padding: 6px 8px; border-radius: 6px; white-space: pre-wrap; }
+    .section { padding: 8px 10px; border-bottom: 1px solid #303134; }
+    .row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+    .pill { display: inline-block; padding: 2px 6px; border-radius: 999px; font-size: 11px; background: #303134; color: #e0e0e0; }
+  </style>
+  <header>
+    <h1>A11y DevTools</h1>
+    <div class="controls">
+      <span id="status" class="pill">Connecting…</span>
+      <button id="btn-toggle">Toggle Overlay</button>
+      <button id="btn-rescan">Rescan</button>
+      <select id="preset">
+        <option value="default">Preset: Default</option>
+        <option value="axe">Preset: Axe Core</option>
+        <option value="lighthouse">Preset: Lighthouse</option>
+        <option value="ibm">Preset: IBM Accessibility</option>
+      </select>
+      <button id="btn-reset-preset" style="display:none">Reset to Preset</button>
+      <select id="filter-rule"><option value="">All rules</option></select>
+      <select id="filter-impact"><option value="">All severities</option><option value="critical">critical</option><option value="serious">serious</option><option value="moderate">moderate</option><option value="minor">minor</option></select>
+      <label style="display:inline-flex;align-items:center;gap:6px">Min conf <span id="conf-val">0.0</span>
+        <input id="min-conf" type="range" min="0" max="0.95" step="0.05" value="0" />
+      </label>
+      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-live" type="checkbox" /> Live</label>
+      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-viewport" type="checkbox" /> Viewport only</label>
+      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-shadow" type="checkbox" /> Scan shadow DOM</label>
+      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-iframes" type="checkbox" /> Scan iframes</label>
+      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-hide-nr" type="checkbox" /> Hide needsReview</label>
+      <button id="btn-copy-json">Copy JSON</button>
+      <button id="btn-download-sarif">Download SARIF</button>
+      <button id="btn-download-html">Download HTML</button>
+      <button id="btn-clear-results-dev">Clear All</button>
+      <button id="btn-clear-ignores">Clear Ignores</button>
+    </div>
+  </header>
+  <main>
+    <div class="left">
+      <div id="summary" class="section"></div>
+      <div id="list" class="list" role="list"></div>
+    </div>
+    <div class="right">
+      <div class="section">
+        <div class="row"><strong>Enabled rules</strong></div>
+        <div id="rules" class="row" style="flex-wrap: wrap;"></div>
+      </div>
+      <div class="section">
+        <div class="row"><strong>Finding details</strong></div>
+        <div id="details" class="kvs" style="white-space: normal;">
+          Select a finding to see guidance and actions.
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="devtools.js"></script>
+  </html>
+
