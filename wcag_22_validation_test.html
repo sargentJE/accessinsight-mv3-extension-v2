@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG 2.2 Implementation Validation Test</title>
+    <style>
+        body { font-family: system-ui; margin: 20px; line-height: 1.6; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 3px; }
+        .pass { background: #d4edda; border-left: 4px solid #28a745; }
+        .fail { background: #f8d7da; border-left: 4px solid #dc3545; }
+        .info { background: #d1ecf1; border-left: 4px solid #17a2b8; }
+        .warning { background: #fff3cd; border-left: 4px solid #ffc107; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .wcag22-test { margin: 15px 0; padding: 10px; border: 2px solid #007bff; border-radius: 5px; }
+        .help-mechanism { background: #e7f3ff; padding: 5px; margin: 5px 0; border-radius: 3px; }
+        
+        /* Test elements for focus-appearance */
+        .no-focus-indicator { outline: none !important; }
+        .custom-focus { outline: 2px solid transparent; }
+        .custom-focus:focus { outline: 2px solid #007bff; }
+        
+        /* Test elements for dragging-movements */
+        .drag-test { 
+            width: 100px; 
+            height: 50px; 
+            background: #f0f0f0; 
+            border: 1px solid #ccc; 
+            margin: 10px; 
+            padding: 10px;
+            cursor: move;
+        }
+        
+        .drag-with-alternative {
+            position: relative;
+        }
+        
+        .alternative-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 2px 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 WCAG 2.2 Implementation Validation Test</h1>
+    <p><strong>Purpose:</strong> Validate implementation of 3 new WCAG 2.2 criteria using Enhancement Quality Framework</p>
+
+    <div class="test-section">
+        <h2>📋 WCAG 2.2 Rules Implemented</h2>
+        <div class="info test-result">
+            <strong>Implemented Rules:</strong><br>
+            ✅ <strong>2.4.11 Focus Appearance</strong> - Focus indicators must be visible and meet minimum requirements<br>
+            ✅ <strong>2.5.7 Dragging Movements</strong> - Functionality requiring dragging must have single-pointer alternatives<br>
+            ✅ <strong>3.2.6 Consistent Help</strong> - Help mechanisms must appear in consistent order across pages<br>
+            <strong>WCAG 2.2 Coverage:</strong> Increased from 11% (1/9) to 44% (4/9) criteria
+        </div>
+    </div>
+
+    <!-- Focus Appearance Test Elements -->
+    <div class="wcag22-test">
+        <h3>🎯 2.4.11 Focus Appearance Test Elements</h3>
+        <p>Elements designed to test focus indicator detection:</p>
+        
+        <div style="margin: 10px 0;">
+            <label for="good-focus">Good Focus (should pass):</label>
+            <input type="text" id="good-focus" class="custom-focus" placeholder="Has custom focus indicator">
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <label for="poor-focus">Poor Focus (should be flagged):</label>
+            <input type="text" id="poor-focus" class="no-focus-indicator" placeholder="Outline removed - should be flagged">
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <button class="no-focus-indicator">Button with no focus indicator (should be flagged)</button>
+            <button>Default button focus (should pass)</button>
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <a href="#test" class="no-focus-indicator">Link without focus (should be flagged)</a>
+            <a href="#test">Link with default focus (should pass)</a>
+        </div>
+    </div>
+
+    <!-- Dragging Movements Test Elements -->
+    <div class="wcag22-test">
+        <h3>🎯 2.5.7 Dragging Movements Test Elements</h3>
+        <p>Elements designed to test drag alternative detection:</p>
+        
+        <div class="drag-test" draggable="true" ondragstart="console.log('drag started')">
+            Draggable without alternatives (should be flagged)
+        </div>
+        
+        <div class="drag-test drag-with-alternative" draggable="true" ondragstart="console.log('drag started')" onclick="console.log('click alternative')">
+            Draggable with click alternative
+            <button class="alternative-button" onclick="console.log('button alternative')">Move</button>
+        </div>
+        
+        <div class="drag-test" ondrop="console.log('drop')" ondragover="console.log('dragover')">
+            Drop zone without alternatives (should be flagged)
+        </div>
+        
+        <input type="file" multiple style="margin: 10px 0;">
+        <small>File input (essential drag exception - should pass)</small>
+        
+        <canvas width="200" height="100" style="border: 1px solid #ccc; margin: 10px 0;"></canvas>
+        <small>Canvas element (essential drag exception - should pass)</small>
+    </div>
+
+    <!-- Consistent Help Test Elements -->
+    <div class="wcag22-test">
+        <h3>🎯 3.2.6 Consistent Help Test Elements</h3>
+        <p>Help mechanisms for consistency analysis:</p>
+        
+        <div class="help-mechanism">
+            <a href="mailto:support@example.com">📧 Email Support</a>
+        </div>
+        
+        <div class="help-mechanism">
+            <a href="tel:+1234567890">📞 Phone Support</a>
+        </div>
+        
+        <div class="help-mechanism">
+            <a href="/contact">💬 Contact Form</a>
+        </div>
+        
+        <div class="help-mechanism">
+            <a href="/faq">❓ FAQ</a>
+        </div>
+        
+        <div class="help-mechanism">
+            <button onclick="startChat()">💬 Live Chat</button>
+        </div>
+        
+        <p><small>Multiple help mechanisms detected - will flag for cross-page consistency verification</small></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔬 Validation Results</h2>
+        <div id="validation-results">
+            <div class="test-result info">Initializing WCAG 2.2 validation test...</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🚦 Quality Gate Validation</h2>
+        <div id="quality-gate-results">
+            <div class="test-result info">Testing quality gates...</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Performance Impact Analysis</h2>
+        <div id="performance-results">
+            <div class="test-result info">Measuring performance impact...</div>
+        </div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script>
+        // WCAG 2.2 Validation Test Script
+        async function runWCAG22ValidationTest() {
+            const resultsContainer = document.getElementById('validation-results');
+            const qualityGateContainer = document.getElementById('quality-gate-results');
+            const performanceContainer = document.getElementById('performance-results');
+            
+            resultsContainer.innerHTML = '<div class="test-result info">Running WCAG 2.2 validation...</div>';
+
+            try {
+                // Test 1: Verify WCAG 2.2 Rules Are Present
+                const wcag22Validation = testWCAG22RulesPresent();
+                
+                // Test 2: Run Engine and Collect Findings
+                const startTime = performance.now();
+                const findings = window.__a11yEngine.run();
+                const endTime = performance.now();
+                const scanTime = endTime - startTime;
+                
+                // Test 3: Validate WCAG 2.2 Rule Findings
+                const ruleValidation = validateWCAG22Findings(findings);
+                
+                // Test 4: Performance Impact Analysis
+                const performanceAnalysis = analyzePerformanceImpact(scanTime, findings);
+                
+                // Test 5: Quality Gate Validation
+                const qualityGateValidation = validateQualityGates(scanTime, findings);
+                
+                // Display Results
+                displayValidationResults(resultsContainer, {
+                    wcag22Validation,
+                    ruleValidation,
+                    scanTime,
+                    findingsCount: findings.length
+                });
+                
+                displayPerformanceResults(performanceContainer, performanceAnalysis);
+                displayQualityGateResults(qualityGateContainer, qualityGateValidation);
+                
+            } catch (error) {
+                resultsContainer.innerHTML = `<div class="test-result fail"><strong>Test Error:</strong> ${error.message}</div>`;
+                console.error('WCAG 2.2 validation test error:', error);
+            }
+        }
+
+        function testWCAG22RulesPresent() {
+            const wcag22Rules = ['focus-appearance', 'dragging-movements', 'consistent-help'];
+            const results = [];
+            
+            wcag22Rules.forEach(ruleId => {
+                const meta = window.__a11yEngine.ruleMeta[ruleId];
+                if (!meta) {
+                    results.push({ ruleId, status: 'fail', message: 'Rule metadata not found' });
+                    return;
+                }
+                
+                // Check for WCAG 2.2 tags
+                const hasWCAG22Tags = meta.tags.some(tag => tag.includes('wcag22'));
+                
+                // Check for research citation fields (from Enhancement Quality Framework)
+                const hasResearch = !!meta.research;
+                const hasPopulationSource = !!meta.populationSource;
+                const hasImpactData = !!meta.impactData;
+                const hasMethodology = !!meta.methodology;
+                
+                if (hasWCAG22Tags && hasResearch && hasPopulationSource && hasImpactData && hasMethodology) {
+                    results.push({ 
+                        ruleId, 
+                        status: 'pass', 
+                        message: 'Complete WCAG 2.2 implementation with research backing',
+                        tags: meta.tags,
+                        research: meta.research
+                    });
+                } else {
+                    const issues = [];
+                    if (!hasWCAG22Tags) issues.push('missing WCAG 2.2 tags');
+                    if (!hasResearch) issues.push('missing research');
+                    if (!hasPopulationSource) issues.push('missing population source');
+                    if (!hasImpactData) issues.push('missing impact data');
+                    if (!hasMethodology) issues.push('missing methodology');
+                    
+                    results.push({ 
+                        ruleId, 
+                        status: 'partial', 
+                        message: `Issues: ${issues.join(', ')}`,
+                        tags: meta.tags || []
+                    });
+                }
+            });
+            
+            return results;
+        }
+
+        function validateWCAG22Findings(findings) {
+            const wcag22Rules = ['focus-appearance', 'dragging-movements', 'consistent-help'];
+            const wcag22Findings = findings.filter(f => wcag22Rules.includes(f.ruleId));
+            
+            const results = {
+                totalFindings: findings.length,
+                wcag22Findings: wcag22Findings.length,
+                rulesTriggered: [...new Set(wcag22Findings.map(f => f.ruleId))],
+                ruleBreakdown: {}
+            };
+            
+            // Analyze findings by rule
+            wcag22Rules.forEach(ruleId => {
+                const rulefindings = wcag22Findings.filter(f => f.ruleId === ruleId);
+                results.ruleBreakdown[ruleId] = {
+                    count: rulefindings.length,
+                    avgConfidence: rulefindings.length > 0 ? 
+                        (rulefindings.reduce((sum, f) => sum + (f.confidence || 0.5), 0) / rulefindings.length).toFixed(2) : 0,
+                    hasEvidence: rulefindings.length > 0 ? rulefindings.every(f => f.evidence) : false
+                };
+            });
+            
+            return results;
+        }
+
+        function analyzePerformanceImpact(scanTime, findings) {
+            return {
+                totalScanTime: scanTime.toFixed(2),
+                estimatedRuleContribution: (scanTime / 40).toFixed(2), // Approximate per 40 total rules
+                findingsPerSecond: (findings.length / (scanTime / 1000)).toFixed(0),
+                performance_grade: scanTime < 1000 ? 'A' : scanTime < 2000 ? 'B' : 'C',
+                baseline_comparison: {
+                    previous_range: '200-800ms',
+                    current_time: scanTime.toFixed(2) + 'ms',
+                    within_threshold: scanTime < 850 // 5% increase from 800ms max
+                }
+            };
+        }
+
+        function validateQualityGates(scanTime, findings) {
+            const results = [];
+            
+            // Performance Gate
+            results.push({
+                gate: 'Performance',
+                metric: 'Scan Time Impact',
+                value: `${scanTime.toFixed(2)}ms`,
+                threshold: '<850ms (5% increase from 800ms baseline)',
+                status: scanTime < 850 ? 'pass' : 'fail'
+            });
+            
+            // Architecture Gate
+            const wcag22Findings = findings.filter(f => ['focus-appearance', 'dragging-movements', 'consistent-help'].includes(f.ruleId));
+            const validStructure = wcag22Findings.every(f => f.ruleId && f.message && f.el && f.wcag);
+            results.push({
+                gate: 'Architecture',
+                metric: 'WCAG 2.2 Finding Structure',
+                value: `${wcag22Findings.filter(f => f.ruleId && f.message && f.el && f.wcag).length}/${wcag22Findings.length} valid`,
+                threshold: '100% valid structure',
+                status: validStructure ? 'pass' : 'fail'
+            });
+            
+            // Research Backing Gate
+            const wcag22Rules = ['focus-appearance', 'dragging-movements', 'consistent-help'];
+            const researchBacked = wcag22Rules.every(ruleId => {
+                const meta = window.__a11yEngine.ruleMeta[ruleId];
+                return meta && meta.research && meta.populationSource && meta.impactData && meta.methodology;
+            });
+            results.push({
+                gate: 'Research Backing',
+                metric: 'Complete Research Citations',
+                value: researchBacked ? '3/3 rules' : 'Incomplete',
+                threshold: '100% research backing',
+                status: researchBacked ? 'pass' : 'fail'
+            });
+            
+            return results;
+        }
+
+        function displayValidationResults(container, results) {
+            let html = '<h3>🔍 WCAG 2.2 Rule Validation</h3>';
+            
+            results.wcag22Validation.forEach(result => {
+                const statusClass = result.status === 'pass' ? 'pass' : result.status === 'fail' ? 'fail' : 'warning';
+                html += `
+                    <div class="test-result ${statusClass}">
+                        <strong>${result.ruleId}:</strong> ${result.message}<br>
+                        ${result.tags ? `<small>Tags: ${result.tags.join(', ')}</small><br>` : ''}
+                        ${result.research ? `<small>Research: ${result.research}</small>` : ''}
+                    </div>
+                `;
+            });
+            
+            html += `
+                <h3>📊 Finding Analysis</h3>
+                <div class="test-result info">
+                    <strong>Total Findings:</strong> ${results.findingsCount}<br>
+                    <strong>WCAG 2.2 Findings:</strong> ${results.ruleValidation.wcag22Findings}<br>
+                    <strong>Rules Triggered:</strong> ${results.ruleValidation.rulesTriggered.join(', ') || 'None'}<br>
+                    <strong>Scan Time:</strong> ${results.scanTime.toFixed(2)}ms
+                </div>
+            `;
+            
+            // Rule breakdown
+            html += '<h4>Rule-by-Rule Breakdown:</h4>';
+            Object.entries(results.ruleValidation.ruleBreakdown).forEach(([ruleId, data]) => {
+                html += `
+                    <div class="test-result ${data.count > 0 ? 'info' : 'warning'}">
+                        <strong>${ruleId}:</strong> ${data.count} findings 
+                        ${data.count > 0 ? `(avg confidence: ${data.avgConfidence}, evidence: ${data.hasEvidence ? 'Yes' : 'No'})` : ''}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function displayPerformanceResults(container, analysis) {
+            const statusClass = analysis.performance_grade === 'A' ? 'pass' : analysis.performance_grade === 'B' ? 'warning' : 'fail';
+            
+            const html = `
+                <div class="test-result ${statusClass}">
+                    <strong>Performance Grade:</strong> ${analysis.performance_grade}<br>
+                    <strong>Total Scan Time:</strong> ${analysis.totalScanTime}ms<br>
+                    <strong>Est. Rule Contribution:</strong> ~${analysis.estimatedRuleContribution}ms per rule<br>
+                    <strong>Findings/Second:</strong> ${analysis.findingsPerSecond}<br>
+                    <strong>Baseline Comparison:</strong> ${analysis.baseline_comparison.current_time} vs ${analysis.baseline_comparison.previous_range} 
+                    ${analysis.baseline_comparison.within_threshold ? '✅' : '❌'}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function displayQualityGateResults(container, results) {
+            let html = '<h3>🚦 Quality Gate Results</h3>';
+            
+            results.forEach(result => {
+                const statusClass = result.status === 'pass' ? 'pass' : 'fail';
+                html += `
+                    <div class="test-result ${statusClass}">
+                        <strong>${result.gate} - ${result.metric}:</strong> ${result.value}<br>
+                        <small>Threshold: ${result.threshold}</small>
+                    </div>
+                `;
+            });
+            
+            const passedGates = results.filter(r => r.status === 'pass').length;
+            const totalGates = results.length;
+            const overallStatus = passedGates === totalGates ? 'pass' : 'fail';
+            
+            html += `
+                <div class="test-result ${overallStatus}">
+                    <strong>Overall Quality Gate Status:</strong> ${passedGates}/${totalGates} gates passed
+                    ${overallStatus === 'pass' ? '✅ All gates passed!' : '❌ Some gates failed'}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // Helper functions for test elements
+        function startChat() {
+            alert('Live chat would start here');
+        }
+
+        // Run validation test when page loads
+        window.addEventListener('load', () => {
+            setTimeout(runWCAG22ValidationTest, 500);
+        });
+    </script>
+</body>
+</html>

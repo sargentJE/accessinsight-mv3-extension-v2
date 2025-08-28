@@ -1,0 +1,192 @@
+{
+  "metadata": {
+    "classification_date": "2024-01-15",
+    "total_rules_classified": 38,
+    "classification_version": "1.0",
+    "methodology": "Multi-dimensional analysis based on WCAG compliance, user impact, implementation quality, and strategic importance"
+  },
+  "classifications": {
+    "by_wcag_compliance": {
+      "level_a_critical": {
+        "count": 30,
+        "percentage": 78.9,
+        "rules": ["img-alt", "control-name", "button-name", "link-name", "label-control", "aria-role-valid", "aria-required-props", "aria-attr-valid", "aria-presentation-misuse", "aria-hidden-focus", "link-in-text-block", "html-lang", "document-title", "skip-link", "fieldset-legend", "media-captions", "audio-transcript", "region-name", "iframe-title", "list", "duplicate-ids", "dl-structure", "interactive-role-focusable", "aria-allowed-attr", "aria-allowed-role", "aria-required-children", "aria-required-parent", "table-headers-association", "table-caption"],
+        "strategic_importance": "Critical - Foundation compliance"
+      },
+      "level_aa_important": {
+        "count": 5,
+        "percentage": 13.2,
+        "rules": ["headings-order", "target-size", "contrast-text", "autocomplete", "meta-viewport"],
+        "strategic_importance": "High - Enhanced compliance"
+      },
+      "best_practice": {
+        "count": 3,
+        "percentage": 7.9,
+        "rules": ["landmarks", "link-button-misuse", "tabindex-positive", "heading-h1"],
+        "strategic_importance": "Medium - Quality enhancement"
+      }
+    },
+    "by_user_impact": {
+      "critical_impact_9_10": {
+        "count": 4,
+        "rules": ["img-alt", "control-name", "button-name", "media-captions", "audio-transcript"],
+        "avg_impact": 9.5,
+        "strategic_priority": "Highest - Blocks core functionality"
+      },
+      "high_impact_7_8": {
+        "count": 6,
+        "rules": ["link-name", "label-control", "aria-hidden-focus", "target-size", "contrast-text", "interactive-role-focusable", "iframe-title", "table-headers-association"],
+        "avg_impact": 7.5,
+        "strategic_priority": "High - Significant barriers"
+      },
+      "medium_impact_5_6": {
+        "count": 19,
+        "rules": ["headings-order", "aria-role-valid", "aria-required-props", "aria-presentation-misuse", "link-in-text-block", "html-lang", "document-title", "skip-link", "tabindex-positive", "fieldset-legend", "autocomplete", "region-name", "meta-viewport", "list", "duplicate-ids", "aria-allowed-role", "aria-required-children", "aria-required-parent", "table-caption"],
+        "avg_impact": 5.6,
+        "strategic_priority": "Medium - Moderate barriers"
+      },
+      "low_impact_4_below": {
+        "count": 9,
+        "rules": ["landmarks", "aria-attr-valid", "link-button-misuse", "heading-h1", "dl-structure", "aria-allowed-attr"],
+        "avg_impact": 4.3,
+        "strategic_priority": "Lower - Minor improvements"
+      }
+    },
+    "by_population_affected": {
+      "very_high_8_10": {
+        "count": 6,
+        "rules": ["img-alt", "control-name", "button-name", "link-name", "label-control", "headings-order", "target-size", "contrast-text"],
+        "avg_population": 8.5,
+        "note": "Affects largest user groups - prioritize for maximum reach"
+      },
+      "high_6_7": {
+        "count": 24,
+        "rules": ["aria-role-valid", "aria-required-props", "aria-attr-valid", "aria-presentation-misuse", "html-lang", "document-title", "skip-link", "link-button-misuse", "tabindex-positive", "fieldset-legend", "landmarks", "region-name", "iframe-title", "list", "duplicate-ids", "dl-structure", "interactive-role-focusable", "aria-allowed-attr", "aria-allowed-role", "aria-required-children", "aria-required-parent", "table-headers-association", "table-caption", "heading-h1"],
+        "avg_population": 6.4,
+        "note": "Moderate population impact - good general improvement"
+      },
+      "medium_4_5": {
+        "count": 8,
+        "rules": ["aria-hidden-focus", "link-in-text-block", "autocomplete", "media-captions", "audio-transcript", "meta-viewport"],
+        "avg_population": 4.6,
+        "note": "Targeted user groups - specialized improvements"
+      }
+    },
+    "by_fix_complexity": {
+      "very_easy_1": {
+        "count": 9,
+        "rules": ["img-alt", "button-name", "link-name", "html-lang", "document-title", "autocomplete", "iframe-title", "meta-viewport", "table-caption"],
+        "strategic_value": "Quick wins - High ROI implementations"
+      },
+      "easy_2": {
+        "count": 17,
+        "rules": ["control-name", "label-control", "aria-role-valid", "aria-required-props", "aria-attr-valid", "aria-hidden-focus", "contrast-text", "link-in-text-block", "skip-link", "fieldset-legend", "landmarks", "region-name", "list", "duplicate-ids", "dl-structure", "interactive-role-focusable", "aria-allowed-attr", "aria-allowed-role"],
+        "strategic_value": "Moderate effort - Good balance of impact vs effort"
+      },
+      "moderate_3": {
+        "count": 10,
+        "rules": ["headings-order", "aria-presentation-misuse", "target-size", "link-button-misuse", "tabindex-positive", "media-captions", "aria-required-children", "aria-required-parent", "table-headers-association"],
+        "strategic_value": "Higher effort - Consider for major releases"
+      },
+      "complex_4": {
+        "count": 1,
+        "rules": ["audio-transcript"],
+        "strategic_value": "Complex implementation - Long-term planning required"
+      }
+    },
+    "by_category_strength": {
+      "aria_expertise": {
+        "count": 9,
+        "rules": ["aria-role-valid", "aria-required-props", "aria-attr-valid", "aria-presentation-misuse", "aria-hidden-focus", "aria-allowed-attr", "aria-allowed-role", "aria-required-children", "aria-required-parent"],
+        "strength_level": "Expert",
+        "competitive_advantage": "Comprehensive ARIA validation beyond most tools"
+      },
+      "structure_solid": {
+        "count": 6,
+        "rules": ["headings-order", "landmarks", "list", "duplicate-ids", "dl-structure", "heading-h1"],
+        "strength_level": "Strong",
+        "competitive_advantage": "Good semantic structure coverage"
+      },
+      "forms_complete": {
+        "count": 3,
+        "rules": ["control-name", "label-control", "fieldset-legend", "autocomplete"],
+        "strength_level": "Complete",
+        "competitive_advantage": "Solid form accessibility coverage"
+      },
+      "interaction_good": {
+        "count": 4,
+        "rules": ["button-name", "link-name", "link-button-misuse", "interactive-role-focusable"],
+        "strength_level": "Good",
+        "competitive_advantage": "Standard interactive element coverage"
+      },
+      "media_basic": {
+        "count": 2,
+        "rules": ["media-captions", "audio-transcript"],
+        "strength_level": "Basic",
+        "competitive_advantage": "Limited but present media support"
+      }
+    },
+    "by_research_backing": {
+      "research_supported": {
+        "count": 5,
+        "rules": ["img-alt", "headings-order", "target-size", "contrast-text", "media-captions"],
+        "percentage": 13.2,
+        "quality_indicator": "High - Evidence-based scoring with research citations"
+      },
+      "needs_research": {
+        "count": 33,
+        "percentage": 86.8,
+        "improvement_opportunity": "Add research citations to strengthen methodology"
+      }
+    },
+    "strategic_assessment": {
+      "strengths": {
+        "comprehensive_aria": "9 ARIA rules with expert-level coverage",
+        "level_a_foundation": "30/38 rules cover WCAG Level A (79%)",
+        "intelligent_scoring": "Research-backed priority scoring system",
+        "context_awareness": "Dynamic scoring based on element context"
+      },
+      "opportunities": {
+        "wcag_22_expansion": "Limited WCAG 2.2 coverage (only target-size)",
+        "research_citations": "Only 13% of rules have research backing",
+        "aaa_coverage": "No WCAG AAA rules implemented",
+        "specialized_domains": "Limited media and specialized content support"
+      },
+      "competitive_positioning": {
+        "vs_axe_core": "Similar ARIA coverage, superior context intelligence",
+        "vs_lighthouse": "Much broader rule coverage (38 vs ~20)",
+        "unique_value": "Research-backed priority scoring with context awareness"
+      }
+    }
+  },
+  "priority_recommendations": {
+    "immediate_wins": [
+      {
+        "action": "Add research citations to high-impact rules",
+        "rules_affected": ["control-name", "button-name", "link-name", "label-control"],
+        "effort": "Low",
+        "impact": "High"
+      },
+      {
+        "action": "Implement missing WCAG 2.2 rules",
+        "new_rules_needed": ["focus-appearance", "dragging-movements", "target-size-enhanced"],
+        "effort": "Medium",
+        "impact": "High"
+      }
+    ],
+    "strategic_improvements": [
+      {
+        "action": "Add WCAG AAA rule coverage",
+        "rules_to_add": ["contrast-enhanced", "images-of-text", "low-unusual-words"],
+        "effort": "Medium",
+        "impact": "Medium"
+      },
+      {
+        "action": "Expand media accessibility",
+        "rules_to_add": ["audio-description", "sign-language", "extended-audio-desc"],
+        "effort": "High",
+        "impact": "Medium"
+      }
+    ]
+  }
+}

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Engine Testing - All Phase 2A & 2B Features</title>
+    <style>
+        body { font-family: system-ui; margin: 20px; line-height: 1.6; background: #f5f5f5; }
+        .test-section { 
+            background: white; 
+            margin: 20px 0; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 3px; }
+        .pass { background: #d4edda; border-left: 4px solid #28a745; }
+        .fail { background: #f8d7da; border-left: 4px solid #dc3545; }
+        .info { background: #d1ecf1; border-left: 4px solid #17a2b8; }
+        .warning { background: #fff3cd; border-left: 4px solid #ffc107; }
+        .critical { background: #f8d7da; border: 2px solid #dc3545; }
+        
+        /* Test elements designed to trigger specific rules */
+        .overlay-container { position: relative; margin: 10px 0; }
+        .base-element { padding: 10px; border: 1px solid #ccc; width: 200px; }
+        .overlay { 
+            position: absolute; 
+            top: 5px; 
+            left: 50px; 
+            width: 100px; 
+            height: 30px; 
+            background: rgba(255, 0, 0, 0.7); 
+            z-index: 10;
+        }
+        
+        .no-focus { outline: none !important; }
+        .drag-element { 
+            width: 100px; 
+            height: 50px; 
+            background: #e9ecef; 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            margin: 10px 0;
+            cursor: move;
+        }
+        
+        .captcha-mock { 
+            border: 2px solid #ccc; 
+            padding: 15px; 
+            background: #f8f9fa; 
+            margin: 10px 0;
+        }
+        
+        .form-section { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 5px;
+        }
+        
+        .help-item { 
+            background: #fff3cd; 
+            padding: 8px; 
+            margin: 5px 0; 
+            border-radius: 3px;
+        }
+        
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .test-counter { background: #007bff; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Comprehensive Engine Testing: All Phase 2A & 2B Improvements</h1>
+    
+    <div class="test-section critical">
+        <h2>🎯 Testing Overview</h2>
+        <div class="info test-result">
+            <strong>Testing Scope:</strong> All 45+ rules including complete WCAG 2.2 implementation<br>
+            <strong>Purpose:</strong> Validate all Phase 2A & 2B improvements before Phase 3<br>
+            <strong>Expected:</strong> All rules detect issues correctly with research-backed prioritization<br>
+            <strong>Success Criteria:</strong> Functional rules, competitive performance, accurate prioritization
+        </div>
+    </div>
+
+    <!-- WCAG 2.2 Focus Appearance Testing (2.4.11) -->
+    <div class="test-section">
+        <h3><span class="test-counter">2.4.11</span> Focus Appearance Testing</h3>
+        <p><strong>Purpose:</strong> Test focus indicator visibility detection</p>
+        
+        <div>
+            <label for="good-focus">Good Focus Indicator:</label>
+            <input type="text" id="good-focus" placeholder="Default browser focus should be visible">
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <label for="poor-focus">Poor Focus Indicator (should be flagged):</label>
+            <input type="text" id="poor-focus" class="no-focus" placeholder="Outline removed - should trigger rule">
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <button class="no-focus">Button with no focus indicator (should be flagged)</button>
+            <button>Default button focus (should pass)</button>
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <a href="#test" class="no-focus">Link without focus (should be flagged)</a>
+            <a href="#test" style="margin-left: 20px;">Link with focus (should pass)</a>
+        </div>
+    </div>
+
+    <!-- WCAG 2.2 Dragging Movements Testing (2.5.7) -->
+    <div class="test-section">
+        <h3><span class="test-counter">2.5.7</span> Dragging Movements Testing</h3>
+        <p><strong>Purpose:</strong> Test drag functionality alternative detection</p>
+        
+        <div class="drag-element" draggable="true" ondragstart="console.log('drag started')">
+            Draggable without alternatives (should be flagged)
+        </div>
+        
+        <div class="drag-element" draggable="true" ondragstart="console.log('drag started')" onclick="console.log('click alternative')">
+            Draggable with click alternative (should pass)
+            <button onclick="console.log('button alternative')" style="float: right; font-size: 12px;">Move</button>
+        </div>
+        
+        <div class="drag-element" ondrop="console.log('drop')" ondragover="console.log('dragover')">
+            Drop zone without alternatives (should be flagged)
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <input type="file" multiple>
+            <small>File input (essential drag exception - should pass)</small>
+        </div>
+        
+        <canvas width="200" height="100" style="border: 1px solid #ccc; margin: 10px 0;"></canvas>
+        <small>Canvas element (essential drag exception - should pass)</small>
+    </div>
+
+    <!-- WCAG 2.2 Consistent Help Testing (3.2.6) -->
+    <div class="test-section">
+        <h3><span class="test-counter">3.2.6</span> Consistent Help Testing</h3>
+        <p><strong>Purpose:</strong> Test help mechanism consistency detection</p>
+        
+        <div class="help-item">
+            <a href="mailto:support@example.com">📧 Email Support</a>
+        </div>
+        
+        <div class="help-item">
+            <a href="tel:+1234567890">📞 Phone Support: (123) 456-7890</a>
+        </div>
+        
+        <div class="help-item">
+            <a href="/contact">💬 Contact Form</a>
+        </div>
+        
+        <div class="help-item">
+            <a href="/faq">❓ Frequently Asked Questions</a>
+        </div>
+        
+        <div class="help-item">
+            <button onclick="alert('Live chat would start')">💬 Live Chat Support</button>
+        </div>
+        
+        <p><small>Multiple help mechanisms detected - should flag for cross-page consistency verification</small></p>
+    </div>
+
+    <!-- WCAG 2.2 Focus Not Obscured Minimum Testing (2.4.12) -->
+    <div class="test-section">
+        <h3><span class="test-counter">2.4.12</span> Focus Not Obscured (Minimum) Testing</h3>
+        <p><strong>Purpose:</strong> Test focus obscuration detection (AA level)</p>
+        
+        <div class="overlay-container">
+            <input type="text" class="base-element" placeholder="Input potentially obscured by overlay">
+            <div class="overlay">Overlay Element</div>
+        </div>
+        
+        <div style="position: relative; margin: 10px 0;">
+            <button style="position: relative; z-index: 0;">Button behind modal risk</button>
+            <div style="position: absolute; top: 0; left: 0; width: 80px; height: 25px; background: rgba(0,0,255,0.5); z-index: 5;">Modal</div>
+        </div>
+        
+        <div style="position: relative;">
+            <input type="text" style="position: absolute; top: 0; left: 0;" placeholder="Absolutely positioned input">
+            <div style="position: absolute; top: 0; left: 50px; width: 100px; height: 30px; background: rgba(255,255,0,0.7); z-index: 1;">Overlap</div>
+        </div>
+    </div>
+
+    <!-- WCAG 2.2 Redundant Entry Testing (3.3.7) -->
+    <div class="test-section">
+        <h3><span class="test-counter">3.3.7</span> Redundant Entry Testing</h3>
+        <p><strong>Purpose:</strong> Test redundant information entry detection</p>
+        
+        <div class="form-section">
+            <h4>Billing Information:</h4>
+            <input type="email" name="billing-email" placeholder="Email Address" style="display: block; margin: 5px 0;">
+            <input type="tel" name="billing-phone" placeholder="Phone Number" style="display: block; margin: 5px 0;">
+            <input type="text" name="billing-address" placeholder="Street Address" style="display: block; margin: 5px 0;">
+        </div>
+        
+        <div class="form-section">
+            <h4>Shipping Information:</h4>
+            <input type="email" name="shipping-email" placeholder="Email Address (duplicate?)" style="display: block; margin: 5px 0;">
+            <input type="tel" name="shipping-phone" placeholder="Phone Number (duplicate?)" style="display: block; margin: 5px 0;">
+            <input type="text" name="shipping-address" placeholder="Street Address (duplicate?)" style="display: block; margin: 5px 0;">
+        </div>
+        
+        <div class="form-section">
+            <h4>Password Setup:</h4>
+            <input type="password" name="password" placeholder="Password" style="display: block; margin: 5px 0;">
+            <input type="password" name="password-confirm" placeholder="Confirm Password (redundant?)" style="display: block; margin: 5px 0;">
+        </div>
+    </div>
+
+    <!-- WCAG 2.2 Accessible Authentication Minimum Testing (3.3.8) -->
+    <div class="test-section">
+        <h3><span class="test-counter">3.3.8</span> Accessible Authentication (Minimum) Testing</h3>
+        <p><strong>Purpose:</strong> Test cognitive function test detection (AA level)</p>
+        
+        <div class="captcha-mock">
+            <strong>CAPTCHA Challenge (should be flagged):</strong><br>
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTAwIDQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8dGV4dCB4PSI1IiB5PSIyNSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCIgZmlsbD0iYmxhY2siPkFCQzEyMzwvdGV4dD4KPHN2Zz4K" alt="CAPTCHA showing ABC123">
+            <input type="text" placeholder="Enter CAPTCHA text">
+            <!-- Note: Missing audio alternative - should be flagged -->
+        </div>
+        
+        <div class="form-section">
+            <label for="complex-password">Complex Password Requirements (should be flagged):</label>
+            <input type="password" id="complex-password" autocomplete="new-password">
+            <div style="font-size: 12px; color: #666; margin: 5px 0;">
+                Password must contain: uppercase letter, lowercase letter, number, special character, minimum 12 characters
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <label>Two-Factor Authentication (should be flagged):</label>
+            <input type="text" placeholder="Enter 6-digit verification code" maxlength="6">
+            <div style="font-size: 12px; color: #666; margin: 5px 0;">
+                Check your phone for the verification code sent via SMS
+            </div>
+        </div>
+    </div>
+
+    <!-- WCAG 2.2 Focus Not Obscured Enhanced Testing (2.4.13) -->
+    <div class="test-section">
+        <h3><span class="test-counter">2.4.13</span> Focus Not Obscured (Enhanced) Testing</h3>
+        <p><strong>Purpose:</strong> Test enhanced focus obscuration detection (AAA level)</p>
+        
+        <div style="margin: 10px 0;">
+            <input type="text" style="position: absolute; top: 10px; left: 10px;" placeholder="Near viewport edge (AAA concern)">
+        </div>
+        
+        <div style="margin: 50px 0 10px 0;">
+            <input type="text" style="position: sticky; top: 0;" placeholder="Sticky positioning (AAA concern)">
+        </div>
+        
+        <div style="position: relative; margin: 10px 0;">
+            <button style="position: relative;">Button with ANY potential obscuration</button>
+            <div style="position: absolute; top: 0; left: 70px; width: 20px; height: 10px; background: rgba(0,255,0,0.3); z-index: 1;"></div>
+        </div>
+        
+        <div style="margin: 10px 0;">
+            <input type="text" style="margin-left: calc(100vw - 150px);" placeholder="Right edge concern">
+        </div>
+    </div>
+
+    <!-- WCAG 2.2 Accessible Authentication Enhanced Testing (3.3.9) -->
+    <div class="test-section">
+        <h3><span class="test-counter">3.3.9</span> Accessible Authentication (Enhanced) Testing</h3>
+        <p><strong>Purpose:</strong> Test enhanced cognitive requirement detection (AAA level)</p>
+        
+        <div class="form-section">
+            <div><strong>Security Question (should be flagged for AAA):</strong></div>
+            <div>What was the name of your first pet?</div>
+            <input type="text" placeholder="Answer requires memory recall">
+        </div>
+        
+        <div class="form-section">
+            <div><strong>Math Challenge (should be flagged for AAA):</strong></div>
+            <div>What is 15 + 27?</div>
+            <input type="text" placeholder="Answer requires calculation">
+        </div>
+        
+        <div class="form-section">
+            <div><strong>Memory Test (should be flagged for AAA):</strong></div>
+            <div>Please memorize this sequence: A7B3X9K2</div>
+            <input type="text" placeholder="Repeat the sequence from memory">
+        </div>
+        
+        <div class="form-section">
+            <div><strong>Complex Password (should be flagged for AAA):</strong></div>
+            <input type="password" placeholder="Must meet 5+ complexity requirements">
+            <div style="font-size: 12px; color: #666; margin: 5px 0;">
+                Requirements: 16+ characters, uppercase, lowercase, numbers, symbols, no dictionary words, no personal info
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Legacy Rule Testing -->
+    <div class="test-section">
+        <h3><span class="test-counter">Legacy</span> Core Accessibility Rule Testing</h3>
+        <p><strong>Purpose:</strong> Ensure existing rules still work correctly</p>
+        
+        <!-- Missing alt text -->
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiB2aWV3Qm94PSIwIDAgMTAwIDUwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjY2NjIi8+Cjx0ZXh0IHg9IjUwIiB5PSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzMzMyI+SW1hZ2U8L3RleHQ+Cjwvc3ZnPgo=">
+        <small>Image without alt text (should be flagged)</small>
+        
+        <!-- Unlabeled form controls -->
+        <div style="margin: 10px 0;">
+            <input type="text" placeholder="Input without label (should be flagged)">
+            <button></button>
+            <small>Empty button content (should be flagged)</small>
+        </div>
+        
+        <!-- Poor contrast -->
+        <div style="color: #ccc; background: #ddd; padding: 5px; margin: 10px 0;">
+            Low contrast text (should be flagged)
+        </div>
+        
+        <!-- Missing heading structure -->
+        <h1>Main Heading</h1>
+        <h3>Skipped H2 Level (should be flagged)</h3>
+        
+        <!-- Small touch targets -->
+        <button style="width: 20px; height: 20px; font-size: 8px;">Tiny</button>
+        <small>Touch target too small (should be flagged)</small>
+    </div>
+
+    <!-- Testing Results Section -->
+    <div class="test-section">
+        <h2>🧪 Live Testing Results</h2>
+        <div id="test-results">
+            <div class="test-result info">Click "Run Comprehensive Test" to execute all testing...</div>
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <button onclick="runComprehensiveTest()" style="background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                🚀 Run Comprehensive Test
+            </button>
+            
+            <button onclick="runPerformanceTest()" style="background: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-left: 10px;">
+                ⚡ Run Performance Test
+            </button>
+            
+            <button onclick="runPriorityTest()" style="background: #fd7e14; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-left: 10px;">
+                🎯 Test Priority System
+            </button>
+        </div>
+        
+        <div id="performance-results" style="margin: 10px 0;"></div>
+        <div id="priority-results" style="margin: 10px 0;"></div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script>
+        // Comprehensive testing script
+        async function runComprehensiveTest() {
+            const resultsContainer = document.getElementById('test-results');
+            resultsContainer.innerHTML = '<div class="test-result info">Running comprehensive engine test...</div>';
+            
+            try {
+                // Run the accessibility engine
+                const startTime = performance.now();
+                const findings = window.__a11yEngine.run();
+                const endTime = performance.now();
+                const scanTime = endTime - startTime;
+                
+                // Analyze results
+                const testResults = analyzeTestResults(findings, scanTime);
+                displayTestResults(resultsContainer, testResults);
+                
+            } catch (error) {
+                resultsContainer.innerHTML = `<div class="test-result fail"><strong>Test Error:</strong> ${error.message}</div>`;
+                console.error('Comprehensive test error:', error);
+            }
+        }
+        
+        function analyzeTestResults(findings, scanTime) {
+            const wcag22Rules = [
+                'focus-appearance', 'dragging-movements', 'consistent-help',
+                'focus-not-obscured-minimum', 'redundant-entry', 'accessible-authentication-minimum',
+                'focus-not-obscured-enhanced', 'accessible-authentication-enhanced'
+            ];
+            
+            const wcag22Findings = findings.filter(f => wcag22Rules.includes(f.ruleId));
+            const legacyFindings = findings.filter(f => !wcag22Rules.includes(f.ruleId));
+            
+            // Count findings by WCAG 2.2 rule
+            const ruleBreakdown = {};
+            wcag22Rules.forEach(ruleId => {
+                ruleBreakdown[ruleId] = findings.filter(f => f.ruleId === ruleId).length;
+            });
+            
+            // Calculate performance metrics
+            const avgTimePerRule = scanTime / Object.keys(window.__a11yEngine.ruleMeta).length;
+            
+            // Check research integration
+            const findingsWithResearch = findings.filter(f => {
+                const meta = window.__a11yEngine.ruleMeta[f.ruleId];
+                return meta && meta.research;
+            }).length;
+            
+            return {
+                totalFindings: findings.length,
+                wcag22Findings: wcag22Findings.length,
+                legacyFindings: legacyFindings.length,
+                ruleBreakdown,
+                scanTime,
+                avgTimePerRule,
+                findingsWithResearch,
+                researchPercentage: (findingsWithResearch / findings.length * 100).toFixed(1)
+            };
+        }
+        
+        function displayTestResults(container, results) {
+            const performanceClass = results.scanTime < 1000 ? 'pass' : results.scanTime < 2000 ? 'warning' : 'fail';
+            const wcagCoverageClass = results.wcag22Findings > 0 ? 'pass' : 'warning';
+            const researchClass = results.researchPercentage > 30 ? 'pass' : 'warning';
+            
+            let html = `
+                <h3>🎯 Comprehensive Test Results</h3>
+                
+                <div class="test-result ${performanceClass}">
+                    <strong>⚡ Performance Test:</strong> ${results.scanTime.toFixed(2)}ms total scan time<br>
+                    <strong>Rule Performance:</strong> ${results.avgTimePerRule.toFixed(1)}ms average per rule<br>
+                    <strong>Status:</strong> ${results.scanTime < 1000 ? 'EXCELLENT' : results.scanTime < 2000 ? 'GOOD' : 'NEEDS OPTIMIZATION'}
+                </div>
+                
+                <div class="test-result ${wcagCoverageClass}">
+                    <strong>🎯 WCAG 2.2 Detection:</strong> ${results.wcag22Findings} findings from new rules<br>
+                    <strong>Legacy Rules:</strong> ${results.legacyFindings} findings from existing rules<br>
+                    <strong>Total Issues Found:</strong> ${results.totalFindings}<br>
+                    <strong>Status:</strong> ${results.wcag22Findings > 0 ? 'WCAG 2.2 RULES WORKING' : 'NO WCAG 2.2 ISSUES DETECTED'}
+                </div>
+                
+                <div class="test-result ${researchClass}">
+                    <strong>📚 Research Integration:</strong> ${results.findingsWithResearch}/${results.totalFindings} findings have research backing<br>
+                    <strong>Research Coverage:</strong> ${results.researchPercentage}% of findings include research citations<br>
+                    <strong>Status:</strong> ${results.researchPercentage > 30 ? 'EXCELLENT RESEARCH INTEGRATION' : 'RESEARCH INTEGRATION NEEDS IMPROVEMENT'}
+                </div>
+                
+                <h4>📊 WCAG 2.2 Rule Breakdown:</h4>
+            `;
+            
+            Object.entries(results.ruleBreakdown).forEach(([ruleId, count]) => {
+                const statusClass = count > 0 ? 'pass' : 'info';
+                html += `
+                    <div class="test-result ${statusClass}">
+                        <strong>${ruleId}:</strong> ${count} findings ${count > 0 ? '✅' : '(no issues detected)'}
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        async function runPerformanceTest() {
+            const container = document.getElementById('performance-results');
+            container.innerHTML = '<div class="test-result info">Running performance benchmarks...</div>';
+            
+            const iterations = 10;
+            const times = [];
+            
+            for (let i = 0; i < iterations; i++) {
+                const start = performance.now();
+                window.__a11yEngine.run();
+                const end = performance.now();
+                times.push(end - start);
+            }
+            
+            const avgTime = times.reduce((a, b) => a + b) / times.length;
+            const minTime = Math.min(...times);
+            const maxTime = Math.max(...times);
+            
+            const performanceClass = avgTime < 1000 ? 'pass' : avgTime < 2000 ? 'warning' : 'fail';
+            
+            container.innerHTML = `
+                <h4>⚡ Performance Benchmark Results (${iterations} iterations)</h4>
+                <div class="test-result ${performanceClass}">
+                    <strong>Average Time:</strong> ${avgTime.toFixed(2)}ms<br>
+                    <strong>Best Time:</strong> ${minTime.toFixed(2)}ms<br>
+                    <strong>Worst Time:</strong> ${maxTime.toFixed(2)}ms<br>
+                    <strong>Performance Rating:</strong> ${avgTime < 1000 ? 'EXCELLENT' : avgTime < 2000 ? 'GOOD' : 'NEEDS OPTIMIZATION'}
+                </div>
+            `;
+        }
+        
+        async function runPriorityTest() {
+            const container = document.getElementById('priority-results');
+            container.innerHTML = '<div class="test-result info">Testing intelligent prioritization system...</div>';
+            
+            const findings = window.__a11yEngine.run();
+            
+            // Test priority calculation
+            const priorityFindings = findings.filter(f => f.priorityScore && f.priorityScore > 0);
+            const researchBackedFindings = findings.filter(f => f.priorityExplanation && f.priorityExplanation.includes('research'));
+            
+            // Check priority distribution
+            const highPriority = priorityFindings.filter(f => f.priorityScore > 20).length;
+            const mediumPriority = priorityFindings.filter(f => f.priorityScore > 10 && f.priorityScore <= 20).length;
+            const lowPriority = priorityFindings.filter(f => f.priorityScore <= 10).length;
+            
+            const priorityClass = priorityFindings.length > 0 ? 'pass' : 'fail';
+            
+            container.innerHTML = `
+                <h4>🎯 Intelligent Prioritization Test Results</h4>
+                <div class="test-result ${priorityClass}">
+                    <strong>Priority Scores Generated:</strong> ${priorityFindings.length}/${findings.length} findings<br>
+                    <strong>Research-Backed Explanations:</strong> ${researchBackedFindings.length} findings<br>
+                    <strong>Priority Distribution:</strong> High: ${highPriority}, Medium: ${mediumPriority}, Low: ${lowPriority}<br>
+                    <strong>Status:</strong> ${priorityFindings.length > 0 ? 'PRIORITIZATION SYSTEM WORKING' : 'PRIORITIZATION SYSTEM FAILURE'}
+                </div>
+            `;
+        }
+        
+        // Auto-run test on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                console.log('Page loaded - ready for manual testing');
+                // Uncomment to auto-run: runComprehensiveTest();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

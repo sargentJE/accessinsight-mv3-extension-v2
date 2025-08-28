@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhancement Quality Framework Validation Test</title>
+    <style>
+        body { font-family: system-ui; margin: 20px; line-height: 1.6; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 3px; }
+        .pass { background: #d4edda; border-left: 4px solid #28a745; }
+        .fail { background: #f8d7da; border-left: 4px solid #dc3545; }
+        .info { background: #d1ecf1; border-left: 4px solid #17a2b8; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .enhancement-test { margin: 15px 0; }
+        .citation-display { background: #fff3cd; padding: 8px; border-radius: 3px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Enhancement Quality Framework Validation Test</h1>
+    <p><strong>Purpose:</strong> Validate that research citation enhancements work correctly and follow quality framework standards.</p>
+
+    <div class="test-section">
+        <h2>📋 Test Environment Setup</h2>
+        <div id="setup-results">
+            <div class="test-result info">
+                <strong>Test Page:</strong> This page contains various accessibility issues to test rule enhancements<br>
+                <strong>Enhanced Rules:</strong> control-name, button-name, link-name, label-control, duplicate-ids<br>
+                <strong>Validation Method:</strong> Engine execution with research citation verification
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Elements for Enhanced Rules -->
+    <div class="test-section">
+        <h2>🎯 Test Elements (Designed to Trigger Enhanced Rules)</h2>
+        
+        <!-- Control Name Test -->
+        <div class="enhancement-test">
+            <h3>Control Name Test</h3>
+            <input type="text" placeholder="Input without label (should trigger control-name rule)">
+        </div>
+
+        <!-- Button Name Test -->
+        <div class="enhancement-test">
+            <h3>Button Name Test</h3>
+            <button><!-- Empty button content (should trigger button-name rule) --></button>
+        </div>
+
+        <!-- Link Name Test -->
+        <div class="enhancement-test">
+            <h3>Link Name Test</h3>
+            <a href="#nowhere"><!-- Empty link (should trigger link-name rule) --></a>
+        </div>
+
+        <!-- Label Control Test -->
+        <div class="enhancement-test">
+            <h3>Label Control Test</h3>
+            <form>
+                <input type="email" placeholder="Email without label (should trigger label-control rule)">
+            </form>
+        </div>
+
+        <!-- Duplicate IDs Test -->
+        <div class="enhancement-test">
+            <h3>Duplicate IDs Test</h3>
+            <div id="duplicate-test">First element with duplicate ID</div>
+            <div id="duplicate-test">Second element with same ID (should trigger duplicate-ids rule)</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔬 Enhancement Validation Results</h2>
+        <div id="validation-results">
+            <div class="test-result info">Initializing validation test...</div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Quality Gate Validation</h2>
+        <div id="quality-gate-results">
+            <div class="test-result info">Testing quality gates...</div>
+        </div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script>
+        // Validation Test Script
+        async function runValidationTest() {
+            const resultsContainer = document.getElementById('validation-results');
+            const qualityGateContainer = document.getElementById('quality-gate-results');
+            
+            resultsContainer.innerHTML = '<div class="test-result info">Running enhancement validation...</div>';
+            qualityGateContainer.innerHTML = '<div class="test-result info">Checking quality gates...</div>';
+
+            try {
+                // Test 1: Verify Enhanced Rules Have Research Citations
+                const enhancedRules = ['control-name', 'button-name', 'link-name', 'label-control', 'duplicate-ids'];
+                const researchValidation = testResearchCitations(enhancedRules);
+                
+                // Test 2: Run Engine and Collect Findings
+                const startTime = performance.now();
+                const findings = window.__a11yEngine.run();
+                const endTime = performance.now();
+                const scanTime = endTime - startTime;
+                
+                // Test 3: Validate Enhanced Rule Findings
+                const enhancementValidation = validateEnhancedFindings(findings, enhancedRules);
+                
+                // Test 4: Quality Gate Validation
+                const qualityGateValidation = validateQualityGates(scanTime, findings);
+                
+                // Display Results
+                displayValidationResults(resultsContainer, {
+                    researchValidation,
+                    enhancementValidation,
+                    scanTime,
+                    findingsCount: findings.length
+                });
+                
+                displayQualityGateResults(qualityGateContainer, qualityGateValidation);
+                
+            } catch (error) {
+                resultsContainer.innerHTML = `<div class="test-result fail"><strong>Test Error:</strong> ${error.message}</div>`;
+                console.error('Validation test error:', error);
+            }
+        }
+
+        function testResearchCitations(enhancedRules) {
+            const results = [];
+            
+            enhancedRules.forEach(ruleId => {
+                const meta = window.__a11yEngine.ruleMeta[ruleId];
+                if (!meta) {
+                    results.push({ ruleId, status: 'fail', message: 'Rule metadata not found' });
+                    return;
+                }
+                
+                // Check for research citation fields
+                const hasResearch = !!meta.research;
+                const hasPopulationSource = !!meta.populationSource;
+                const hasImpactData = !!meta.impactData;
+                const hasMethodology = !!meta.methodology;
+                
+                if (hasResearch && hasPopulationSource && hasImpactData && hasMethodology) {
+                    results.push({ 
+                        ruleId, 
+                        status: 'pass', 
+                        message: 'Complete research citation',
+                        research: meta.research,
+                        populationSource: meta.populationSource
+                    });
+                } else {
+                    const missing = [];
+                    if (!hasResearch) missing.push('research');
+                    if (!hasPopulationSource) missing.push('populationSource');
+                    if (!hasImpactData) missing.push('impactData');
+                    if (!hasMethodology) missing.push('methodology');
+                    
+                    results.push({ 
+                        ruleId, 
+                        status: 'partial', 
+                        message: `Missing: ${missing.join(', ')}`,
+                        research: meta.research || 'Not provided'
+                    });
+                }
+            });
+            
+            return results;
+        }
+
+        function validateEnhancedFindings(findings, enhancedRules) {
+            const enhancedFindings = findings.filter(f => enhancedRules.includes(f.ruleId));
+            const results = {
+                totalFindings: findings.length,
+                enhancedRuleFindings: enhancedFindings.length,
+                rulesTriggered: [...new Set(enhancedFindings.map(f => f.ruleId))],
+                hasResearchExplanations: enhancedFindings.filter(f => f.priorityExplanation && f.priorityExplanation.includes('WebAIM')).length
+            };
+            
+            return results;
+        }
+
+        function validateQualityGates(scanTime, findings) {
+            const results = [];
+            
+            // Performance Gate: Scan time should be reasonable (< 1000ms for this simple page)
+            results.push({
+                gate: 'Performance',
+                metric: 'Scan Time',
+                value: `${scanTime.toFixed(2)}ms`,
+                threshold: '< 1000ms',
+                status: scanTime < 1000 ? 'pass' : 'fail'
+            });
+            
+            // Accuracy Gate: Should find the expected issues we created
+            const expectedMinFindings = 5; // At least one for each test element
+            results.push({
+                gate: 'Accuracy',
+                metric: 'Findings Count',
+                value: findings.length,
+                threshold: `>= ${expectedMinFindings}`,
+                status: findings.length >= expectedMinFindings ? 'pass' : 'fail'
+            });
+            
+            // Architecture Gate: All findings should have required properties
+            const validFindings = findings.filter(f => f.ruleId && f.message && f.selector);
+            results.push({
+                gate: 'Architecture',
+                metric: 'Finding Structure',
+                value: `${validFindings.length}/${findings.length} valid`,
+                threshold: '100% valid structure',
+                status: validFindings.length === findings.length ? 'pass' : 'fail'
+            });
+            
+            return results;
+        }
+
+        function displayValidationResults(container, results) {
+            let html = '<h3>🔍 Research Citation Validation</h3>';
+            
+            results.researchValidation.forEach(result => {
+                const statusClass = result.status === 'pass' ? 'pass' : result.status === 'fail' ? 'fail' : 'info';
+                html += `
+                    <div class="test-result ${statusClass}">
+                        <strong>${result.ruleId}:</strong> ${result.message}<br>
+                        ${result.research ? `<div class="citation-display"><strong>Research:</strong> ${result.research}</div>` : ''}
+                        ${result.populationSource ? `<div class="citation-display"><strong>Source:</strong> ${result.populationSource}</div>` : ''}
+                    </div>
+                `;
+            });
+            
+            html += `
+                <h3>📊 Enhancement Results Summary</h3>
+                <div class="test-result info">
+                    <strong>Total Findings:</strong> ${results.findingsCount}<br>
+                    <strong>Enhanced Rule Findings:</strong> ${results.enhancementValidation.enhancedRuleFindings}<br>
+                    <strong>Rules Triggered:</strong> ${results.enhancementValidation.rulesTriggered.join(', ')}<br>
+                    <strong>Scan Time:</strong> ${results.scanTime.toFixed(2)}ms<br>
+                    <strong>Research Explanations:</strong> ${results.enhancementValidation.hasResearchExplanations} findings with research backing
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function displayQualityGateResults(container, results) {
+            let html = '<h3>🚦 Quality Gate Results</h3>';
+            
+            results.forEach(result => {
+                const statusClass = result.status === 'pass' ? 'pass' : 'fail';
+                html += `
+                    <div class="test-result ${statusClass}">
+                        <strong>${result.gate} - ${result.metric}:</strong> ${result.value} (Threshold: ${result.threshold})
+                    </div>
+                `;
+            });
+            
+            const passedGates = results.filter(r => r.status === 'pass').length;
+            const totalGates = results.length;
+            const overallStatus = passedGates === totalGates ? 'pass' : 'fail';
+            
+            html += `
+                <div class="test-result ${overallStatus}">
+                    <strong>Overall Quality Gate Status:</strong> ${passedGates}/${totalGates} gates passed
+                    ${overallStatus === 'pass' ? '✅ All quality gates passed!' : '❌ Some quality gates failed'}
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // Run validation test when page loads
+        window.addEventListener('load', () => {
+            setTimeout(runValidationTest, 500); // Small delay to ensure engine is loaded
+        });
+    </script>
+</body>
+</html>
