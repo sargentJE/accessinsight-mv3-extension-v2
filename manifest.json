@@ -3,8 +3,19 @@
   "name": "A11y Inspector Overlay (Pro Demo)",
   "version": "0.2.0",
   "description": "Overlay + keyboardable panel with core WCAG rules and a DevTools panel (export JSON/SARIF, rule toggles).",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "action": {
-    "default_title": "Toggle A11y Panel"
+    "default_title": "Toggle A11y Panel",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png"
+    }
   },
   "permissions": [
     "activeTab",
