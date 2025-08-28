@@ -1,0 +1,341 @@
+<!doctype html><meta charset="utf-8"><title>A11y Report</title>
+  <style>
+    body{font:14px system-ui}
+    table{border-collapse:collapse;width:100%}
+    td,th{border:1px solid #ccc;padding:6px;text-align:left}
+    .priority-critical{background:#dc2626;color:white}
+    .priority-high{background:#ea580c;color:white}
+    .priority-medium{background:#ca8a04;color:white}
+    .priority-low{background:#16a34a;color:white}
+    .priority-minimal{background:#6b7280;color:white}
+    code{background:#f5f5f5;padding:2px 4px;border-radius:3px}
+  </style>
+  <h1>A11y Report</h1>
+  <div style="margin:16px 0;padding:8px;background:#f9f9f9;border-radius:4px">Preset: axe • Live: false • ViewportOnly: false • Shadow: false • Iframes: false • HideNeedsReview: false • MinConf: 0.00 • IntelligentPriority: true</div>
+  <table>
+    <thead>
+      <tr><th>Rule</th><th>Impact</th><th>Priority Score</th><th>Context</th><th>WCAG</th><th>Selector</th><th>Message</th></tr>
+    </thead>
+    <tbody><tr>
+      <td>img-alt</td>
+      <td><span class="critical">critical</span></td>
+      <td><span class="priority-critical">24 (Critical Priority)</span></td>
+         <td title="Located in main • Below the fold
+Adjustments: +4 (main), -1 (below fold)">main</td>
+      <td>1.1.1</td>
+      <td><code>#primary > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > a:nth-child(1) > img:nth-child(1)</code></td>
+      <td>Image lacks a text alternative.</td>
+    </tr><tr>
+      <td>control-name</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-critical">21 (Critical Priority)</span></td>
+         <td title="Located in main • Part of action flow • Below the fold
+Adjustments: +4 (main), -1 (below fold)">main</td>
+      <td>4.1.2, 2.5.3</td>
+      <td><code>#post-17 > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > figure:nth-child(1) > a:nth-child(1)</code></td>
+      <td>Interactive control lacks an accessible name.</td>
+    </tr><tr>
+      <td>link-name</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-critical">21 (Critical Priority)</span></td>
+         <td title="Located in main • Part of action flow • Below the fold
+Adjustments: +4 (main), -1 (below fold)">main</td>
+      <td>2.4.4, 4.1.2</td>
+      <td><code>#post-17 > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > figure:nth-child(1) > a:nth-child(1)</code></td>
+      <td>Link lacks a discernible text (accessible name).</td>
+    </tr><tr>
+      <td>headings-order</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">12 (Medium Priority)</span></td>
+         <td title="Below the fold
+Adjustments: -1 (below fold)">content</td>
+      <td>2.4.6, 1.3.1</td>
+      <td><code>#cliSettingsPopup > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > h4:nth-child(1)</code></td>
+      <td>Heading level jump from H2 to H4.</td>
+    </tr><tr>
+      <td>aria-hidden-focus</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Below the fold
+Adjustments: -1 (below fold)">content</td>
+      <td>4.1.2</td>
+      <td><code>#cliSettingsPopup</code></td>
+      <td>ARIA hidden element contains focusable content. Remove from tab order or remove aria-hidden.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">15 (Medium Priority)</span></td>
+         <td title="Located in main • Part of action flow • Below the fold
+Adjustments: +3 (main), -1 (below fold)">main</td>
+      <td>2.5.8</td>
+      <td><code>#post-17 > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > p:nth-child(4) > a:nth-child(1)</code></td>
+      <td>Hit target is 145×22px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#zoom-social-icons-widget-2 > ul:nth-child(1) > li:nth-child(1) > a:nth-child(1)</code></td>
+      <td>Hit target is 32×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#zoom-social-icons-widget-2 > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)</code></td>
+      <td>Hit target is 32×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#zoom-social-icons-widget-2 > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)</code></td>
+      <td>Hit target is 32×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#zoom-social-icons-widget-2 > ul:nth-child(1) > li:nth-child(4) > a:nth-child(1)</code></td>
+      <td>Hit target is 32×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#zoom-social-icons-widget-2 > ul:nth-child(1) > li:nth-child(5) > a:nth-child(1)</code></td>
+      <td>Hit target is 32×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#zoom-social-icons-widget-2 > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)</code></td>
+      <td>Hit target is 32×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#colophon > div:nth-child(1) > div:nth-child(1) > p:nth-child(3) > a:nth-child(1)</code></td>
+      <td>Hit target is 94×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#colophon > div:nth-child(1) > div:nth-child(1) > p:nth-child(3) > a:nth-child(2)</code></td>
+      <td>Hit target is 56×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#colophon > div:nth-child(1) > div:nth-child(1) > p:nth-child(3) > a:nth-child(3)</code></td>
+      <td>Hit target is 99×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>target-size</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-medium">14 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Part of action flow • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>2.5.8</td>
+      <td><code>#colophon > div:nth-child(1) > div:nth-child(1) > p:nth-child(3) > a:nth-child(4)</code></td>
+      <td>Hit target is 110×19px; recommended ≥ 24×24px.</td>
+    </tr><tr>
+      <td>skip-link</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-low">9 (Low Priority)</span></td>
+         <td title="Standard context">content</td>
+      <td>2.4.1</td>
+      <td><code>html > body:nth-child(3)</code></td>
+      <td>No skip link to main content detected.</td>
+    </tr><tr>
+      <td>heading-h1</td>
+      <td><span class="moderate">moderate</span></td>
+      <td><span class="priority-low">8 (Low Priority)</span></td>
+         <td title="Standard context">content</td>
+      <td>2.4.6, 1.3.1</td>
+      <td><code>html > body:nth-child(3)</code></td>
+      <td>No <h1> found on the page.</td>
+    </tr><tr>
+      <td>iframe-title</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">16 (High Priority)</span></td>
+         <td title="Standard context">content</td>
+      <td>2.4.1, 4.1.2</td>
+      <td><code>html > body:nth-child(3) > iframe:nth-child(126)</code></td>
+      <td>Iframe is missing a non-empty title attribute.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-medium">13 (Medium Priority)</span></td>
+         <td title="Below the fold
+Adjustments: -1 (below fold)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_wrapper_1</code></td>
+      <td>Duplicate id value "gform_wrapper_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_1</code></td>
+      <td>Duplicate id value "gform_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_fields_1</code></td>
+      <td>Duplicate id value "gform_fields_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#field_1_1</code></td>
+      <td>Duplicate id value "field_1_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#input_1_1</code></td>
+      <td>Duplicate id value "input_1_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#field_1_3</code></td>
+      <td>Duplicate id value "field_1_3" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#input_1_3</code></td>
+      <td>Duplicate id value "input_1_3" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#field_1_4</code></td>
+      <td>Duplicate id value "field_1_4" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#input_1_4</code></td>
+      <td>Duplicate id value "input_1_4" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gfield_description_1_4</code></td>
+      <td>Duplicate id value "gfield_description_1_4" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_submit_button_1</code></td>
+      <td>Duplicate id value "gform_submit_button_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_theme_1</code></td>
+      <td>Duplicate id value "gform_theme_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_style_settings_1</code></td>
+      <td>Duplicate id value "gform_style_settings_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_target_page_number_1</code></td>
+      <td>Duplicate id value "gform_target_page_number_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-high">19 (High Priority)</span></td>
+         <td title="Critical UI element • Part of form-interaction flow • Below the fold
+Adjustments: +3 (critical UI), +2 (form element)">content</td>
+      <td>4.1.1</td>
+      <td><code>#gform_source_page_number_1</code></td>
+      <td>Duplicate id value "gform_source_page_number_1" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>duplicate-ids</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-medium">15 (Medium Priority)</span></td>
+         <td title="Critical UI element • Located in footer • Below the fold
+Adjustments: +3 (critical UI), -2 (footer)">footer</td>
+      <td>4.1.1</td>
+      <td><code>#zoom-social-icons-widget-2</code></td>
+      <td>Duplicate id value "zoom-social-icons-widget-2" found. IDs must be unique.</td>
+    </tr><tr>
+      <td>table-headers-association</td>
+      <td><span class="serious">serious</span></td>
+      <td><span class="priority-medium">13 (Medium Priority)</span></td>
+         <td title="Below the fold
+Adjustments: -1 (below fold)">content</td>
+      <td>1.3.1</td>
+      <td><code>#cliSettingsPopup > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > table:nth-child(1)</code></td>
+      <td>Some table data cells are not associated with headers via scope or headers/id.</td>
+    </tr></tbody>
+  </table>
