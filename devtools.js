@@ -36,6 +36,7 @@ const optViewport = document.querySelector('#opt-viewport');
 const optShadow = document.querySelector('#opt-shadow');
 const optIframes = document.querySelector('#opt-iframes');
 const optHideNR = document.querySelector('#opt-hide-nr');
+const optIntelligentPriority = document.querySelector('#opt-intelligent-priority');
 const presetSel = document.querySelector('#preset');
 let presets = null;
 
@@ -48,7 +49,7 @@ let isRestricted = false;
 let lastScanAt = null;
 let ignores = { selectors: new Set(), rules: new Set() };
 let inspectedHost = '';
-let scanOptions = { live: false, viewportOnly: true, shadow: false, iframes: false, hideNeedsReview: false };
+let scanOptions = { live: false, viewportOnly: true, shadow: false, iframes: false, hideNeedsReview: false, intelligentPriority: false };
 let preset = 'default';
 let rescanTimer = 0;
 let presetsLoaded = false;
@@ -101,7 +102,10 @@ function renderRuleToggles() {
     label.appendChild(cb); label.appendChild(document.createTextNode(id));
     rulesWrap.appendChild(label);
   });
+  const prev = filterRule.value;
   filterRule.innerHTML = '<option value="">All rules</option>' + allRuleIds.map(id => `<option value="${id}">${id}</option>`).join('');
+  // Restore previous selection if still present
+  try { if (prev) filterRule.value = prev; } catch {}
 }
 
 function persistRuleConfig() {
@@ -117,6 +121,8 @@ function persistRuleConfig() {
       persistSelectedPreset('custom');
       const btnReset = document.querySelector('#btn-reset-preset');
       if (btnReset) btnReset.style.display = '';
+      // Persist custom enabled rules per host
+      persistEnabledRulesPerHost();
     }
   } catch {}
 }
@@ -158,6 +164,86 @@ function loadSelectedPreset() {
     const val = localStorage.getItem(key);
     return val || null;
   } catch { return null; }
+}
+
+// Global UI state (site-agnostic): sort, group, advanced open
+function persistGlobalUiState() {
+  try {
+    const payload = {
+      sort: sortSel?.value || 'impact',
+      group: groupSel?.value || 'none',
+      advancedOpen: document.body.classList.contains('show-advanced')
+    };
+    localStorage.setItem('a11y_ui_global', JSON.stringify(payload));
+  } catch {}
+}
+function loadGlobalUiState() {
+  try {
+    const advBtn = document.querySelector('#btn-advanced');
+    const raw = localStorage.getItem('a11y_ui_global');
+    if (!raw) {
+      // Default: Advanced open on first run when no saved state exists
+      document.body.classList.add('show-advanced');
+      if (advBtn) advBtn.textContent = 'Advanced ▴';
+      return;
+    }
+    const obj = JSON.parse(raw);
+    if (sortSel && obj.sort) sortSel.value = obj.sort;
+    if (groupSel && obj.group) groupSel.value = obj.group;
+    const want = (typeof obj.advancedOpen === 'boolean') ? obj.advancedOpen : true;
+    document.body.classList.toggle('show-advanced', want);
+    if (advBtn) advBtn.textContent = want ? 'Advanced ▴' : 'Advanced ▾';
+  } catch {}
+}
+
+// Per-site UI state: rule filter, impact filter, min-conf, search, enabled rules (custom)
+function persistPerSiteUiState() {
+  try {
+    const key = `a11y_ui::${inspectedHost||''}`;
+    const payload = {
+      rule: filterRule?.value || '',
+      impact: filterImpact?.value || '',
+      minConf: typeof minConf?.value === 'string' ? minConf.value : '0',
+      search: searchBox?.value || ''
+    };
+    localStorage.setItem(key, JSON.stringify(payload));
+  } catch {}
+}
+function loadPerSiteUiState() {
+  try {
+    const key = `a11y_ui::${inspectedHost||''}`;
+    const raw = localStorage.getItem(key);
+    if (!raw) return;
+    const obj = JSON.parse(raw);
+    if (filterRule && typeof obj.rule === 'string') filterRule.value = obj.rule;
+    if (filterImpact && typeof obj.impact === 'string') filterImpact.value = obj.impact;
+    if (minConf && typeof obj.minConf === 'string') { minConf.value = obj.minConf; if (confVal) confVal.textContent = (parseFloat(obj.minConf)||0).toFixed(2); }
+    if (searchBox && typeof obj.search === 'string') searchBox.value = obj.search;
+  } catch {}
+}
+
+function persistEnabledRulesPerHost() {
+  try {
+    const key = `a11y_enabled::${inspectedHost||''}`;
+    localStorage.setItem(key, JSON.stringify({ enabledRules }));
+  } catch {}
+}
+function loadEnabledRulesPerHost() {
+  try {
+    if ((presetSel?.value || preset) !== 'custom') return;
+    const key = `a11y_enabled::${inspectedHost||''}`;
+    const raw = localStorage.getItem(key);
+    if (!raw) return;
+    const obj = JSON.parse(raw);
+    if (!obj || !Array.isArray(obj.enabledRules)) return;
+    // Only apply if different
+    if (!arraysEqualUnordered(enabledRules, obj.enabledRules)) {
+      enabledRules = Array.from(obj.enabledRules);
+      const setEnabled = new Set(enabledRules);
+      Array.from(rulesWrap.querySelectorAll('input[type="checkbox"]')).forEach(cb => { cb.checked = setEnabled.has(cb.dataset.id); });
+      send({ type: 'set-enabled-rules', enabledRules });
+    }
+  } catch {}
 }
 
 function applyPreset(name) {
@@ -245,19 +331,55 @@ function render() {
   const impactRank = { critical: 3, serious: 2, moderate: 1, minor: 0 };
   const sortMode = (sortSel?.value||'impact');
   items.sort((a, b) => {
+    if (sortMode === 'priority') return (b.priorityScore||0) - (a.priorityScore||0);
     if (sortMode === 'impact') return (impactRank[String(b.impact)||'']||-1) - (impactRank[String(a.impact)||'']||-1);
     if (sortMode === 'confidence') return (b.confidence||0) - (a.confidence||0);
     if (sortMode === 'rule') return String(a.ruleId).localeCompare(String(b.ruleId));
     if (sortMode === 'selector') return String(a.selector).localeCompare(String(b.selector));
     return 0;
   });
-  const counts = items.reduce((m,f)=>{ const k=String(f.impact||'').toLowerCase(); m[k]=(m[k]||0)+1; return m; },{});
-  const parts = ['critical','serious','moderate','minor'].filter(k=>counts[k]).map(k=>`${k}:${counts[k]}`);
+  // Build priority or traditional impact summary
+  let summaryHtml = '';
+  let counts = {};
+  
+  if (scanOptions.intelligentPriority && items.some(f => f.priorityScore !== undefined)) {
+    // Priority-based summary
+    counts = items.reduce((m,f) => { 
+      const level = getPriorityLevel(f.priorityScore || 0); 
+      m[level] = (m[level] || 0) + 1; 
+      return m; 
+    }, {});
+    
+    const priorityParts = ['critical','high','medium','low','minimal']
+      .filter(k => counts[k])
+      .map(k => `<span class="priority-${k}" style="padding: 2px 6px; border-radius: 4px; font-size: 11px;">${getPriorityIcon(k === 'critical' ? 25 : k === 'high' ? 18 : k === 'medium' ? 12 : k === 'low' ? 8 : 4)} ${k}: ${counts[k]}</span>`);
+    
+    // Calculate priority metrics
+    const totalScore = items.reduce((sum, f) => sum + (f.priorityScore || 0), 0);
+    const avgScore = items.length ? (totalScore / items.length).toFixed(1) : 0;
+    const criticalCount = counts.critical || 0;
+    
+    summaryHtml = priorityParts.length ? ` • ${priorityParts.join(' ')} • Avg: ${avgScore}` : '';
+    
+    if (criticalCount > 0) {
+      summaryHtml += ` <span class="priority-status priority-critical">⚠️ ${criticalCount} Critical Issues</span>`;
+    }
+  } else {
+    // Traditional impact summary
+    counts = items.reduce((m,f) => { 
+      const k = String(f.impact || '').toLowerCase(); 
+      m[k] = (m[k] || 0) + 1; 
+      return m; 
+    }, {});
+    const parts = ['critical','serious','moderate','minor'].filter(k => counts[k]).map(k => `${k}:${counts[k]}`);
+    summaryHtml = parts.length ? ` • ${parts.join(' · ')}` : '';
+  }
+  
   listEl.innerHTML = '';
   const activePresetName = presetSel?.value || preset;
   const presetLabel = activePresetName ? ` • Preset: ${activePresetName}` : '';
   const filter = filterRule.value;
-  sumEl.innerHTML = `<strong>${items.length}</strong> issues${presetLabel} ${filter?`for <span class="pill">${filter}</span>`:''}${parts.length?` • ${parts.join(' · ')}`:''}`;
+  sumEl.innerHTML = `<strong>${items.length}</strong> issues${presetLabel} ${filter?`for <span class="pill">${filter}</span>`:''}${summaryHtml}`;
   const groupMode = (groupSel?.value||'none');
   if (groupMode !== 'none') {
     const groups = new Map();
@@ -266,7 +388,9 @@ function render() {
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(f);
     }
-    for (const [key, arr] of groups) {
+    // Stable group ordering by size desc, then key asc for predictability
+    const ordered = Array.from(groups.entries()).sort((a,b)=> b[1].length - a[1].length || String(a[0]).localeCompare(String(b[0])));
+    for (const [key, arr] of ordered) {
       const header = document.createElement('div'); header.className = 'item';
       header.innerHTML = `<div><strong>${key||'(none)'}</strong> <span class="pill">${arr.length} item(s)</span></div>`;
       listEl.appendChild(header);
@@ -277,12 +401,82 @@ function render() {
   }
 }
 
+function getPriorityColor(score) {
+  if (score >= 20) return '#dc2626'; // Critical - Red
+  if (score >= 16) return '#ea580c'; // High - Orange  
+  if (score >= 12) return '#ca8a04'; // Medium - Yellow
+  if (score >= 8) return '#16a34a';  // Low - Green
+  return '#6b7280'; // Minimal - Gray
+}
+
+function getPriorityIcon(score) {
+  if (score >= 20) return '🚨'; // Critical - Alarm
+  if (score >= 16) return '⚡'; // High - Lightning  
+  if (score >= 12) return '⚠️'; // Medium - Warning
+  if (score >= 8) return '📝';  // Low - Note
+  return '💡'; // Minimal - Idea
+}
+
+function getPriorityLevel(score) {
+  if (score >= 20) return 'critical';
+  if (score >= 16) return 'high';  
+  if (score >= 12) return 'medium';
+  if (score >= 8) return 'low';
+  return 'minimal';
+}
+
+// Safely escape strings for HTML attribute contexts (e.g., title="…")
+function escapeAttr(value) {
+  try {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  } catch {
+    return '';
+  }
+}
+
 function appendFindingItem(f) {
     const div = document.createElement('div'); div.className = 'item';
   const helpUrl = (ruleMeta && ruleMeta[f.ruleId] && ruleMeta[f.ruleId].helpUrl) ? ruleMeta[f.ruleId].helpUrl : '';
   const helpHtml = helpUrl ? `<a href="#" data-act=\"help\" class=\"pill\">Help</a>` : '';
+    // Build enhanced priority display with accessibility
+    let priorityHtml = '';
+    // Default severity pill (hidden in intelligent mode to avoid duplication)
+    let impactHtml = f.impact ? `<span class="pill" title="severity">${f.impact}</span>` : '';
+    
+    if (scanOptions.intelligentPriority && f.priorityScore !== undefined) {
+      const level = getPriorityLevel(f.priorityScore);
+      const icon = getPriorityIcon(f.priorityScore);
+      const color = getPriorityColor(f.priorityScore);
+      
+      // Enhanced tooltip with multiple explanations (with fallback)
+      const tooltipParts = [
+        f.priorityExplanation || '',
+        f.contextExplanation ? `Context: ${f.contextExplanation}` : ''
+      ].filter(Boolean);
+      const tooltip = tooltipParts.length ? tooltipParts.join('\n\n') : `Priority ${f.priorityScore} (${level}).`;
+      const titleAttr = escapeAttr(tooltip);
+      
+      priorityHtml = `<span class="pill priority-${level}" 
+                            style="background: ${color}; color: white; border-left: 4px solid ${color};" 
+                            title="${titleAttr}"
+                            aria-label="Priority score ${f.priorityScore} out of 30, ${level} priority level"
+                            role="img">
+                        ${icon} ${f.priorityScore}
+                      </span>`;
+      
+      // Hide traditional impact pill to prevent duplicate 'critical' labels next to priority pill
+      impactHtml = '';
+    }
+    
+    // Row-level tooltip for quick context
+    div.title = f.priorityExplanation || f.message || '';
+    
     div.innerHTML = `
-      <div><strong>${f.ruleId}</strong> <span class="pill">${f.impact||''}</span> ${typeof f.confidence==='number'?`<span class="pill" title="confidence">${(f.confidence||0).toFixed(2)}</span>`:''}</div>
+      <div><strong>${f.ruleId}</strong> ${impactHtml} ${priorityHtml} ${typeof f.confidence==='number'?`<span class="pill" title="confidence">${(f.confidence||0).toFixed(2)}</span>`:''}</div>
       <div class="meta">${(f.wcag||[]).join(', ')} • ${f.selector}</div>
       <div class="kvs">${f.message}
 ${f.evidence ? JSON.stringify(f.evidence, null, 2) : ''}</div>
@@ -397,7 +591,48 @@ function loadIgnores() {
 
 function copyJson() {
   const items = getFilteredFindings();
-  const text = JSON.stringify(items, null, 2);
+  
+  // Enhanced export with metadata and priority information
+  const exportData = {
+    exportMetadata: {
+      timestamp: new Date().toISOString(),
+      url: chrome.devtools.inspectedWindow.location.href || 'unknown',
+      preset: presetSel?.value || 'default',
+      intelligentPriority: scanOptions.intelligentPriority,
+      scanOptions: {
+        live: scanOptions.live,
+        viewportOnly: scanOptions.viewportOnly,
+        shadow: scanOptions.shadow,
+        iframes: scanOptions.iframes,
+        hideNeedsReview: scanOptions.hideNeedsReview
+      },
+      filters: {
+        rule: filterRule?.value || '',
+        impact: filterImpact?.value || '',
+        minConfidence: parseFloat(minConf?.value || '0'),
+        search: searchBox?.value || ''
+      },
+      totalIssues: findings.length,
+      filteredIssues: items.length
+    },
+    findings: items,
+    ...(scanOptions.intelligentPriority && {
+      priorityAnalytics: {
+        averageScore: items.length ? (items.reduce((sum, f) => sum + (f.priorityScore || 0), 0) / items.length).toFixed(2) : 0,
+        distribution: ['critical', 'high', 'medium', 'low', 'minimal'].reduce((dist, level) => {
+          dist[level] = items.filter(f => getPriorityLevel(f.priorityScore || 0) === level).length;
+          return dist;
+        }, {}),
+        contextBreakdown: items.reduce((breakdown, f) => {
+          const region = f.context?.pageRegion || 'unknown';
+          breakdown[region] = (breakdown[region] || 0) + 1;
+          return breakdown;
+        }, {})
+      }
+    })
+  };
+  
+  const text = JSON.stringify(exportData, null, 2);
   navigator.clipboard.writeText(text).catch(()=>{});
 }
 
@@ -467,10 +702,28 @@ document.querySelector('#btn-compare-axe')?.addEventListener('click', async () =
 });
 document.querySelector('#btn-clear-results-dev')?.addEventListener('click', () => { findings = []; render(); sumEl.innerHTML = '<strong>0</strong> issues'; send({ type: 'clear-results' }); });
 document.querySelector('#btn-clear-ignores')?.addEventListener('click', () => { ignores = { selectors: new Set(), rules: new Set() }; persistIgnores(); render(); if (detailsEl) detailsEl.textContent = 'Ignores cleared.'; });
-filterRule.addEventListener('change', render);
-filterImpact?.addEventListener('change', render);
-minConf?.addEventListener('input', () => { if (confVal) confVal.textContent = (parseFloat(minConf.value||'0')||0).toFixed(2); render(); });
+filterRule.addEventListener('change', () => { persistPerSiteUiState(); render(); });
+groupSel?.addEventListener('change', () => { persistGlobalUiState(); render(); });
+filterImpact?.addEventListener('change', () => { persistPerSiteUiState(); render(); });
+minConf?.addEventListener('input', () => { if (confVal) confVal.textContent = (parseFloat(minConf.value||'0')||0).toFixed(2); persistPerSiteUiState(); render(); });
+sortSel?.addEventListener('change', () => { persistGlobalUiState(); render(); });
+searchBox?.addEventListener('input', () => { persistPerSiteUiState(); render(); });
 presetSel?.addEventListener('change', () => { applyPreset(presetSel.value); render(); });
+
+// Simple vs Advanced control toggle
+try {
+  const advBtn = document.querySelector('#btn-advanced');
+  if (advBtn) {
+    advBtn.addEventListener('click', () => {
+      const root = document.querySelector('body');
+      const show = !root.classList.contains('show-advanced');
+      root.classList.toggle('show-advanced', show);
+      advBtn.textContent = show ? 'Advanced ▴' : 'Advanced ▾';
+      persistGlobalUiState();
+    });
+  }
+} catch {}
+
 document.querySelector('#btn-reset-preset')?.addEventListener('click', () => {
   const name = presetSel?.value || 'default';
   if (name) { applyPreset(name); render(); }
@@ -510,6 +763,8 @@ try {
   chrome.devtools.inspectedWindow.eval('location.host', (host) => {
     if (typeof host === 'string') {
       inspectedHost = host;
+      loadGlobalUiState();
+      loadPerSiteUiState();
       loadIgnores();
       loadScanOptions();
       chrome.devtools.inspectedWindow.eval('location.href', (href) => { if (typeof href === 'string') inspectedUrl = href; render(); });
@@ -522,7 +777,14 @@ try {
 function persistScanOptions() {
   try {
     const key = `a11y_scanopts::${inspectedHost||''}`;
-    const payload = { live: !!scanOptions.live, viewportOnly: !!scanOptions.viewportOnly, shadow: !!scanOptions.shadow, iframes: !!scanOptions.iframes, hideNeedsReview: !!scanOptions.hideNeedsReview };
+    const payload = { 
+      live: !!scanOptions.live, 
+      viewportOnly: !!scanOptions.viewportOnly, 
+      shadow: !!scanOptions.shadow, 
+      iframes: !!scanOptions.iframes, 
+      hideNeedsReview: !!scanOptions.hideNeedsReview,
+      intelligentPriority: !!scanOptions.intelligentPriority
+    };
     localStorage.setItem(key, JSON.stringify(payload));
     send({ type: 'set-scan-options', ...payload });
   } catch {}
@@ -539,11 +801,13 @@ function loadScanOptions() {
     scanOptions.shadow = !!obj.shadow;
     scanOptions.iframes = !!obj.iframes;
     scanOptions.hideNeedsReview = !!obj.hideNeedsReview;
+    scanOptions.intelligentPriority = !!obj.intelligentPriority;
     if (optLive) optLive.checked = scanOptions.live;
     if (optViewport) optViewport.checked = scanOptions.viewportOnly;
     if (optShadow) optShadow.checked = scanOptions.shadow;
     if (optIframes) optIframes.checked = scanOptions.iframes;
     if (optHideNR) optHideNR.checked = scanOptions.hideNeedsReview;
+    if (optIntelligentPriority) optIntelligentPriority.checked = scanOptions.intelligentPriority;
   } catch {}
 }
 
@@ -552,13 +816,69 @@ optViewport?.addEventListener('change', () => { scanOptions.viewportOnly = !!opt
 optShadow?.addEventListener('change', () => { scanOptions.shadow = !!optShadow.checked; persistScanOptions(); });
 optIframes?.addEventListener('change', () => { scanOptions.iframes = !!optIframes.checked; persistScanOptions(); });
 optHideNR?.addEventListener('change', () => { scanOptions.hideNeedsReview = !!optHideNR.checked; persistScanOptions(); });
+optIntelligentPriority?.addEventListener('change', () => { 
+  scanOptions.intelligentPriority = !!optIntelligentPriority.checked; 
+  persistScanOptions(); 
+  
+  // Show/hide priority configuration button
+  const configBtn = document.querySelector('#btn-priority-config');
+  if (configBtn) {
+    configBtn.style.display = scanOptions.intelligentPriority ? 'inline-block' : 'none';
+  }
+  
+  // Auto-switch to priority sorting when enabled
+  if (scanOptions.intelligentPriority && sortSel) {
+    sortSel.value = 'priority';
+  } else if (!scanOptions.intelligentPriority && sortSel && sortSel.value === 'priority') {
+    sortSel.value = 'impact';
+  }
+  render(); // Re-render to show/hide priority scores
+});
 
 function downloadHtmlReport() {
   const items = getFilteredFindings();
-  const rows = items.map(f => `<tr><td>${f.ruleId}</td><td>${f.impact||''}</td><td>${(f.wcag||[]).join(', ')}</td><td>${f.selector}</td><td>${f.message}</td></tr>`).join('');
+  
+  // Enhanced row generation with priority data
+  const rows = items.map(f => {
+    const priorityInfo = (scanOptions.intelligentPriority && f.priorityScore !== undefined) 
+      ? `<td><span class="priority-${getPriorityLevel(f.priorityScore)}">${f.priorityScore} (${f.priorityLabel})</span></td>
+         <td title="${f.contextExplanation || ''}">${f.context?.pageRegion || 'N/A'}</td>`
+      : '<td colspan="2">Traditional Mode</td>';
+    
+    return `<tr>
+      <td>${f.ruleId}</td>
+      <td><span class="${f.impact}">${f.impact||''}</span></td>
+      ${priorityInfo}
+      <td>${(f.wcag||[]).join(', ')}</td>
+      <td><code>${f.selector}</code></td>
+      <td>${f.message}</td>
+    </tr>`;
+  }).join('');
+  
   const presetName = presetSel?.value || 'default';
-  const meta = `Preset: ${presetName} • Live: ${scanOptions.live} • ViewportOnly: ${scanOptions.viewportOnly} • Shadow: ${scanOptions.shadow} • Iframes: ${scanOptions.iframes} • HideNeedsReview: ${scanOptions.hideNeedsReview} • MinConf: ${(parseFloat(minConf?.value||'0')||0).toFixed(2)}`;
-  const html = `<!doctype html><meta charset="utf-8"><title>A11y Report</title><style>body{font:14px system-ui}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:6px}</style><h1>A11y Report</h1><div>${meta}</div><table><thead><tr><th>Rule</th><th>Impact</th><th>WCAG</th><th>Selector</th><th>Message</th></tr></thead><tbody>${rows}</tbody></table>`;
+  const meta = `Preset: ${presetName} • Live: ${scanOptions.live} • ViewportOnly: ${scanOptions.viewportOnly} • Shadow: ${scanOptions.shadow} • Iframes: ${scanOptions.iframes} • HideNeedsReview: ${scanOptions.hideNeedsReview} • MinConf: ${(parseFloat(minConf?.value||'0')||0).toFixed(2)} • IntelligentPriority: ${scanOptions.intelligentPriority}`;
+  
+  const priorityHeaders = scanOptions.intelligentPriority ? '<th>Priority Score</th><th>Context</th>' : '';
+  const html = `<!doctype html><meta charset="utf-8"><title>A11y Report</title>
+  <style>
+    body{font:14px system-ui}
+    table{border-collapse:collapse;width:100%}
+    td,th{border:1px solid #ccc;padding:6px;text-align:left}
+    .priority-critical{background:#dc2626;color:white}
+    .priority-high{background:#ea580c;color:white}
+    .priority-medium{background:#ca8a04;color:white}
+    .priority-low{background:#16a34a;color:white}
+    .priority-minimal{background:#6b7280;color:white}
+    code{background:#f5f5f5;padding:2px 4px;border-radius:3px}
+  </style>
+  <h1>A11y Report</h1>
+  <div style="margin:16px 0;padding:8px;background:#f9f9f9;border-radius:4px">${meta}</div>
+  <table>
+    <thead>
+      <tr><th>Rule</th><th>Impact</th>${priorityHeaders}<th>WCAG</th><th>Selector</th><th>Message</th></tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>`;
   const blob = new Blob([html], { type: 'text/html' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'a11y-report.html'; a.click();
@@ -612,6 +932,8 @@ function handlePortMessage(msg) {
     try { if (rescanTimer) { clearTimeout(rescanTimer); rescanTimer = 0; } } catch {}
     const btn = $('#btn-rescan'); if (btn) { btn.disabled = false; btn.textContent = 'Rescan'; }
     renderRuleToggles();
+    // Apply saved custom enabled rules per host after toggles are populated
+    try { loadEnabledRulesPerHost(); } catch {}
     render();
     setStatus();
   }

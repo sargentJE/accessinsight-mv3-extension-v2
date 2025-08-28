@@ -21,6 +21,50 @@
     .section { padding: 8px 10px; border-bottom: 1px solid #303134; }
     .row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
     .pill { display: inline-block; padding: 2px 6px; border-radius: 999px; font-size: 11px; background: #303134; color: #e0e0e0; }
+    
+    /* Enhanced priority styling */
+    .priority-critical { 
+      background: #dc2626 !important; 
+      animation: pulse-critical 2s infinite; 
+      box-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
+    }
+    .priority-high { 
+      background: #ea580c !important; 
+      box-shadow: 0 0 4px rgba(234, 88, 12, 0.3);
+    }
+    .priority-medium { 
+      background: #ca8a04 !important; 
+    }
+    .priority-low { 
+      background: #16a34a !important; 
+    }
+    .priority-minimal { 
+      background: #6b7280 !important; 
+    }
+    
+    @keyframes pulse-critical {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    /* Priority status indicator */
+    .priority-status {
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+  </style>
+  <style>
+    /* Simple/Advanced toggle */
+    .advanced { display: none; }
+    .show-advanced .advanced { display: inline-flex; }
+    /* Advanced tray wraps controls onto new lines */
+    #advanced-wrap.advanced { display: none; }
+    .show-advanced #advanced-wrap.advanced { display: flex; flex-wrap: wrap; gap: var(--g); width: 100%; }
+    .controls { overflow-x: hidden; }
+    #filter-rule { min-width: 200px; }
+    #search { min-width: 260px; }
   </style>
   <header>
     <h1>A11y DevTools</h1>
@@ -34,41 +78,49 @@
         <option value="lighthouse">Preset: Lighthouse</option>
         <option value="ibm">Preset: IBM Accessibility</option>
       </select>
-      <button id="btn-reset-preset" style="display:none">Reset to Preset</button>
-      <select id="filter-rule"><option value="">All rules</option></select>
-      <select id="filter-impact"><option value="">All severities</option><option value="critical">critical</option><option value="serious">serious</option><option value="moderate">moderate</option><option value="minor">minor</option></select>
+      <button id="btn-reset-preset" class="advanced" style="display:none">Reset to Preset</button>
+      <label style="display:inline-flex;align-items:center;gap:6px">Rule
+        <select id="filter-rule"><option value="">All rules</option></select>
+      </label>
+      <select id="filter-impact" class="advanced"><option value="">All severities</option><option value="critical">critical</option><option value="serious">serious</option><option value="moderate">moderate</option><option value="minor">minor</option></select>
       <input id="search" type="search" placeholder="Search (rule, selector, message)" style="min-width:220px" />
       <label style="display:inline-flex;align-items:center;gap:6px">Sort
         <select id="sort">
+          <option value="priority">Priority (desc)</option>
           <option value="impact">Impact (desc)</option>
           <option value="confidence">Confidence (desc)</option>
           <option value="rule">Rule</option>
           <option value="selector">Selector</option>
         </select>
       </label>
-      <label style="display:inline-flex;align-items:center;gap:6px">Group
-        <select id="group">
-          <option value="none">None</option>
-          <option value="rule">By rule</option>
-          <option value="impact">By impact</option>
-        </select>
-      </label>
-      <label style="display:inline-flex;align-items:center;gap:6px">Min conf <span id="conf-val">0.0</span>
-        <input id="min-conf" type="range" min="0" max="0.95" step="0.05" value="0" />
-      </label>
-      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-live" type="checkbox" /> Live</label>
-      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-viewport" type="checkbox" /> Viewport only</label>
-      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-shadow" type="checkbox" /> Scan shadow DOM</label>
-      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-iframes" type="checkbox" /> Scan iframes</label>
-      <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-hide-nr" type="checkbox" /> Hide needsReview</label>
-      <button id="btn-copy-json">Copy JSON</button>
-      <button id="btn-download-sarif">Download SARIF</button>
-      <button id="btn-download-html">Download HTML</button>
-      <button id="btn-download-csv">Download CSV</button>
-      <button id="btn-compare-axe" title="Run axe-core in page and compare">Compare axe</button>
-      <span id="axe-status" class="pill" style="display:none"></span>
-      <button id="btn-clear-results-dev">Clear All</button>
-      <button id="btn-clear-ignores">Clear Ignores</button>
+      <button id="btn-advanced" title="Show advanced controls">Advanced ▾</button>
+      <span id="advanced-wrap" class="advanced">
+        <label style="display:inline-flex;align-items:center;gap:6px">Group
+          <select id="group">
+            <option value="none">None</option>
+            <option value="rule">By rule</option>
+            <option value="impact">By impact</option>
+          </select>
+        </label>
+        <label style="display:inline-flex;align-items:center;gap:6px">Min conf <span id="conf-val">0.0</span>
+          <input id="min-conf" type="range" min="0" max="0.95" step="0.05" value="0" />
+        </label>
+        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-live" type="checkbox" /> Live</label>
+        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-viewport" type="checkbox" /> Viewport only</label>
+        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-shadow" type="checkbox" /> Scan shadow DOM</label>
+        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-iframes" type="checkbox" /> Scan iframes</label>
+        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-hide-nr" type="checkbox" /> Hide needsReview</label>
+        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-intelligent-priority" type="checkbox" /> Intelligent Priority</label>
+        <button id="btn-priority-config" style="display:none;">Configure Priority</button>
+        <button id="btn-copy-json">Copy JSON</button>
+        <button id="btn-download-sarif">Download SARIF</button>
+        <button id="btn-download-html">Download HTML</button>
+        <button id="btn-download-csv">Download CSV</button>
+        <button id="btn-compare-axe" title="Run axe-core in page and compare">Compare axe</button>
+        <span id="axe-status" class="pill" style="display:none"></span>
+        <button id="btn-clear-results-dev">Clear All</button>
+        <button id="btn-clear-ignores">Clear Ignores</button>
+      </span>
     </div>
   </header>
   <main>
@@ -77,7 +129,7 @@
       <div id="list" class="list" role="list"></div>
     </div>
     <div class="right">
-      <div class="section">
+      <div class="section advanced">
         <div class="row"><strong>Enabled rules</strong></div>
         <div id="rules" class="row" style="flex-wrap: wrap;"></div>
       </div>
