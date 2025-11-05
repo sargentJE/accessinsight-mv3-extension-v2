@@ -2803,6 +2803,35 @@
     // Get frequency of a specific rule in current scan
     getRuleFrequency: function(ruleId) {
       return window.__a11yEngine._ruleFrequencies.get(ruleId) || 0;
+    },
+
+    // Test API - Exported internal functions for unit testing
+    // Only use these in test environments, not in production code
+    _test: {
+      // Color/contrast functions
+      parseColorToRgb,
+      relLuminance,
+      contrastRatio,
+      compositeOver,
+      resolveBackground,
+
+      // Accessible name computation (ANDC)
+      getAccName,
+      getAccDescription,
+      textFromIds,
+      collectTextForName,
+
+      // Utility functions
+      isElementVisible,
+      cssPath,
+      isFocusableByHeuristic,
+      isPresentational,
+
+      // Context analysis
+      analyzeElementContext,
+
+      // Finding creation
+      makeFinding
     }
   };
 })();
