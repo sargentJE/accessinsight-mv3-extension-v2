@@ -29,6 +29,8 @@ global.getComputedStyle = dom.window.getComputedStyle;
 global.Node = dom.window.Node;
 global.Element = dom.window.Element;
 global.HTMLElement = dom.window.HTMLElement;
+global.DocumentFragment = dom.window.DocumentFragment;
+global.Document = dom.window.Document;
 global.CSS = dom.window.CSS || {
   escape: (str) => String(str).replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, '\\$&')
 };
@@ -49,8 +51,62 @@ dom.window.Element.prototype.getBoundingClientRect = function() {
   return rect;
 };
 
-// Load engine
-const engineCode = fs.readFileSync(path.join(__dirname, '../../../engine.js'), 'utf8');
+// Mock parseColorToRgb for JSDOM (canvas not available)
+// Define this before loading engine so it's available in engine's scope
+global.mockParseColorToRgb = function(colorStr) {
+  if (!colorStr || colorStr === 'transparent') return [0, 0, 0, 0];
+
+  // Named colors
+  const namedColors = {
+    'white': [255, 255, 255, 1],
+    'black': [0, 0, 0, 1],
+    'red': [255, 0, 0, 1],
+    'green': [0, 128, 0, 1],
+    'blue': [0, 0, 255, 1],
+    'gray': [128, 128, 128, 1],
+    'silver': [192, 192, 192, 1]
+  };
+
+  const color = colorStr.toLowerCase().trim();
+  if (namedColors[color]) return namedColors[color];
+
+  // rgb/rgba format
+  const rgbaMatch = color.match(/rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)/);
+  if (rgbaMatch) {
+    return [
+      parseInt(rgbaMatch[1]),
+      parseInt(rgbaMatch[2]),
+      parseInt(rgbaMatch[3]),
+      rgbaMatch[4] ? parseFloat(rgbaMatch[4]) : 1
+    ];
+  }
+
+  // Hex format
+  const hexMatch = color.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/);
+  if (hexMatch) {
+    let hex = hexMatch[1];
+    if (hex.length === 3) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    return [
+      parseInt(hex.substr(0, 2), 16),
+      parseInt(hex.substr(2, 2), 16),
+      parseInt(hex.substr(4, 2), 16),
+      1
+    ];
+  }
+
+  return [0, 0, 0, 1]; // fallback
+};
+
+// Load engine and replace parseColorToRgb with mock
+let engineCode = fs.readFileSync(path.join(__dirname, '../../../engine.js'), 'utf8');
+// Replace the canvas-based parseColorToRgb with our mock
+// The function spans lines 276-284 in engine.js
+engineCode = engineCode.replace(
+  /function parseColorToRgb\(str\) \{[\s\S]*?return \[r,g,b,a\];[\s\n]*\}/m,
+  'const parseColorToRgb = global.mockParseColorToRgb'
+);
 eval(engineCode);
 
 console.log('🎨 Testing contrast-text rule and color algorithms\n');
@@ -142,12 +198,12 @@ test('relLuminance: calculates correct luminance for gray (128,128,128)', () => 
 test('relLuminance: follows WCAG sRGB formula', () => {
   const testAPI = window.__a11yEngine._test;
   // Test specific RGB value: (100, 150, 200)
-  // R: 100/255 = 0.392 -> 0.392/12.92 = 0.0303
-  // G: 150/255 = 0.588 -> 0.588/12.92 = 0.0455
-  // B: 200/255 = 0.784 -> ((0.784+0.055)/1.055)^2.4 = 0.576
-  // L = 0.2126*0.0303 + 0.7152*0.0455 + 0.0722*0.576 = 0.084
+  // R: 100/255 = 0.392 -> ((0.392+0.055)/1.055)^2.4 = 0.133
+  // G: 150/255 = 0.588 -> ((0.588+0.055)/1.055)^2.4 = 0.318
+  // B: 200/255 = 0.784 -> ((0.784+0.055)/1.055)^2.4 = 0.620
+  // L = 0.2126*0.133 + 0.7152*0.318 + 0.0722*0.620 = 0.287
   const luminance = testAPI.relLuminance([100, 150, 200]);
-  assertClose(luminance, 0.084, 0.02, 'Specific RGB luminance');
+  assertClose(luminance, 0.287, 0.01, 'Specific RGB luminance');
 });
 
 // ============================================================================
@@ -242,7 +298,7 @@ test('compositeOver: complex alpha blending', () => {
 test('contrast-text: detects insufficient contrast (fails AA)', () => {
   const div = document.createElement('div');
   div.textContent = 'Low contrast text';
-  div.style.color = '#777'; // Gray on white
+  div.style.color = '#999'; // Light gray on white (2.85:1 - fails AA)
   div.style.backgroundColor = '#fff';
   div.style.fontSize = '14px';
   div.style.display = 'block';
@@ -409,7 +465,7 @@ test('contrast-text: ignores zero-size text', () => {
 test('contrast-text: provides evidence in findings', () => {
   const div = document.createElement('div');
   div.textContent = 'Evidence test';
-  div.style.color = '#777';
+  div.style.color = '#999'; // 2.85:1 - clearly fails AA
   div.style.backgroundColor = '#fff';
   div.style.fontSize = '14px';
   div.style.display = 'block';
@@ -419,13 +475,14 @@ test('contrast-text: provides evidence in findings', () => {
 
   const findings = window.__a11yEngine.run(['contrast-text']);
 
-  if (findings.length > 0) {
-    const finding = findings[0];
-    assert(finding.evidence, 'Should include evidence');
-    assert(typeof finding.evidence.ratio === 'number', 'Should include contrast ratio');
-    assert(typeof finding.evidence.fg === 'string', 'Should include foreground color');
-    assert(typeof finding.evidence.bg === 'string', 'Should include background color');
-  }
+  assert(findings.length > 0, 'Should find contrast issue');
+  const finding = findings[0];
+  assert(finding.evidence, 'Should include evidence');
+  assert(typeof finding.evidence.ratio === 'number', 'Should include contrast ratio');
+  assert(Array.isArray(finding.evidence.fg), 'Should include foreground color as array');
+  assert(Array.isArray(finding.evidence.bg), 'Should include background color as array');
+  assert(finding.evidence.fg.length === 3, 'Foreground should be RGB array');
+  assert(finding.evidence.bg.length === 3, 'Background should be RGB array');
 });
 
 test('contrast-text: checks WCAG criteria in finding', () => {

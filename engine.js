@@ -106,9 +106,10 @@
         if (includeShadow && node.shadowRoot) {
           stack.push(node.shadowRoot);
         }
-        for (let i = node.children.length - 1; i >= 0; i--) stack.push(node.children[i]);
+        // Use childNodes to include text nodes, not just element children
+        for (let i = node.childNodes.length - 1; i >= 0; i--) stack.push(node.childNodes[i]);
       } else if (node instanceof DocumentFragment || node instanceof Document) {
-        for (let i = (node.children?.length||0) - 1; i >= 0; i--) stack.push(node.children[i]);
+        for (let i = (node.childNodes?.length||0) - 1; i >= 0; i--) stack.push(node.childNodes[i]);
       }
     }
   }
@@ -164,14 +165,16 @@
   const isFocusableByHeuristic = (el) => {
     if (!(el instanceof Element)) return false;
     const name = el.tagName;
+    // Check natively focusable elements
     if (['BUTTON','SELECT','TEXTAREA'].includes(name)) return true;
     if (name === 'A' && el.hasAttribute('href')) return true;
     if (name === 'INPUT') return true;
-    const role = el.getAttribute('role');
-    const interactiveRoles = new Set(['button','link','switch','menuitem','tab','textbox','checkbox','radio','combobox','listbox','option','slider','spinbutton']);
-    if (role && interactiveRoles.has(role)) return true;
+    // Check for explicit tabindex >= 0
     const ti = el.getAttribute('tabindex');
     if (ti !== null && !isNaN(parseInt(ti)) && parseInt(ti) >= 0) return true;
+    // NOTE: We deliberately do NOT check for interactive roles here.
+    // Having role="button" doesn't make an element focusable - that's what
+    // the interactive-role-focusable rule detects as a violation.
     return false;
   };
 
