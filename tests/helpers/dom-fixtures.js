@@ -399,6 +399,230 @@ const fixtures = {
     tr.appendChild(td);
     table.appendChild(tr);
     return table; // Missing <thead>, <th> elements
+  },
+
+  // ===== PHASE 5: STRUCTURAL RULES =====
+
+  // aria-hidden-focus fixtures
+  ariaHiddenWithFocusableButton: () => {
+    const container = createTestElement({
+      tag: 'div',
+      attrs: { 'aria-hidden': 'true' },
+      styles: { display: 'block' }
+    });
+    const button = createTestElement({
+      tag: 'button',
+      text: 'Focusable button',
+      attrs: { tabindex: '0' }
+    });
+    container.appendChild(button);
+    return container;
+  },
+
+  ariaHiddenWithFocusableLink: () => {
+    const container = createTestElement({
+      tag: 'div',
+      attrs: { 'aria-hidden': 'true' },
+      styles: { display: 'block' }
+    });
+    const link = createTestElement({
+      tag: 'a',
+      text: 'Focusable link',
+      attrs: { href: '#' }
+    });
+    container.appendChild(link);
+    return container;
+  },
+
+  ariaHiddenWithInput: () => {
+    const container = createTestElement({
+      tag: 'div',
+      attrs: { 'aria-hidden': 'true' },
+      styles: { display: 'block' }
+    });
+    const input = createTestElement({
+      tag: 'input',
+      attrs: { type: 'text', placeholder: 'Input field' }
+    });
+    container.appendChild(input);
+    return container;
+  },
+
+  ariaHiddenFocusableItself: () => createTestElement({
+    tag: 'div',
+    attrs: { 'aria-hidden': 'true', tabindex: '0' },
+    text: 'Focusable container',
+    styles: { display: 'block' }
+  }),
+
+  ariaHiddenWithDisabledButton: () => {
+    const container = createTestElement({
+      tag: 'div',
+      attrs: { 'aria-hidden': 'true' },
+      styles: { display: 'block' }
+    });
+    const button = createTestElement({
+      tag: 'button',
+      text: 'Disabled button',
+      attrs: { disabled: 'disabled' }
+    });
+    container.appendChild(button);
+    return container;
+  },
+
+  ariaHiddenNonFocusable: () => {
+    const container = createTestElement({
+      tag: 'div',
+      attrs: { 'aria-hidden': 'true' },
+      text: 'Non-focusable content',
+      styles: { display: 'block' }
+    });
+    return container;
+  },
+
+  // aria-allowed-role fixtures
+  textInputWithButtonRole: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'text', role: 'button' }
+  }),
+
+  emailInputWithLinkRole: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'email', role: 'link' }
+  }),
+
+  // region-name fixtures
+  regionWithoutName: () => createTestElement({
+    tag: 'div',
+    attrs: { role: 'region' },
+    text: 'Region content without name',
+    styles: { display: 'block' }
+  }),
+
+  regionWithAriaLabel: () => createTestElement({
+    tag: 'div',
+    attrs: { role: 'region', 'aria-label': 'Sidebar content' },
+    text: 'Region with aria-label',
+    styles: { display: 'block' }
+  }),
+
+  regionWithAriaLabelledby: () => {
+    const heading = createTestElement({
+      tag: 'h2',
+      attrs: { id: 'region-heading' },
+      text: 'Region Title'
+    });
+    const region = createTestElement({
+      tag: 'div',
+      attrs: { role: 'region', 'aria-labelledby': 'region-heading' },
+      styles: { display: 'block' }
+    });
+    region.appendChild(heading);
+    return region;
+  },
+
+  // iframe fixtures
+  iframeWithoutTitle: () => createTestElement({
+    tag: 'iframe',
+    attrs: { src: 'about:blank' }
+  }),
+
+  iframeWithTitle: () => createTestElement({
+    tag: 'iframe',
+    attrs: { src: 'about:blank', title: 'Embedded content' }
+  }),
+
+  iframeWithEmptyTitle: () => createTestElement({
+    tag: 'iframe',
+    attrs: { src: 'about:blank', title: '' }
+  }),
+
+  // table fixtures
+  tableWithoutCaption: () => {
+    const table = createTestElement({ tag: 'table', styles: { display: 'table' } });
+    const thead = createTestElement({ tag: 'thead' });
+    const tr = createTestElement({ tag: 'tr' });
+    const th = createTestElement({ tag: 'th', text: 'Name', attrs: { scope: 'col' } });
+    tr.appendChild(th);
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    return table;
+  },
+
+  tableWithCaption: () => {
+    const table = createTestElement({ tag: 'table', styles: { display: 'table' } });
+    const caption = createTestElement({ tag: 'caption', text: 'User Information' });
+    const thead = createTestElement({ tag: 'thead' });
+    const tr = createTestElement({ tag: 'tr' });
+    const th = createTestElement({ tag: 'th', text: 'Name', attrs: { scope: 'col' } });
+    tr.appendChild(th);
+    thead.appendChild(tr);
+    table.appendChild(caption);
+    table.appendChild(thead);
+    return table;
+  },
+
+  layoutTable: () => {
+    const table = createTestElement({ tag: 'table', attrs: { role: 'presentation' }, styles: { display: 'table' } });
+    const tr = createTestElement({ tag: 'tr' });
+    const td = createTestElement({ tag: 'td', text: 'Layout cell' });
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return table;
+  },
+
+  tableWithoutHeaderAssociation: () => {
+    const table = createTestElement({ tag: 'table', styles: { display: 'table' } });
+
+    // Header row
+    const headerRow = createTestElement({ tag: 'tr' });
+    const th = createTestElement({ tag: 'th', text: 'Name' }); // No scope attribute!
+    headerRow.appendChild(th);
+
+    // Data row
+    const dataRow = createTestElement({ tag: 'tr' });
+    const td = createTestElement({ tag: 'td', text: 'John' }); // Not associated with header
+    dataRow.appendChild(td);
+
+    table.appendChild(headerRow);
+    table.appendChild(dataRow);
+    return table;
+  },
+
+  tableWithHeadersAttribute: () => {
+    const table = createTestElement({ tag: 'table', styles: { display: 'table' } });
+
+    // Header row
+    const headerRow = createTestElement({ tag: 'tr' });
+    const th = createTestElement({ tag: 'th', text: 'Name', attrs: { id: 'name-header' } });
+    headerRow.appendChild(th);
+
+    // Data row with headers attribute
+    const dataRow = createTestElement({ tag: 'tr' });
+    const td = createTestElement({ tag: 'td', text: 'John', attrs: { headers: 'name-header' } });
+    dataRow.appendChild(td);
+
+    table.appendChild(headerRow);
+    table.appendChild(dataRow);
+    return table;
+  },
+
+  tableWithScope: () => {
+    const table = createTestElement({ tag: 'table', styles: { display: 'table' } });
+
+    // Header row with scope
+    const headerRow = createTestElement({ tag: 'tr' });
+    const th = createTestElement({ tag: 'th', text: 'Name', attrs: { scope: 'col' } });
+    headerRow.appendChild(th);
+
+    // Data row
+    const dataRow = createTestElement({ tag: 'tr' });
+    const td = createTestElement({ tag: 'td', text: 'John' });
+    dataRow.appendChild(td);
+
+    table.appendChild(headerRow);
+    table.appendChild(dataRow);
+    return table;
   }
 };
 
