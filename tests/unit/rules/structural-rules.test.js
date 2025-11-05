@@ -100,6 +100,45 @@ test('aria-hidden-focus: passes with non-focusable content', () => {
   assertNoFindings(findings, 'Non-focusable content should pass');
 });
 
+test('aria-hidden-focus: detects select in aria-hidden', () => {
+  resetDOM();
+  const container = createTestElement({
+    tag: 'div',
+    attrs: { 'aria-hidden': 'true' },
+    styles: { display: 'block' }
+  });
+  const select = createTestElement({
+    tag: 'select'
+  });
+  const option = createTestElement({ tag: 'option', text: 'Option 1' });
+  select.appendChild(option);
+  container.appendChild(select);
+  document.body.appendChild(container);
+
+  const findings = window.__a11yEngine.run(['aria-hidden-focus']);
+
+  assertHasViolation(findings, 'aria-hidden-focus', 'Should detect focusable select');
+});
+
+test('aria-hidden-focus: detects textarea in aria-hidden', () => {
+  resetDOM();
+  const container = createTestElement({
+    tag: 'div',
+    attrs: { 'aria-hidden': 'true' },
+    styles: { display: 'block' }
+  });
+  const textarea = createTestElement({
+    tag: 'textarea',
+    text: 'Editable content'
+  });
+  container.appendChild(textarea);
+  document.body.appendChild(container);
+
+  const findings = window.__a11yEngine.run(['aria-hidden-focus']);
+
+  assertHasViolation(findings, 'aria-hidden-focus', 'Should detect focusable textarea');
+});
+
 test('aria-hidden-focus: passes when container has aria-disabled', () => {
   resetDOM();
   const container = createTestElement({
