@@ -623,7 +623,209 @@ const fixtures = {
     table.appendChild(headerRow);
     table.appendChild(dataRow);
     return table;
-  }
+  },
+
+  // ===== PHASE 6: INTERACTIVE/USABILITY RULES =====
+
+  // skip-link fixtures
+  pageWithoutSkipLink: () => {
+    const nav = createTestElement({ tag: 'nav' });
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '/about' },
+      text: 'About'
+    });
+    nav.appendChild(link);
+    return nav;
+  },
+
+  pageWithSkipLink: () => {
+    const container = createTestElement({ tag: 'div', styles: { display: 'block' } });
+    const skipLink = createTestElement({
+      tag: 'a',
+      attrs: { href: '#main', class: 'skip-link' },
+      text: 'Skip to main content'
+    });
+    const main = createTestElement({
+      tag: 'main',
+      attrs: { id: 'main' },
+      text: 'Main content here'
+    });
+    container.appendChild(skipLink);
+    container.appendChild(main);
+    return container;
+  },
+
+  skipLinkBrokenTarget: () => {
+    const skipLink = createTestElement({
+      tag: 'a',
+      attrs: { href: '#nonexistent' },
+      text: 'Skip to main content'
+    });
+    return skipLink;
+  },
+
+  // link-button-misuse fixtures
+  linkWithOnclickNoHref: () => createTestElement({
+    tag: 'a',
+    attrs: { onclick: 'doSomething()' },
+    text: 'Click me'
+  }),
+
+  linkWithHashHref: () => createTestElement({
+    tag: 'a',
+    attrs: { href: '#', onclick: 'doSomething()' },
+    text: 'Click me'
+  }),
+
+  linkWithJavascriptHref: () => createTestElement({
+    tag: 'a',
+    attrs: { href: 'javascript:void(0)', onclick: 'doSomething()' },
+    text: 'Click me'
+  }),
+
+  linkWithValidHref: () => createTestElement({
+    tag: 'a',
+    attrs: { href: '/page', onclick: 'track()' },
+    text: 'Go to page'
+  }),
+
+  buttonWithOnclick: () => createTestElement({
+    tag: 'button',
+    attrs: { onclick: 'doSomething()' },
+    text: 'Click me'
+  }),
+
+  // tabindex fixtures
+  elementWithPositiveTabindex: (value = '1') => createTestElement({
+    tag: 'div',
+    attrs: { tabindex: value },
+    text: 'Focusable with positive tabindex'
+  }),
+
+  elementWithZeroTabindex: () => createTestElement({
+    tag: 'div',
+    attrs: { tabindex: '0' },
+    text: 'Focusable with tabindex 0'
+  }),
+
+  elementWithNegativeTabindex: () => createTestElement({
+    tag: 'div',
+    attrs: { tabindex: '-1' },
+    text: 'Programmatically focusable'
+  }),
+
+  // fieldset-legend fixtures
+  radioGroupWithoutFieldset: () => {
+    const container = createTestElement({ tag: 'div', styles: { display: 'block' } });
+    const radio1 = createTestElement({
+      tag: 'input',
+      attrs: { type: 'radio', name: 'color', value: 'red', id: 'red' }
+    });
+    const label1 = createTestElement({
+      tag: 'label',
+      attrs: { for: 'red' },
+      text: 'Red'
+    });
+    const radio2 = createTestElement({
+      tag: 'input',
+      attrs: { type: 'radio', name: 'color', value: 'blue', id: 'blue' }
+    });
+    const label2 = createTestElement({
+      tag: 'label',
+      attrs: { for: 'blue' },
+      text: 'Blue'
+    });
+    container.appendChild(radio1);
+    container.appendChild(label1);
+    container.appendChild(radio2);
+    container.appendChild(label2);
+    return container;
+  },
+
+  radioGroupWithFieldset: () => {
+    const fieldset = createTestElement({ tag: 'fieldset', styles: { display: 'block' } });
+    const legend = createTestElement({
+      tag: 'legend',
+      text: 'Choose a color'
+    });
+    const radio1 = createTestElement({
+      tag: 'input',
+      attrs: { type: 'radio', name: 'color', value: 'red', id: 'red2' }
+    });
+    const label1 = createTestElement({
+      tag: 'label',
+      attrs: { for: 'red2' },
+      text: 'Red'
+    });
+    const radio2 = createTestElement({
+      tag: 'input',
+      attrs: { type: 'radio', name: 'color', value: 'blue', id: 'blue2' }
+    });
+    const label2 = createTestElement({
+      tag: 'label',
+      attrs: { for: 'blue2' },
+      text: 'Blue'
+    });
+    fieldset.appendChild(legend);
+    fieldset.appendChild(radio1);
+    fieldset.appendChild(label1);
+    fieldset.appendChild(radio2);
+    fieldset.appendChild(label2);
+    return fieldset;
+  },
+
+  fieldsetWithoutLegend: () => {
+    const fieldset = createTestElement({ tag: 'fieldset', styles: { display: 'block' } });
+    const radio = createTestElement({
+      tag: 'input',
+      attrs: { type: 'radio', name: 'option' }
+    });
+    fieldset.appendChild(radio);
+    return fieldset;
+  },
+
+  singleRadio: () => {
+    const container = createTestElement({ tag: 'div', styles: { display: 'block' } });
+    const radio = createTestElement({
+      tag: 'input',
+      attrs: { type: 'radio', name: 'single', id: 'single' }
+    });
+    const label = createTestElement({
+      tag: 'label',
+      attrs: { for: 'single' },
+      text: 'Single option'
+    });
+    container.appendChild(radio);
+    container.appendChild(label);
+    return container;
+  },
+
+  // autocomplete fixtures
+  emailInputWithoutAutocomplete: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'email', name: 'email', id: 'user-email' }
+  }),
+
+  emailInputWithAutocomplete: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'email', name: 'email', autocomplete: 'email' }
+  }),
+
+  nameInputWithoutAutocomplete: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'text', name: 'fullname', id: 'user-name' }
+  }),
+
+  phoneInputWithoutAutocomplete: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'tel', name: 'phone', id: 'user-phone' }
+  }),
+
+  searchInputWithoutAutocomplete: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'text', name: 'search', placeholder: 'Search...' }
+  })
 };
 
 module.exports = {
