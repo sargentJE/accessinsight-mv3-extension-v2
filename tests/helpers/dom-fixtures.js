@@ -825,7 +825,454 @@ const fixtures = {
   searchInputWithoutAutocomplete: () => createTestElement({
     tag: 'input',
     attrs: { type: 'text', name: 'search', placeholder: 'Search...' }
-  })
+  }),
+
+  // ===== MEDIA FIXTURES (Wave 1) =====
+
+  videoWithoutCaptions: () => {
+    const video = createTestElement({
+      tag: 'video',
+      attrs: { src: 'video.mp4', controls: 'true' },
+      styles: { display: 'block', width: '320px', height: '240px' }
+    });
+    return video;
+  },
+
+  videoWithCaptions: () => {
+    const video = createTestElement({
+      tag: 'video',
+      attrs: { src: 'video.mp4', controls: 'true' },
+      styles: { display: 'block', width: '320px', height: '240px' }
+    });
+    const track = createTestElement({
+      tag: 'track',
+      attrs: { kind: 'captions', src: 'captions.vtt', srclang: 'en', label: 'English' }
+    });
+    video.appendChild(track);
+    return video;
+  },
+
+  videoWithSubtitles: () => {
+    const video = createTestElement({
+      tag: 'video',
+      attrs: { src: 'video.mp4', controls: 'true' },
+      styles: { display: 'block', width: '320px', height: '240px' }
+    });
+    const track = createTestElement({
+      tag: 'track',
+      attrs: { kind: 'subtitles', src: 'subtitles.vtt', srclang: 'en', label: 'English' }
+    });
+    video.appendChild(track);
+    return video;
+  },
+
+  videoWithDescriptionsOnly: () => {
+    const video = createTestElement({
+      tag: 'video',
+      attrs: { src: 'video.mp4', controls: 'true' },
+      styles: { display: 'block', width: '320px', height: '240px' }
+    });
+    const track = createTestElement({
+      tag: 'track',
+      attrs: { kind: 'descriptions', src: 'descriptions.vtt', srclang: 'en', label: 'English' }
+    });
+    video.appendChild(track);
+    return video;
+  },
+
+  videoWithMultipleTracks: () => {
+    const video = createTestElement({
+      tag: 'video',
+      attrs: { src: 'video.mp4', controls: 'true' },
+      styles: { display: 'block', width: '320px', height: '240px' }
+    });
+    const captionsTrack = createTestElement({
+      tag: 'track',
+      attrs: { kind: 'captions', src: 'captions-en.vtt', srclang: 'en', label: 'English Captions' }
+    });
+    const descriptionsTrack = createTestElement({
+      tag: 'track',
+      attrs: { kind: 'descriptions', src: 'descriptions-en.vtt', srclang: 'en', label: 'English Descriptions' }
+    });
+    video.appendChild(captionsTrack);
+    video.appendChild(descriptionsTrack);
+    return video;
+  },
+
+  hiddenVideo: () => createTestElement({
+    tag: 'video',
+    attrs: { src: 'video.mp4', controls: 'true' },
+    styles: { display: 'none' }
+  }),
+
+  audioWithoutTranscript: () => createTestElement({
+    tag: 'audio',
+    attrs: { src: 'audio.mp3', controls: 'true' },
+    styles: { display: 'block' }
+  }),
+
+  audioWithAriaDescribedby: () => createTestElement({
+    tag: 'audio',
+    attrs: { src: 'audio.mp3', controls: 'true', 'aria-describedby': 'transcript-1' },
+    styles: { display: 'block' }
+  }),
+
+  audioWithTranscriptLink: () => {
+    const container = createTestElement({
+      tag: 'div',
+      styles: { display: 'block' }
+    });
+    const audio = createTestElement({
+      tag: 'audio',
+      attrs: { src: 'audio.mp3', controls: 'true' },
+      styles: { display: 'block' }
+    });
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#transcript' },
+      text: 'View Transcript'
+    });
+    container.appendChild(audio);
+    container.appendChild(link);
+    return container;
+  },
+
+  audioWithTranscriptText: () => {
+    const container = createTestElement({
+      tag: 'div',
+      styles: { display: 'block' }
+    });
+    const audio = createTestElement({
+      tag: 'audio',
+      attrs: { src: 'audio.mp3', controls: 'true' },
+      styles: { display: 'block' }
+    });
+    const transcriptSection = createTestElement({
+      tag: 'section',
+      text: 'Full transcript available below'
+    });
+    container.appendChild(audio);
+    container.appendChild(transcriptSection);
+    return container;
+  },
+
+  multipleAudioWithTranscript: () => {
+    const container = createTestElement({
+      tag: 'div',
+      styles: { display: 'block' }
+    });
+    const audio1 = createTestElement({
+      tag: 'audio',
+      attrs: { src: 'audio1.mp3', controls: 'true' },
+      styles: { display: 'block' }
+    });
+    const audio2 = createTestElement({
+      tag: 'audio',
+      attrs: { src: 'audio2.mp3', controls: 'true' },
+      styles: { display: 'block', marginTop: '10px' }
+    });
+    const transcriptDiv = createTestElement({
+      tag: 'div',
+      text: 'Transcripts for all audio files'
+    });
+    container.appendChild(audio1);
+    container.appendChild(audio2);
+    container.appendChild(transcriptDiv);
+    return container;
+  },
+
+  audioWithScriptText: () => {
+    const container = createTestElement({
+      tag: 'div',
+      styles: { display: 'block' }
+    });
+    const audio = createTestElement({
+      tag: 'audio',
+      attrs: { src: 'audio.mp3', controls: 'true' },
+      styles: { display: 'block' }
+    });
+    const text = createTestElement({
+      tag: 'div',
+      text: 'Script and dialogue information'
+    });
+    container.appendChild(audio);
+    container.appendChild(text);
+    return container;
+  },
+
+  hiddenAudio: () => createTestElement({
+    tag: 'audio',
+    attrs: { src: 'audio.mp3', controls: 'true' },
+    styles: { display: 'none' }
+  }),
+
+  // ===== INTERACTIVE CORE FIXTURES (Wave 2) =====
+
+  // Target Size Fixtures
+  smallButton: (width = 24, height = 24) => createTestElement({
+    tag: 'button',
+    text: 'OK',
+    styles: {
+      width: `${width}px`,
+      height: `${height}px`,
+      padding: '0',
+      margin: '0',
+      border: '1px solid black',
+      display: 'inline-block'
+    }
+  }),
+
+  tinyLink: () => createTestElement({
+    tag: 'a',
+    attrs: { href: '#' },
+    text: 'Go',
+    styles: {
+      width: '20px',
+      height: '20px',
+      display: 'inline-block',
+      overflow: 'hidden',
+      padding: '0',
+      margin: '0'
+    }
+  }),
+
+  linkWithoutHref: () => createTestElement({
+    tag: 'a',
+    text: 'Not a link',
+    styles: {
+      width: '20px',
+      height: '20px',
+      display: 'inline-block'
+    }
+  }),
+
+  largeButton: () => createTestElement({
+    tag: 'button',
+    text: 'Large Button',
+    styles: {
+      width: '50px',
+      height: '50px',
+      padding: '0',
+      display: 'inline-block'
+    }
+  }),
+
+  interactiveRole: (role = 'button', width = 24, height = 24) => createTestElement({
+    tag: 'div',
+    attrs: { role, tabindex: '0' },
+    text: 'Interactive',
+    styles: {
+      width: `${width}px`,
+      height: `${height}px`,
+      display: 'inline-block',
+      padding: '0',
+      margin: '0'
+    }
+  }),
+
+  disabledSmallButton: () => createTestElement({
+    tag: 'button',
+    attrs: { disabled: 'true' },
+    text: 'Disabled',
+    styles: {
+      width: '20px',
+      height: '20px',
+      padding: '0',
+      display: 'inline-block'
+    }
+  }),
+
+  smallInput: () => createTestElement({
+    tag: 'input',
+    attrs: { type: 'text', value: 'Input' },
+    styles: {
+      width: '30px',
+      height: '25px',
+      padding: '0',
+      margin: '0',
+      display: 'block'
+    }
+  }),
+
+  inlineInteractiveElement: () => createTestElement({
+    tag: 'span',
+    attrs: { role: 'button', tabindex: '0' },
+    text: 'Click',
+    styles: {
+      width: '23px',
+      height: '24px',
+      display: 'inline'
+    }
+  }),
+
+  svgInteractiveElement: () => {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '24');
+    svg.setAttribute('height', '24');
+    svg.setAttribute('role', 'button');
+    svg.setAttribute('tabindex', '0');
+    svg.style.display = 'block';
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('width', '24');
+    rect.setAttribute('height', '24');
+    rect.setAttribute('fill', 'blue');
+    svg.appendChild(rect);
+    return svg;
+  },
+
+  // Link in Text Block Fixtures
+  textBlockWithUnderlinedLink: () => {
+    const p = createTestElement({
+      tag: 'p',
+      styles: { color: 'rgb(0, 0, 0)', fontSize: '16px', lineHeight: '1.5' }
+    });
+    const text1 = document.createTextNode('This is some text with an ');
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'underlined link',
+      styles: { color: 'rgb(0, 0, 255)', textDecorationLine: 'underline' }
+    });
+    const text2 = document.createTextNode(' in the middle.');
+    p.appendChild(text1);
+    p.appendChild(link);
+    p.appendChild(text2);
+    return p;
+  },
+
+  textBlockWithBorderedLink: () => {
+    const p = createTestElement({
+      tag: 'p',
+      styles: { color: 'rgb(0, 0, 0)', fontSize: '16px', lineHeight: '1.5' }
+    });
+    const text1 = document.createTextNode('This is some text with a ');
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'bordered link',
+      styles: { color: 'rgb(0, 0, 255)', textDecorationLine: 'none', borderBottom: '1px solid blue' }
+    });
+    const text2 = document.createTextNode(' in the middle.');
+    p.appendChild(text1);
+    p.appendChild(link);
+    p.appendChild(text2);
+    return p;
+  },
+
+  textBlockWithContrastLink: (linkColor = 'rgb(0, 0, 255)') => {
+    const p = createTestElement({
+      tag: 'p',
+      styles: { color: 'rgb(0, 0, 0)', fontSize: '16px', lineHeight: '1.5' }
+    });
+    const text1 = document.createTextNode('This is some text with a ');
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'link with color contrast',
+      styles: { color: linkColor, textDecorationLine: 'none' }
+    });
+    const text2 = document.createTextNode(' in the middle.');
+    p.appendChild(text1);
+    p.appendChild(link);
+    p.appendChild(text2);
+    return p;
+  },
+
+  textBlockWithPlainLink: () => {
+    const p = createTestElement({
+      tag: 'p',
+      styles: { color: 'rgb(0, 0, 0)', fontSize: '16px', lineHeight: '1.5' }
+    });
+    const text1 = document.createTextNode('This is some text with a ');
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'plain link',
+      styles: { color: 'rgb(0, 0, 0)', textDecorationLine: 'none' }
+    });
+    const text2 = document.createTextNode(' that looks the same.');
+    p.appendChild(text1);
+    p.appendChild(link);
+    p.appendChild(text2);
+    return p;
+  },
+
+  linkInNavigation: () => {
+    const nav = createTestElement({
+      tag: 'nav',
+      styles: { display: 'block' }
+    });
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'Nav Link',
+      styles: { color: 'rgb(0, 0, 0)', textDecorationLine: 'none' }
+    });
+    nav.appendChild(link);
+    return nav;
+  },
+
+  nestedTextLink: () => {
+    const p = createTestElement({
+      tag: 'p',
+      styles: { color: 'rgb(0, 0, 0)', fontSize: '16px', lineHeight: '1.5' }
+    });
+    const span = createTestElement({
+      tag: 'span',
+      styles: { color: 'rgb(0, 0, 0)' }
+    });
+    const text1 = document.createTextNode('Text with ');
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'nested link',
+      styles: { color: 'rgb(0, 0, 255)', textDecorationLine: 'underline' }
+    });
+    const text2 = document.createTextNode(' in span.');
+    span.appendChild(text1);
+    span.appendChild(link);
+    span.appendChild(text2);
+    p.appendChild(span);
+    return p;
+  },
+
+  textBlockWithBoldLink: () => {
+    const p = createTestElement({
+      tag: 'p',
+      styles: { color: 'rgb(0, 0, 0)', fontSize: '16px', lineHeight: '1.5', fontWeight: 'normal' }
+    });
+    const text1 = document.createTextNode('This is some text with a ');
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'bold link',
+      styles: { color: 'rgb(0, 0, 0)', textDecorationLine: 'none', fontWeight: 'bold' }
+    });
+    const text2 = document.createTextNode(' with only weight difference.');
+    p.appendChild(text1);
+    p.appendChild(link);
+    p.appendChild(text2);
+    return p;
+  },
+
+  textBlockWithOutlineLink: () => {
+    const p = createTestElement({
+      tag: 'p',
+      styles: { color: 'rgb(0, 0, 0)', fontSize: '16px', lineHeight: '1.5' }
+    });
+    const text1 = document.createTextNode('This is some text with an ');
+    const link = createTestElement({
+      tag: 'a',
+      attrs: { href: '#' },
+      text: 'outlined link',
+      styles: { color: 'rgb(0, 0, 0)', textDecorationLine: 'none', outline: '1px solid blue' }
+    });
+    const text2 = document.createTextNode(' in the middle.');
+    p.appendChild(text1);
+    p.appendChild(link);
+    p.appendChild(text2);
+    return p;
+  }
 };
 
 module.exports = {
