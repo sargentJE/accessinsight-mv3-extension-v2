@@ -29,7 +29,10 @@ class PlaywrightHelper {
       headless: this.options.headless,
       args: [
         '--disable-web-security', // For CORS during testing
-        '--disable-blink-features=AutomationControlled'
+        '--disable-blink-features=AutomationControlled',
+        '--no-sandbox', // Required for container environments
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage' // Overcome limited resource problems
       ]
     });
 
