@@ -201,16 +201,22 @@ async function generateMarkdownReport(metrics, patterns, comparison) {
 
     lines.push('');
 
-    lines.push('### Adjustment Recommendations');
-    lines.push('');
+    const adjustments = patterns.confidenceAccuracy.assessments
+      .filter(a => a.assessment !== 'ACCURATE');
 
-    patterns.confidenceAccuracy.assessments
-      .filter(a => a.assessment !== 'ACCURATE')
-      .forEach(assessment => {
+    if (adjustments.length > 0) {
+      lines.push('### Adjustment Recommendations');
+      lines.push('');
+
+      adjustments.forEach(assessment => {
         lines.push(`- **${assessment.confidence}**: ${assessment.recommendation}`);
       });
 
-    lines.push('');
+      lines.push('');
+    } else {
+      lines.push('*All confidence levels are well-calibrated.*');
+      lines.push('');
+    }
   }
 
   lines.push('---');
@@ -252,9 +258,13 @@ async function generateMarkdownReport(metrics, patterns, comparison) {
         lines.push('**What axe finds but AccessInsight misses**:');
         lines.push('');
 
-        comparison.coverageGaps.missedRules.slice(0, 5).forEach(gap => {
+        const missedRules = comparison.coverageGaps.missedRules;
+        missedRules.slice(0, 5).forEach(gap => {
           lines.push(`- ${gap.rule} (${gap.sitesAffected} sites)`);
         });
+        if (missedRules.length > 5) {
+          lines.push(`- *...and ${missedRules.length - 5} more*`);
+        }
         lines.push('');
       }
 
@@ -262,9 +272,13 @@ async function generateMarkdownReport(metrics, patterns, comparison) {
         lines.push('**Unique to AccessInsight**:');
         lines.push('');
 
-        comparison.coverageGaps.uniqueRules.slice(0, 5).forEach(unique => {
+        const uniqueRules = comparison.coverageGaps.uniqueRules;
+        uniqueRules.slice(0, 5).forEach(unique => {
           lines.push(`- ${unique.rule} (${unique.sitesAffected} sites)`);
         });
+        if (uniqueRules.length > 5) {
+          lines.push(`- *...and ${uniqueRules.length - 5} more*`);
+        }
         lines.push('');
       }
     }
