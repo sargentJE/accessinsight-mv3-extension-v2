@@ -8,6 +8,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const readline = require('readline');
+const { safePrecision } = require('./helpers/safe-math');
 
 // ANSI color codes
 const colors = {
@@ -374,8 +375,13 @@ class ValidationHelper {
       console.log('');
 
       if (validated >= 50) {
-        const precision = truePositives / (truePositives + falsePositives);
-        console.log(`${colors.bright}Estimated Precision:${colors.reset} ${(precision * 100).toFixed(1)}%`);
+        const denominator = truePositives + falsePositives;
+        if (denominator > 0) {
+          const precision = safePrecision(truePositives, falsePositives);
+          console.log(`${colors.bright}Estimated Precision:${colors.reset} ${(precision * 100).toFixed(1)}%`);
+        } else {
+          console.log(`${colors.yellow}Cannot calculate precision: no TP/FP classifications yet${colors.reset}`);
+        }
         console.log('');
       }
     }

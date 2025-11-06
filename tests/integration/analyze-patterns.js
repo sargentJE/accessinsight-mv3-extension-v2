@@ -15,6 +15,7 @@ const {
   mergeValidationData,
   calculateValidationStats
 } = require('./helpers/data-validator');
+const { safeDivide, safeAverage, roundTo, safePrecision } = require('./helpers/safe-math');
 
 // Statistical thresholds
 const MIN_SAMPLE_SIZE_OVERALL = 50;
@@ -88,9 +89,7 @@ function analyzeFalsePositivePatterns(mergedData) {
   for (const rule in byRule) {
     const data = byRule[rule];
 
-    const avgConfidence = data.confidences.length > 0
-      ? data.confidences.reduce((a, b) => a + b, 0) / data.confidences.length
-      : 0;
+    const avgConfidence = safeAverage(data.confidences);
 
     // Find common selector patterns
     const selectorPatterns = findCommonSelectorPatterns(data.selectors);
@@ -337,13 +336,9 @@ function analyzeRulePerformance(mergedData) {
       continue; // Skip rules with insufficient validation
     }
 
-    const precision = stats.validated > 0
-      ? stats.truePositives / (stats.truePositives + stats.falsePositives)
-      : 0;
+    const precision = safePrecision(stats.truePositives, stats.falsePositives);
 
-    const fpRate = stats.validated > 0
-      ? stats.falsePositives / stats.validated
-      : 0;
+    const fpRate = safeDivide(stats.falsePositives, stats.validated);
 
     // Classify performance
     let performance, assessment;
@@ -453,13 +448,9 @@ function analyzeCategoryCorrelation(mergedData) {
       ? stats.totalFindings / stats.sites
       : 0;
 
-    const fpRate = stats.validated > 0
-      ? stats.falsePositives / stats.validated
-      : 0;
+    const fpRate = safeDivide(stats.falsePositives, stats.validated);
 
-    const precision = stats.validated > 0
-      ? stats.truePositives / (stats.truePositives + stats.falsePositives)
-      : 0;
+    const precision = safePrecision(stats.truePositives, stats.falsePositives);
 
     correlations.push({
       category,
@@ -589,7 +580,7 @@ function generateRecommendations(fpPatterns, confidenceAssessments, rulePerforma
  * Get priority level
  */
 function getPriority(impactScore, sitesAffected, totalSites) {
-  const sitePercentage = sitesAffected / totalSites;
+  const sitePercentage = safeDivide(sitesAffected, totalSites);
 
   if (impactScore >= 50 || sitePercentage >= 0.5) return 'P0';
   if (impactScore >= 30 || sitePercentage >= 0.3) return 'P1';

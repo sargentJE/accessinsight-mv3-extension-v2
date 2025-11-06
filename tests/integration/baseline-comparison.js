@@ -9,6 +9,7 @@ const PlaywrightHelper = require('./helpers/playwright-helper');
 const testSites = require('./test-sites.json');
 const fs = require('fs').promises;
 const path = require('path');
+const { safeAverage } = require('./helpers/safe-math');
 
 async function baselineComparison(options = {}) {
   const {
@@ -285,7 +286,7 @@ function calculateSummary(comparisons) {
   const aiTotalFindings = successful.reduce((sum, c) => sum + (c.accessInsight?.totalFindings || 0), 0);
   const totalScanTime = successful.reduce((sum, c) => sum + (c.accessInsight?.scanTime || 0), 0);
 
-  const avgRatio = successful.reduce((sum, c) => sum + (c.analysis?.axeToAccessInsightRatio || 0), 0) / successful.length;
+  const avgRatio = safeAverage(successful.map(c => c.analysis?.axeToAccessInsightRatio || 0));
 
   return {
     axe: {

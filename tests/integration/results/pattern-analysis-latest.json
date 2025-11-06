@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "timestamp": "2025-11-06T10:27:07.489Z",
+    "timestamp": "2025-11-06T19:28:41.365Z",
     "batchFile": "mock-batch-scan.json",
     "validationFile": "manual-validation-completed.csv",
     "validatedFindings": 300,

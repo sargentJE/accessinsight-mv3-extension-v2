@@ -15,6 +15,7 @@ const {
   mergeValidationData,
   calculateValidationStats
 } = require('./helpers/data-validator');
+const { safeDivide, roundTo } = require('./helpers/safe-math');
 
 /**
  * Calculate overall metrics from batch scan results
@@ -69,12 +70,12 @@ function calculateCategoryMetrics(batchResults) {
     byCategory[category].elements += result.elementCount || 0;
   });
 
-  // Calculate averages
+  // Calculate averages (using safeDivide to prevent NaN if sites is 0)
   for (const category in byCategory) {
     const data = byCategory[category];
-    data.avgFindings = Math.round((data.findings / data.sites) * 10) / 10;
-    data.avgScanTime = Math.round(data.scanTime / data.sites);
-    data.avgElements = Math.round(data.elements / data.sites);
+    data.avgFindings = roundTo(safeDivide(data.findings, data.sites), 1);
+    data.avgScanTime = Math.round(safeDivide(data.scanTime, data.sites));
+    data.avgElements = Math.round(safeDivide(data.elements, data.sites));
   }
 
   return byCategory;
@@ -213,10 +214,10 @@ function calculateQualityCorrelation(batchResults) {
     byQuality[quality].findings += result.findings?.length || 0;
   });
 
-  // Calculate averages
+  // Calculate averages (using safeDivide to prevent NaN if sites is 0)
   for (const quality in byQuality) {
     const data = byQuality[quality];
-    data.avgFindings = Math.round((data.findings / data.sites) * 10) / 10;
+    data.avgFindings = roundTo(safeDivide(data.findings, data.sites), 1);
   }
 
   return byQuality;
