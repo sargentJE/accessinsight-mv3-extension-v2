@@ -1,0 +1,3751 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "timestamp": "2025-11-06T10:06:28.593Z",
+    "totalSites": 10,
+    "successfulScans": 10,
+    "failedScans": 0,
+    "totalTime": 2
+  },
+  "results": [
+    {
+      "success": true,
+      "siteId": "gov-001",
+      "siteName": "USA.gov",
+      "url": "https://www.usa.gov",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-115",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-287",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-640",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-514",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-17",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-33",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-481",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-142",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-12",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-268",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-613",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "html-has-lang",
+          "message": "html-has-lang violation detected",
+          "selector": "#element-89",
+          "wcag": [
+            "3.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-669",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-532",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-661",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-26",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-48",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-457",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-317",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-530",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-169",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-700",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-102",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 158,
+      "elementCount": 708,
+      "title": "USA.gov - Home Page",
+      "timestamp": "2025-11-06T10:06:28.591Z",
+      "stats": {
+        "total": 23,
+        "byRule": {
+          "img-alt": 1,
+          "button-name": 2,
+          "label-control": 3,
+          "text-contrast": 4,
+          "link-name": 1,
+          "html-has-lang": 1,
+          "heading-order": 2,
+          "aria-hidden-focus": 1,
+          "target-size": 6,
+          "redundant-entry": 2
+        },
+        "byConfidence": {
+          "0.9": 8,
+          "0.8": 7,
+          "0.7": 8
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "gov-002",
+      "siteName": "UK Government",
+      "url": "https://www.gov.uk",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-308",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-454",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-217",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-270",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-183",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-360",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-219",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-75",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-572",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-40",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-443",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-262",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-461",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-482",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-491",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "document-title",
+          "message": "document-title violation detected",
+          "selector": "#element-44",
+          "wcag": [
+            "2.4.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-581",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-500",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-487",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-418",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-60",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "message": "accessible-authentication-minimum violation detected",
+          "selector": "#element-638",
+          "wcag": [
+            "3.3.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 129,
+      "elementCount": 649,
+      "title": "UK Government - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 22,
+        "byRule": {
+          "img-alt": 2,
+          "text-contrast": 10,
+          "link-name": 3,
+          "document-title": 1,
+          "focus-appearance": 4,
+          "redundant-entry": 1,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 6,
+          "0.8": 10,
+          "0.6": 4,
+          "0.7": 2
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "gov-003",
+      "siteName": "Government of Canada",
+      "url": "https://www.canada.ca/en.html",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-739",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-835",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-584",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-880",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-124",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-920",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-435",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "skip-link",
+          "message": "skip-link violation detected",
+          "selector": "#element-537",
+          "wcag": [
+            "2.4.1"
+          ],
+          "confidence": 0.8,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-363",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-455",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-452",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-111",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-412",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-757",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-297",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-504",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-893",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-501",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-206",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-893",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "message": "accessible-authentication-minimum violation detected",
+          "selector": "#element-701",
+          "wcag": [
+            "3.3.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "message": "accessible-authentication-minimum violation detected",
+          "selector": "#element-805",
+          "wcag": [
+            "3.3.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 193,
+      "elementCount": 927,
+      "title": "Government of Canada - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 22,
+        "byRule": {
+          "img-alt": 4,
+          "link-name": 3,
+          "skip-link": 1,
+          "aria-hidden-focus": 1,
+          "target-size": 3,
+          "focus-appearance": 8,
+          "accessible-authentication-minimum": 2
+        },
+        "byConfidence": {
+          "0.9": 7,
+          "0.8": 2,
+          "0.7": 5,
+          "0.6": 8
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "gov-004",
+      "siteName": "Social Security Administration",
+      "url": "https://www.ssa.gov",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-864",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-165",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-607",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-583",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-430",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-507",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-825",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-530",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-513",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-745",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-308",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-322",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-372",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-187",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-809",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-678",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-190",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-523",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-473",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-436",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-39",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-477",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-775",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-754",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-482",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-580",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-690",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-120",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-755",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-710",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "message": "accessible-authentication-minimum violation detected",
+          "selector": "#element-314",
+          "wcag": [
+            "3.3.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 174,
+      "elementCount": 869,
+      "title": "Social Security Administration - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 31,
+        "byRule": {
+          "img-alt": 1,
+          "button-name": 2,
+          "label-control": 4,
+          "link-name": 1,
+          "aria-hidden-focus": 2,
+          "target-size": 6,
+          "link-in-text-block": 6,
+          "focus-appearance": 6,
+          "redundant-entry": 2,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 8,
+          "0.8": 2,
+          "0.7": 15,
+          "0.6": 6
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "gov-005",
+      "siteName": "Medicare",
+      "url": "https://www.medicare.gov",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-174",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-248",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-251",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-239",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-754",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-424",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-576",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "document-title",
+          "message": "document-title violation detected",
+          "selector": "#element-172",
+          "wcag": [
+            "2.4.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-654",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-257",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "skip-link",
+          "message": "skip-link violation detected",
+          "selector": "#element-253",
+          "wcag": [
+            "2.4.1"
+          ],
+          "confidence": 0.8,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-778",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-303",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-791",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-51",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-573",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-659",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-732",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-720",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-511",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-685",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-393",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-125",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "message": "accessible-authentication-minimum violation detected",
+          "selector": "#element-424",
+          "wcag": [
+            "3.3.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 157,
+      "elementCount": 799,
+      "title": "Medicare - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 24,
+        "byRule": {
+          "img-alt": 1,
+          "button-name": 2,
+          "label-control": 4,
+          "document-title": 1,
+          "heading-order": 2,
+          "skip-link": 1,
+          "target-size": 7,
+          "link-in-text-block": 4,
+          "redundant-entry": 1,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 8,
+          "0.8": 3,
+          "0.7": 13
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "gov-006",
+      "siteName": "National Park Service",
+      "url": "https://www.nps.gov",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-529",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-30",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-240",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-505",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-184",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-262",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-611",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-264",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-602",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-581",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-307",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-305",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-615",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-668",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-545",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-703",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-595",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-109",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "skip-link",
+          "message": "skip-link violation detected",
+          "selector": "#element-323",
+          "wcag": [
+            "2.4.1"
+          ],
+          "confidence": 0.8,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-195",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-302",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-175",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-447",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-685",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-492",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-594",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-642",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-199",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-441",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-690",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "message": "accessible-authentication-minimum violation detected",
+          "selector": "#element-362",
+          "wcag": [
+            "3.3.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 166,
+      "elementCount": 713,
+      "title": "National Park Service - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 31,
+        "byRule": {
+          "img-alt": 4,
+          "button-name": 1,
+          "label-control": 3,
+          "text-contrast": 5,
+          "link-name": 4,
+          "heading-order": 1,
+          "skip-link": 1,
+          "aria-hidden-focus": 2,
+          "link-in-text-block": 3,
+          "focus-appearance": 4,
+          "redundant-entry": 2,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 12,
+          "0.8": 9,
+          "0.7": 6,
+          "0.6": 4
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "gov-007",
+      "siteName": "Section 508",
+      "url": "https://www.section508.gov",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-495",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-524",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-711",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-68",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-250",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "button-name",
+          "message": "button-name violation detected",
+          "selector": "#element-703",
+          "wcag": [
+            "4.1.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-269",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-598",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-663",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-795",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-443",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-595",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-609",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-23",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-410",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-799",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-240",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-679",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-901",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "document-title",
+          "message": "document-title violation detected",
+          "selector": "#element-509",
+          "wcag": [
+            "2.4.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "moderate"
+        },
+        {
+          "rule": "html-has-lang",
+          "message": "html-has-lang violation detected",
+          "selector": "#element-710",
+          "wcag": [
+            "3.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-798",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-130",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-894",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-644",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-434",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-923",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-190",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-167",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-256",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-763",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-663",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-42",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-696",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-436",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-842",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-583",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-852",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-802",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-234",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 231,
+      "elementCount": 943,
+      "title": "Section 508 - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 40,
+        "byRule": {
+          "img-alt": 4,
+          "button-name": 2,
+          "label-control": 3,
+          "text-contrast": 6,
+          "link-name": 4,
+          "document-title": 1,
+          "html-has-lang": 1,
+          "heading-order": 3,
+          "aria-hidden-focus": 1,
+          "target-size": 5,
+          "link-in-text-block": 4,
+          "focus-appearance": 6
+        },
+        "byConfidence": {
+          "0.9": 15,
+          "0.8": 10,
+          "0.7": 9,
+          "0.6": 6
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "gov-008",
+      "siteName": "White House",
+      "url": "https://www.whitehouse.gov",
+      "category": "government",
+      "findings": [
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-411",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-463",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "img-alt",
+          "message": "img-alt violation detected",
+          "selector": "#element-243",
+          "wcag": [
+            "1.1.1"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-423",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-540",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-354",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-637",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-345",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-283",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-268",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "skip-link",
+          "message": "skip-link violation detected",
+          "selector": "#element-415",
+          "wcag": [
+            "2.4.1"
+          ],
+          "confidence": 0.8,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-448",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-401",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-127",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-704",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-543",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-552",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-509",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-412",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-199",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-573",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "link-in-text-block",
+          "message": "link-in-text-block violation detected",
+          "selector": "#element-684",
+          "wcag": [
+            "1.4.1"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-666",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-150",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "message": "accessible-authentication-minimum violation detected",
+          "selector": "#element-695",
+          "wcag": [
+            "3.3.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 143,
+      "elementCount": 738,
+      "title": "White House - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 25,
+        "byRule": {
+          "img-alt": 3,
+          "label-control": 3,
+          "text-contrast": 4,
+          "skip-link": 1,
+          "aria-hidden-focus": 1,
+          "target-size": 6,
+          "link-in-text-block": 4,
+          "redundant-entry": 2,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 6,
+          "0.8": 6,
+          "0.7": 13
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "ecom-001",
+      "siteName": "Amazon",
+      "url": "https://www.amazon.com",
+      "category": "ecommerce",
+      "findings": [
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-1135",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-1367",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-452",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-94",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-577",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-1178",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-1099",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-927",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-178",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-290",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-258",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "text-contrast",
+          "message": "text-contrast violation detected",
+          "selector": "#element-1119",
+          "wcag": [
+            "1.4.3",
+            "1.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-1111",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-465",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-1244",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-883",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-1301",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-82",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "skip-link",
+          "message": "skip-link violation detected",
+          "selector": "#element-435",
+          "wcag": [
+            "2.4.1"
+          ],
+          "confidence": 0.8,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-99",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-870",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-1013",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-1391",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-1069",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-314",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-797",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-270",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-1482",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-321",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-422",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-486",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-376",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-184",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-776",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 222,
+      "elementCount": 1516,
+      "title": "Amazon - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 34,
+        "byRule": {
+          "text-contrast": 12,
+          "link-name": 3,
+          "heading-order": 3,
+          "skip-link": 1,
+          "target-size": 8,
+          "focus-appearance": 7
+        },
+        "byConfidence": {
+          "0.8": 16,
+          "0.9": 3,
+          "0.7": 8,
+          "0.6": 7
+        },
+        "byCriteria": {}
+      }
+    },
+    {
+      "success": true,
+      "siteId": "ecom-002",
+      "siteName": "Etsy",
+      "url": "https://www.etsy.com",
+      "category": "ecommerce",
+      "findings": [
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-150",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-158",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-412",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-727",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-254",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-332",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "label-control",
+          "message": "label-control violation detected",
+          "selector": "#element-52",
+          "wcag": [
+            "1.3.1",
+            "3.3.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "critical"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-1266",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-1541",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-979",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-503",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "link-name",
+          "message": "link-name violation detected",
+          "selector": "#element-712",
+          "wcag": [
+            "4.1.2",
+            "2.4.4"
+          ],
+          "confidence": 0.9,
+          "severity": "serious",
+          "impact": "serious"
+        },
+        {
+          "rule": "document-title",
+          "message": "document-title violation detected",
+          "selector": "#element-1000",
+          "wcag": [
+            "2.4.2"
+          ],
+          "confidence": 0.9,
+          "severity": "critical",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-143",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-1538",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "heading-order",
+          "message": "heading-order violation detected",
+          "selector": "#element-1504",
+          "wcag": [
+            "1.3.1",
+            "2.4.6"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-55",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "message": "aria-hidden-focus violation detected",
+          "selector": "#element-752",
+          "wcag": [
+            "4.1.2",
+            "1.3.1"
+          ],
+          "confidence": 0.8,
+          "severity": "serious",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-1088",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-638",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-948",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-506",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-541",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-287",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-626",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-615",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-484",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "target-size",
+          "message": "target-size violation detected",
+          "selector": "#element-494",
+          "wcag": [
+            "2.5.5",
+            "2.5.8"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-1199",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-832",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-885",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-1302",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-242",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-916",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-1642",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "focus-appearance",
+          "message": "focus-appearance violation detected",
+          "selector": "#element-598",
+          "wcag": [
+            "2.4.11",
+            "2.4.7"
+          ],
+          "confidence": 0.6,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-896",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        },
+        {
+          "rule": "redundant-entry",
+          "message": "redundant-entry violation detected",
+          "selector": "#element-1057",
+          "wcag": [
+            "3.3.7"
+          ],
+          "confidence": 0.7,
+          "severity": "moderate",
+          "impact": "moderate"
+        }
+      ],
+      "scanTime": 319,
+      "elementCount": 1758,
+      "title": "Etsy - Home Page",
+      "timestamp": "2025-11-06T10:06:28.592Z",
+      "stats": {
+        "total": 38,
+        "byRule": {
+          "label-control": 7,
+          "link-name": 5,
+          "document-title": 1,
+          "heading-order": 3,
+          "aria-hidden-focus": 2,
+          "target-size": 10,
+          "focus-appearance": 8,
+          "redundant-entry": 2
+        },
+        "byConfidence": {
+          "0.9": 13,
+          "0.8": 5,
+          "0.7": 12,
+          "0.6": 8
+        },
+        "byCriteria": {}
+      }
+    }
+  ],
+  "errors": []
+}
