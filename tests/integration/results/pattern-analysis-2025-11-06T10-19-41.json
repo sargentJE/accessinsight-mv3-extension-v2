@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "timestamp": "2025-11-06T10:19:41.014Z",
+    "batchFile": "mock-batch-scan.json",
+    "validationFile": "manual-validation-completed.csv",
+    "validatedFindings": 60,
+    "totalFindings": 290,
+    "validationCoverage": 0.20689655172413793
+  },
+  "summary": {
+    "totalPatterns": 0,
+    "criticalPatterns": 0,
+    "confidenceIssues": 0,
+    "poorPerformingRules": 0,
+    "totalRecommendations": 1,
+    "p0Recommendations": 0,
+    "p1Recommendations": 1
+  },
+  "validationStats": {
+    "totalFindings": 290,
+    "validatedFindings": 60,
+    "validationProgress": 0.20689655172413793,
+    "truePositives": 52,
+    "falsePositives": 7,
+    "precision": 0.8813559322033898,
+    "recall": 1,
+    "f1Score": 0.936936936936937,
+    "falsePositiveRate": 0.11864406779661017
+  },
+  "falsePositivePatterns": {
+    "patterns": [],
+    "totalFalsePositives": 7,
+    "patternsIdentified": 0,
+    "criticalPatterns": 0
+  },
+  "confidenceAccuracy": {
+    "assessments": [
+      {
+        "confidence": 0.9,
+        "expectedPrecision": 0.9,
+        "actualPrecision": 0.9,
+        "difference": 0,
+        "sampleSize": 21,
+        "truePositives": 19,
+        "falsePositives": 2,
+        "assessment": "ACCURATE",
+        "recommendation": "Confidence level 0.9 is accurate (actual precision: 90.5%)",
+        "sufficientSampleSize": true
+      }
+    ],
+    "totalAssessed": 1,
+    "needsAdjustment": 0
+  },
+  "rulePerformance": {
+    "performances": [
+      {
+        "rule": "focus-appearance",
+        "performance": "FAIR",
+        "precision": 0.67,
+        "falsePositiveRate": 0.33,
+        "totalFindings": 43,
+        "validated": 12,
+        "truePositives": 8,
+        "falsePositives": 4,
+        "uncertain": 0,
+        "validationCoverage": 0.28,
+        "assessment": "Performing adequately but needs improvement",
+        "recommendation": "Rule needs improvement. 4 false positives out of 12 validated findings (33% FP rate). Review detection logic."
+      },
+      {
+        "rule": "text-contrast",
+        "performance": "EXCELLENT",
+        "precision": 0.93,
+        "falsePositiveRate": 0.07,
+        "totalFindings": 41,
+        "validated": 14,
+        "truePositives": 13,
+        "falsePositives": 1,
+        "uncertain": 0,
+        "validationCoverage": 0.34,
+        "assessment": "Performing excellently with high precision",
+        "recommendation": "Rule is performing excellently. Maintain current implementation."
+      }
+    ],
+    "totalRulesAnalyzed": 2,
+    "excellentRules": 1,
+    "goodRules": 0,
+    "fairRules": 1,
+    "poorRules": 0
+  },
+  "categoryCorrelation": {
+    "correlations": [
+      {
+        "category": "government",
+        "sites": 8,
+        "avgFindingsPerSite": 27.3,
+        "expectedQuality": "medium",
+        "validated": 60,
+        "precision": 0.88,
+        "falsePositiveRate": 0.12,
+        "assessment": "government sites: Acceptable false positive rate (12%). Performing well on government sites."
+      },
+      {
+        "category": "ecommerce",
+        "sites": 2,
+        "avgFindingsPerSite": 36,
+        "expectedQuality": "medium",
+        "validated": 0,
+        "precision": 0,
+        "falsePositiveRate": 0,
+        "assessment": "ecommerce sites: Acceptable false positive rate (0%). Performing well on ecommerce sites."
+      }
+    ],
+    "totalCategories": 2
+  },
+  "recommendations": [
+    {
+      "type": "rule_improvement",
+      "priority": "P1",
+      "rule": "focus-appearance",
+      "issue": "Low precision: 67% (4 FP out of 12 validated)",
+      "evidence": {
+        "precision": 0.67,
+        "falsePositiveRate": 0.33,
+        "validated": 12
+      },
+      "recommendation": "Rule needs improvement. 4 false positives out of 12 validated findings (33% FP rate). Review detection logic.",
+      "expectedImpact": "Improve precision from 67% to 75%+",
+      "implementation": {
+        "difficulty": "medium",
+        "estimatedTime": "1-2 hours"
+      }
+    }
+  ]
+}
