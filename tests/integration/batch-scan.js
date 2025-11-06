@@ -171,7 +171,10 @@ async function batchScan(options = {}) {
     }
 
   } catch (error) {
-    console.error('\n❌ Fatal error during batch scan:', error);
+    console.error('\n❌ Fatal error during batch scan:', error.message);
+    if (error.stack) {
+      console.error(error.stack);
+    }
     throw error;
   } finally {
     await helper.close();
@@ -265,7 +268,10 @@ if (require.main === module) {
       process.exit(0);
     })
     .catch(error => {
-      console.error('❌ Batch scan failed:', error);
+      console.error('❌ Batch scan failed:', error.message);
+      if (error.stack) {
+        console.error(error.stack);
+      }
       process.exit(1);
     });
 }

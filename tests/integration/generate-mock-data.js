@@ -480,7 +480,10 @@ if (require.main === module) {
       process.exit(0);
     })
     .catch(error => {
-      console.error('❌ Mock data generation failed:', error);
+      console.error('❌ Mock data generation failed:', error.message);
+      if (error.stack) {
+        console.error(error.stack);
+      }
       process.exit(1);
     });
 }

@@ -173,6 +173,9 @@ async function baselineComparison(options = {}) {
 
       } catch (error) {
         console.error(`  ❌ Error comparing ${site.name}:`, error.message);
+        if (error.stack) {
+          console.error(error.stack);
+        }
 
         comparisons.push({
           siteName: site.name,
@@ -349,7 +352,10 @@ if (require.main === module) {
       process.exit(0);
     })
     .catch(error => {
-      console.error('❌ Baseline comparison failed:', error);
+      console.error('❌ Baseline comparison failed:', error.message);
+      if (error.stack) {
+        console.error(error.stack);
+      }
       process.exit(1);
     });
 }

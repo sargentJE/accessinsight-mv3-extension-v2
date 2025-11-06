@@ -302,6 +302,9 @@ async function calculateMetrics(options = {}) {
       console.log(`      False Positive Rate: ${(accuracyMetrics.falsePositiveRate * 100).toFixed(1)}%`);
     } catch (error) {
       console.log(`   ⚠️  Could not load validation file: ${error.message}`);
+      if (error.stack) {
+        console.error(error.stack);
+      }
     }
   }
 
@@ -422,7 +425,10 @@ if (require.main === module) {
       process.exit(0);
     })
     .catch(error => {
-      console.error('❌ Metrics calculation failed:', error);
+      console.error('❌ Metrics calculation failed:', error.message);
+      if (error.stack) {
+        console.error(error.stack);
+      }
       process.exit(1);
     });
 }
