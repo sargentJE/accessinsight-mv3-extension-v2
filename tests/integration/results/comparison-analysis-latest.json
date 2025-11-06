@@ -1,0 +1,186 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "timestamp": "2025-11-06T10:21:28.063Z",
+    "comparisonFile": "mock-baseline-comparison.json",
+    "sitesCompared": 5
+  },
+  "summary": {
+    "accessInsight": {
+      "totalFindings": 122,
+      "avgPerSite": 24
+    },
+    "axeCore": {
+      "totalIssues": 80,
+      "avgPerSite": 16
+    },
+    "ratio": 1.52,
+    "avgScanTime": 162
+  },
+  "toolOverlap": {
+    "sitesCompared": 5,
+    "totalAxeIssues": 80,
+    "totalAccessInsightFindings": 122,
+    "avgAxePerSite": 16,
+    "avgAccessInsightPerSite": 24,
+    "ratio": "1.52",
+    "ruleFrequency": {
+      "axe": {
+        "axe-img-alt": 4,
+        "axe-button-name": 3,
+        "axe-label-control": 4,
+        "axe-html-has-lang": 4,
+        "link-name": 2,
+        "aria-valid-attr": 4,
+        "duplicate-id": 2,
+        "axe-text-contrast": 2,
+        "color-contrast": 2
+      },
+      "accessInsight": {
+        "img-alt": 5,
+        "button-name": 3,
+        "label-control": 3,
+        "text-contrast": 2,
+        "link-name": 4,
+        "html-has-lang": 1,
+        "heading-order": 2,
+        "aria-hidden-focus": 3,
+        "target-size": 4,
+        "redundant-entry": 4,
+        "document-title": 2,
+        "focus-appearance": 3,
+        "accessible-authentication-minimum": 4,
+        "skip-link": 2,
+        "link-in-text-block": 2
+      },
+      "both": {}
+    }
+  },
+  "coverageGaps": {
+    "missedRules": [
+      {
+        "rule": "text-contrast",
+        "sitesAffected": 2
+      },
+      {
+        "rule": "link-name",
+        "sitesAffected": 1
+      }
+    ],
+    "uniqueRules": [
+      {
+        "rule": "img-alt",
+        "sitesAffected": 5
+      },
+      {
+        "rule": "target-size",
+        "sitesAffected": 4
+      },
+      {
+        "rule": "redundant-entry",
+        "sitesAffected": 4
+      },
+      {
+        "rule": "accessible-authentication-minimum",
+        "sitesAffected": 4
+      },
+      {
+        "rule": "button-name",
+        "sitesAffected": 3
+      },
+      {
+        "rule": "label-control",
+        "sitesAffected": 3
+      },
+      {
+        "rule": "aria-hidden-focus",
+        "sitesAffected": 3
+      },
+      {
+        "rule": "link-name",
+        "sitesAffected": 3
+      },
+      {
+        "rule": "focus-appearance",
+        "sitesAffected": 3
+      },
+      {
+        "rule": "text-contrast",
+        "sitesAffected": 2
+      },
+      {
+        "rule": "heading-order",
+        "sitesAffected": 2
+      },
+      {
+        "rule": "document-title",
+        "sitesAffected": 2
+      },
+      {
+        "rule": "skip-link",
+        "sitesAffected": 2
+      },
+      {
+        "rule": "link-in-text-block",
+        "sitesAffected": 2
+      },
+      {
+        "rule": "html-has-lang",
+        "sitesAffected": 1
+      }
+    ],
+    "totalMisses": 3,
+    "totalUnique": 43
+  },
+  "performance": {
+    "avgScanTime": 162,
+    "scanTimeRange": {
+      "min": 129,
+      "max": 193
+    },
+    "avgFindingRatio": 1.72,
+    "interpretation": "AccessInsight finds more issues than axe on average"
+  },
+  "insights": [
+    {
+      "type": "coverage",
+      "level": "positive",
+      "title": "AccessInsight finds more issues",
+      "description": "AccessInsight finds 1.52x more issues than axe-core on average. This suggests broader rule coverage or more sensitive detection."
+    },
+    {
+      "type": "performance",
+      "level": "positive",
+      "title": "Fast scanning",
+      "description": "Average scan time of 162ms is excellent. Well within target of <500ms per page."
+    },
+    {
+      "type": "gaps",
+      "level": "attention",
+      "title": "Coverage gaps identified",
+      "description": "AccessInsight misses some issues that axe-core finds. Top gaps: text-contrast, link-name. Consider enhancing these rules."
+    },
+    {
+      "type": "value",
+      "level": "positive",
+      "title": "Unique coverage",
+      "description": "AccessInsight detects issues axe-core doesn't. Unique rules: img-alt, target-size, redundant-entry. Provides complementary value."
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "coverage_gap",
+      "priority": "P2",
+      "rule": "text-contrast",
+      "issue": "axe-core detects this issue on 2 sites, but AccessInsight doesn't",
+      "recommendation": "Review and enhance text-contrast detection to match or exceed axe-core coverage"
+    },
+    {
+      "type": "coverage_gap",
+      "priority": "P2",
+      "rule": "link-name",
+      "issue": "axe-core detects this issue on 1 sites, but AccessInsight doesn't",
+      "recommendation": "Review and enhance link-name detection to match or exceed axe-core coverage"
+    }
+  ]
+}
