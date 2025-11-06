@@ -95,57 +95,6 @@ function validateBatchResults(data) {
 }
 
 /**
- * Validate baseline comparison data
- */
-function validateBaselineComparison(data) {
-  const errors = [];
-  const warnings = [];
-
-  if (!data || typeof data !== 'object') {
-    errors.push('Data must be an object');
-    return { valid: false, errors, warnings };
-  }
-
-  if (!Array.isArray(data.comparisons)) {
-    errors.push('comparisons must be an array');
-    return { valid: false, errors, warnings };
-  }
-
-  data.comparisons.forEach((comp, index) => {
-    const prefix = `comparisons[${index}]`;
-
-    if (!comp.siteName) {
-      errors.push(`${prefix}: Missing siteName`);
-    }
-
-    if (!comp.axe) {
-      errors.push(`${prefix}: Missing axe results`);
-    } else {
-      if (typeof comp.axe.totalIssues !== 'number') {
-        warnings.push(`${prefix}.axe: totalIssues should be a number`);
-      }
-    }
-
-    if (!comp.accessInsight) {
-      errors.push(`${prefix}: Missing accessInsight results`);
-    } else {
-      if (typeof comp.accessInsight.totalFindings !== 'number') {
-        warnings.push(`${prefix}.accessInsight: totalFindings should be a number`);
-      }
-    }
-  });
-
-  return {
-    valid: errors.length === 0,
-    errors,
-    warnings,
-    stats: {
-      totalComparisons: data.comparisons.length
-    }
-  };
-}
-
-/**
  * Validate manual validation data (CSV format)
  */
 function validateManualValidation(csvString) {
@@ -383,7 +332,6 @@ function calculateValidationStats(mergedData) {
 
 module.exports = {
   validateBatchResults,
-  validateBaselineComparison,
   validateManualValidation,
   normalizeBatchResults,
   parseManualValidationCSV,

@@ -31,7 +31,6 @@ class ValidationHelper {
     });
     this.findings = [];
     this.currentIndex = 0;
-    this.validationData = [];
   }
 
   /**
