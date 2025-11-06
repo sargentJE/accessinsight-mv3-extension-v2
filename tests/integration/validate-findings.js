@@ -101,24 +101,36 @@ class ValidationHelper {
   }
 
   /**
-   * Parse CSV line handling quoted fields
+   * Parse CSV line handling quoted fields (RFC 4180 compliant)
+   * Properly handles double-quote escaping ("") instead of backslash escaping
    */
   parseCSVLine(line) {
     const result = [];
     let current = '';
     let inQuotes = false;
+    let i = 0;
 
-    for (let i = 0; i < line.length; i++) {
+    while (i < line.length) {
       const char = line[i];
 
-      if (char === '"' && (i === 0 || line[i - 1] !== '\\')) {
-        inQuotes = !inQuotes;
+      if (char === '"') {
+        if (inQuotes && i + 1 < line.length && line[i + 1] === '"') {
+          // Escaped quote ("") - add single quote to current field
+          current += '"';
+          i += 2;  // Skip both quotes
+          continue;
+        } else {
+          // Toggle quote mode
+          inQuotes = !inQuotes;
+        }
       } else if (char === ',' && !inQuotes) {
+        // Field separator
         result.push(current.trim());
         current = '';
       } else {
         current += char;
       }
+      i++;
     }
 
     result.push(current.trim());
@@ -186,7 +198,7 @@ class ValidationHelper {
   /**
    * Show help screen
    */
-  showHelp() {
+  async showHelp() {
     console.clear();
     console.log('='.repeat(80));
     console.log(`${colors.bright}Manual Validation Guide${colors.reset}`);
@@ -221,7 +233,7 @@ class ValidationHelper {
     console.log('');
     console.log(`${colors.dim}See MANUAL_VALIDATION_GUIDE.md for detailed guidance${colors.reset}`);
     console.log('');
-    this.question('Press Enter to continue...');
+    await this.question('Press Enter to continue...');
   }
 
   /**
@@ -265,7 +277,7 @@ class ValidationHelper {
       } else if (cmd === 'q' || cmd === 'quit' || cmd === 'exit') {
         return 'quit';
       } else if (cmd === 'h' || cmd === 'help' || cmd === '?') {
-        this.showHelp();
+        await this.showHelp();
       } else {
         console.log(`${colors.red}Invalid command. Type 'h' for help.${colors.reset}`);
         await this.question('Press Enter to continue...');

@@ -1,0 +1,233 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "timestamp": "2025-11-06T19:26:48.672Z",
+    "batchFile": "mock-batch-scan.json",
+    "validationFile": "manual-validation-completed.csv"
+  },
+  "overall": {
+    "totalSites": 15,
+    "totalFindings": 438,
+    "avgFindings": 29.2,
+    "totalScanTime": 3135,
+    "avgScanTime": 209,
+    "totalElements": 16884,
+    "avgElements": 1126
+  },
+  "byCategory": {
+    "government": {
+      "sites": 8,
+      "findings": 230,
+      "scanTime": 1432,
+      "elements": 6751,
+      "avgFindings": 28.8,
+      "avgScanTime": 179,
+      "avgElements": 844
+    },
+    "ecommerce": {
+      "sites": 6,
+      "findings": 182,
+      "scanTime": 1529,
+      "elements": 9053,
+      "avgFindings": 30.3,
+      "avgScanTime": 255,
+      "avgElements": 1509
+    },
+    "news": {
+      "sites": 1,
+      "findings": 26,
+      "scanTime": 174,
+      "elements": 1080,
+      "avgFindings": 26,
+      "avgScanTime": 174,
+      "avgElements": 1080
+    }
+  },
+  "byRule": {
+    "text-contrast": {
+      "totalFindings": 96,
+      "sitesAffected": 12,
+      "avgConfidence": 0.8,
+      "mostCommonSeverity": "serious",
+      "wcagCriteria": [
+        "1.4.3",
+        "1.4.6"
+      ]
+    },
+    "target-size": {
+      "totalFindings": 53,
+      "sitesAffected": 9,
+      "avgConfidence": 0.7,
+      "mostCommonSeverity": "moderate",
+      "wcagCriteria": [
+        "2.5.5",
+        "2.5.8"
+      ]
+    },
+    "focus-appearance": {
+      "totalFindings": 44,
+      "sitesAffected": 10,
+      "avgConfidence": 0.6,
+      "mostCommonSeverity": "moderate",
+      "wcagCriteria": [
+        "2.4.11",
+        "2.4.7"
+      ]
+    },
+    "link-in-text-block": {
+      "totalFindings": 38,
+      "sitesAffected": 9,
+      "avgConfidence": 0.7,
+      "mostCommonSeverity": "moderate",
+      "wcagCriteria": [
+        "1.4.1"
+      ]
+    },
+    "label-control": {
+      "totalFindings": 33,
+      "sitesAffected": 7,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "critical",
+      "wcagCriteria": [
+        "1.3.1",
+        "3.3.2"
+      ]
+    },
+    "img-alt": {
+      "totalFindings": 33,
+      "sitesAffected": 10,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "critical",
+      "wcagCriteria": [
+        "1.1.1"
+      ]
+    },
+    "link-name": {
+      "totalFindings": 32,
+      "sitesAffected": 9,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "serious",
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ]
+    },
+    "heading-order": {
+      "totalFindings": 24,
+      "sitesAffected": 12,
+      "avgConfidence": 0.8,
+      "mostCommonSeverity": "serious",
+      "wcagCriteria": [
+        "1.3.1",
+        "2.4.6"
+      ]
+    },
+    "redundant-entry": {
+      "totalFindings": 23,
+      "sitesAffected": 9,
+      "avgConfidence": 0.7,
+      "mostCommonSeverity": "moderate",
+      "wcagCriteria": [
+        "3.3.7"
+      ]
+    },
+    "button-name": {
+      "totalFindings": 18,
+      "sitesAffected": 10,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "critical",
+      "wcagCriteria": [
+        "4.1.2"
+      ]
+    },
+    "accessible-authentication-minimum": {
+      "totalFindings": 14,
+      "sitesAffected": 11,
+      "avgConfidence": 0.7,
+      "mostCommonSeverity": "moderate",
+      "wcagCriteria": [
+        "3.3.8"
+      ]
+    },
+    "aria-hidden-focus": {
+      "totalFindings": 10,
+      "sitesAffected": 8,
+      "avgConfidence": 0.8,
+      "mostCommonSeverity": "serious",
+      "wcagCriteria": [
+        "1.3.1",
+        "4.1.2"
+      ]
+    },
+    "skip-link": {
+      "totalFindings": 8,
+      "sitesAffected": 8,
+      "avgConfidence": 0.8,
+      "mostCommonSeverity": "moderate",
+      "wcagCriteria": [
+        "2.4.1"
+      ]
+    },
+    "html-has-lang": {
+      "totalFindings": 7,
+      "sitesAffected": 7,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "critical",
+      "wcagCriteria": [
+        "3.1.1"
+      ]
+    },
+    "document-title": {
+      "totalFindings": 5,
+      "sitesAffected": 5,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "critical",
+      "wcagCriteria": [
+        "2.4.2"
+      ]
+    }
+  },
+  "byConfidence": {
+    "0.9": {
+      "totalFindings": 128,
+      "uniqueRules": 6,
+      "sitesAffected": 15
+    },
+    "0.8": {
+      "totalFindings": 138,
+      "uniqueRules": 4,
+      "sitesAffected": 15
+    },
+    "0.7": {
+      "totalFindings": 128,
+      "uniqueRules": 4,
+      "sitesAffected": 14
+    },
+    "0.6": {
+      "totalFindings": 44,
+      "uniqueRules": 1,
+      "sitesAffected": 10
+    }
+  },
+  "byQuality": {
+    "medium": {
+      "sites": 15,
+      "findings": 438,
+      "avgFindings": 29.2
+    }
+  },
+  "accuracy": {
+    "totalFindings": 438,
+    "validatedFindings": 300,
+    "unvalidatedFindings": 138,
+    "validationProgress": 0.684931506849315,
+    "truePositives": 247,
+    "falsePositives": 40,
+    "falseNegatives": 0,
+    "uncertain": 13,
+    "precision": 0.8606271777003485,
+    "recall": 1,
+    "f1Score": 0.9250936329588015,
+    "falsePositiveRate": 0.13937282229965156
+  }
+}
