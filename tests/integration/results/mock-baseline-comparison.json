@@ -1,9 +1,9 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "timestamp": "2025-11-06T10:06:28.597Z",
-    "totalSites": 5,
-    "successfulComparisons": 5,
+    "timestamp": "2025-11-06T10:26:35.502Z",
+    "totalSites": 10,
+    "successfulComparisons": 10,
     "failedComparisons": 0
   },
   "comparisons": [
@@ -12,13 +12,1445 @@
       "siteId": "gov-001",
       "url": "https://www.usa.gov",
       "category": "government",
-      "timestamp": "2025-11-06T10:06:28.591Z",
+      "timestamp": "2025-11-06T10:26:35.494Z",
       "axe": {
-        "violationTypes": 6,
-        "totalIssues": 16,
-        "passes": 34,
-        "incomplete": 2,
+        "violationTypes": 7,
+        "totalIssues": 19,
+        "passes": 26,
+        "incomplete": 1,
+        "inapplicable": 24,
+        "violations": [
+          {
+            "id": "axe-img-alt",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "img-alt violations found",
+            "nodes": 1
+          },
+          {
+            "id": "axe-button-name",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "button-name violations found",
+            "nodes": 3
+          },
+          {
+            "id": "axe-label-control",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "label-control violations found",
+            "nodes": 1
+          },
+          {
+            "id": "axe-text-contrast",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "text-contrast violations found",
+            "nodes": 1
+          },
+          {
+            "id": "axe-html-has-lang",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "html-has-lang violations found",
+            "nodes": 5
+          },
+          {
+            "id": "link-name",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "link-name violations found",
+            "nodes": 4
+          },
+          {
+            "id": "aria-valid-attr",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "aria-valid-attr violations found",
+            "nodes": 4
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 20,
+        "scanTime": 232,
+        "byRule": {
+          "label-control": 3,
+          "text-contrast": 11,
+          "link-name": 4,
+          "html-has-lang": 1,
+          "heading-order": 1
+        },
+        "byConfidence": {
+          "0.9": 8,
+          "0.8": 12
+        },
+        "findings": [
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-877"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-328"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-435"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-86"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-432"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-760"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-122"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-779"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-641"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-109"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-191"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-376"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-601"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-230"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-740"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-99"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-254"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-106"
+          },
+          {
+            "rule": "html-has-lang",
+            "confidence": 0.9,
+            "wcag": [
+              "3.1.1"
+            ],
+            "selector": "#element-801"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-284"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 1.0526315789473684,
+        "axeRules": 7,
+        "accessInsightRules": 5
+      }
+    },
+    {
+      "siteName": "UK Government",
+      "siteId": "gov-002",
+      "url": "https://www.gov.uk",
+      "category": "government",
+      "timestamp": "2025-11-06T10:26:35.495Z",
+      "axe": {
+        "violationTypes": 5,
+        "totalIssues": 14,
+        "passes": 30,
+        "incomplete": 1,
+        "inapplicable": 22,
+        "violations": [
+          {
+            "id": "axe-button-name",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "button-name violations found",
+            "nodes": 2
+          },
+          {
+            "id": "axe-label-control",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "label-control violations found",
+            "nodes": 4
+          },
+          {
+            "id": "color-contrast",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "color-contrast violations found",
+            "nodes": 3
+          },
+          {
+            "id": "link-name",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "link-name violations found",
+            "nodes": 3
+          },
+          {
+            "id": "aria-valid-attr",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "aria-valid-attr violations found",
+            "nodes": 2
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 30,
+        "scanTime": 170,
+        "byRule": {
+          "img-alt": 4,
+          "button-name": 1,
+          "label-control": 5,
+          "text-contrast": 4,
+          "link-name": 4,
+          "document-title": 1,
+          "skip-link": 1,
+          "aria-hidden-focus": 1,
+          "link-in-text-block": 2,
+          "focus-appearance": 4,
+          "redundant-entry": 2,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 15,
+          "0.8": 6,
+          "0.7": 5,
+          "0.6": 4
+        },
+        "findings": [
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-699"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-113"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-181"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-877"
+          },
+          {
+            "rule": "button-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2"
+            ],
+            "selector": "#element-110"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-447"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-715"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-243"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-335"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-588"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-592"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-164"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-878"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-285"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-902"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-161"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-545"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-213"
+          },
+          {
+            "rule": "document-title",
+            "confidence": 0.9,
+            "wcag": [
+              "2.4.2"
+            ],
+            "selector": "#element-153"
+          },
+          {
+            "rule": "skip-link",
+            "confidence": 0.8,
+            "wcag": [
+              "2.4.1"
+            ],
+            "selector": "#element-214"
+          },
+          {
+            "rule": "aria-hidden-focus",
+            "confidence": 0.8,
+            "wcag": [
+              "4.1.2",
+              "1.3.1"
+            ],
+            "selector": "#element-424"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-161"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-578"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-234"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-134"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-620"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-255"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-384"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-122"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-682"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 2.142857142857143,
+        "axeRules": 5,
+        "accessInsightRules": 12
+      }
+    },
+    {
+      "siteName": "Government of Canada",
+      "siteId": "gov-003",
+      "url": "https://www.canada.ca/en.html",
+      "category": "government",
+      "timestamp": "2025-11-06T10:26:35.495Z",
+      "axe": {
+        "violationTypes": 7,
+        "totalIssues": 19,
+        "passes": 29,
+        "incomplete": 0,
         "inapplicable": 15,
+        "violations": [
+          {
+            "id": "axe-img-alt",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "img-alt violations found",
+            "nodes": 1
+          },
+          {
+            "id": "axe-button-name",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "button-name violations found",
+            "nodes": 4
+          },
+          {
+            "id": "axe-label-control",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "label-control violations found",
+            "nodes": 4
+          },
+          {
+            "id": "axe-text-contrast",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "text-contrast violations found",
+            "nodes": 1
+          },
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "color-contrast violations found",
+            "nodes": 2
+          },
+          {
+            "id": "link-name",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "link-name violations found",
+            "nodes": 3
+          },
+          {
+            "id": "duplicate-id",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "duplicate-id violations found",
+            "nodes": 4
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 34,
+        "scanTime": 145,
+        "byRule": {
+          "img-alt": 4,
+          "label-control": 4,
+          "text-contrast": 10,
+          "link-name": 2,
+          "document-title": 1,
+          "heading-order": 1,
+          "aria-hidden-focus": 1,
+          "target-size": 5,
+          "link-in-text-block": 4,
+          "focus-appearance": 1,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 11,
+          "0.8": 12,
+          "0.7": 10,
+          "0.6": 1
+        },
+        "findings": [
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-345"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-676"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-101"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-33"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-707"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-570"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-554"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-58"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-324"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-150"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-404"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-33"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-535"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-542"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-679"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-590"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-44"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-675"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-196"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-170"
+          },
+          {
+            "rule": "document-title",
+            "confidence": 0.9,
+            "wcag": [
+              "2.4.2"
+            ],
+            "selector": "#element-261"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-642"
+          },
+          {
+            "rule": "aria-hidden-focus",
+            "confidence": 0.8,
+            "wcag": [
+              "4.1.2",
+              "1.3.1"
+            ],
+            "selector": "#element-216"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-185"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-288"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-349"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-421"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-613"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-358"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-352"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-578"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-81"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-503"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-67"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 1.7894736842105263,
+        "axeRules": 7,
+        "accessInsightRules": 11
+      }
+    },
+    {
+      "siteName": "Social Security Administration",
+      "siteId": "gov-004",
+      "url": "https://www.ssa.gov",
+      "category": "government",
+      "timestamp": "2025-11-06T10:26:35.496Z",
+      "axe": {
+        "violationTypes": 7,
+        "totalIssues": 19,
+        "passes": 31,
+        "incomplete": 2,
+        "inapplicable": 21,
+        "violations": [
+          {
+            "id": "axe-button-name",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "button-name violations found",
+            "nodes": 5
+          },
+          {
+            "id": "axe-label-control",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "label-control violations found",
+            "nodes": 3
+          },
+          {
+            "id": "axe-text-contrast",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "text-contrast violations found",
+            "nodes": 3
+          },
+          {
+            "id": "axe-html-has-lang",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "html-has-lang violations found",
+            "nodes": 2
+          },
+          {
+            "id": "color-contrast",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "color-contrast violations found",
+            "nodes": 2
+          },
+          {
+            "id": "link-name",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "link-name violations found",
+            "nodes": 3
+          },
+          {
+            "id": "aria-valid-attr",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "aria-valid-attr violations found",
+            "nodes": 1
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 31,
+        "scanTime": 214,
+        "byRule": {
+          "img-alt": 4,
+          "button-name": 2,
+          "link-name": 5,
+          "heading-order": 2,
+          "skip-link": 1,
+          "aria-hidden-focus": 1,
+          "target-size": 4,
+          "link-in-text-block": 5,
+          "focus-appearance": 2,
+          "redundant-entry": 3,
+          "accessible-authentication-minimum": 2
+        },
+        "byConfidence": {
+          "0.9": 11,
+          "0.8": 4,
+          "0.7": 14,
+          "0.6": 2
+        },
+        "findings": [
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-417"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-384"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-869"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-921"
+          },
+          {
+            "rule": "button-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2"
+            ],
+            "selector": "#element-563"
+          },
+          {
+            "rule": "button-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2"
+            ],
+            "selector": "#element-413"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-553"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-35"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-560"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-107"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-650"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-544"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-288"
+          },
+          {
+            "rule": "skip-link",
+            "confidence": 0.8,
+            "wcag": [
+              "2.4.1"
+            ],
+            "selector": "#element-758"
+          },
+          {
+            "rule": "aria-hidden-focus",
+            "confidence": 0.8,
+            "wcag": [
+              "4.1.2",
+              "1.3.1"
+            ],
+            "selector": "#element-591"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-422"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-324"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-252"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-742"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-700"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-15"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-464"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-489"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-577"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-468"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-278"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-66"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-724"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-831"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-860"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-128"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 1.631578947368421,
+        "axeRules": 7,
+        "accessInsightRules": 11
+      }
+    },
+    {
+      "siteName": "Medicare",
+      "siteId": "gov-005",
+      "url": "https://www.medicare.gov",
+      "category": "government",
+      "timestamp": "2025-11-06T10:26:35.496Z",
+      "axe": {
+        "violationTypes": 2,
+        "totalIssues": 6,
+        "passes": 27,
+        "incomplete": 0,
+        "inapplicable": 21,
         "violations": [
           {
             "id": "axe-img-alt",
@@ -31,15 +1463,237 @@
             "nodes": 5
           },
           {
-            "id": "axe-button-name",
-            "impact": "critical",
+            "id": "color-contrast",
+            "impact": "moderate",
             "tags": [
               "wcag2a",
               "wcag2aa"
             ],
-            "description": "button-name violations found",
+            "description": "color-contrast violations found",
             "nodes": 1
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 21,
+        "scanTime": 148,
+        "byRule": {
+          "img-alt": 3,
+          "button-name": 1,
+          "text-contrast": 5,
+          "link-name": 1,
+          "html-has-lang": 1,
+          "heading-order": 2,
+          "skip-link": 1,
+          "aria-hidden-focus": 1,
+          "link-in-text-block": 2,
+          "redundant-entry": 3,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 6,
+          "0.8": 9,
+          "0.7": 6
+        },
+        "findings": [
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-327"
           },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-359"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-593"
+          },
+          {
+            "rule": "button-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2"
+            ],
+            "selector": "#element-155"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-474"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-374"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-364"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-507"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-522"
+          },
+          {
+            "rule": "link-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2",
+              "2.4.4"
+            ],
+            "selector": "#element-606"
+          },
+          {
+            "rule": "html-has-lang",
+            "confidence": 0.9,
+            "wcag": [
+              "3.1.1"
+            ],
+            "selector": "#element-20"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-414"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-395"
+          },
+          {
+            "rule": "skip-link",
+            "confidence": 0.8,
+            "wcag": [
+              "2.4.1"
+            ],
+            "selector": "#element-223"
+          },
+          {
+            "rule": "aria-hidden-focus",
+            "confidence": 0.8,
+            "wcag": [
+              "4.1.2",
+              "1.3.1"
+            ],
+            "selector": "#element-32"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-276"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-237"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-9"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-322"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-569"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-421"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 3.5,
+        "axeRules": 2,
+        "accessInsightRules": 11
+      }
+    },
+    {
+      "siteName": "National Park Service",
+      "siteId": "gov-006",
+      "url": "https://www.nps.gov",
+      "category": "government",
+      "timestamp": "2025-11-06T10:26:35.496Z",
+      "axe": {
+        "violationTypes": 5,
+        "totalIssues": 14,
+        "passes": 25,
+        "incomplete": 0,
+        "inapplicable": 17,
+        "violations": [
           {
             "id": "axe-label-control",
             "impact": "critical",
@@ -61,6 +1715,702 @@
             "nodes": 3
           },
           {
+            "id": "color-contrast",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "color-contrast violations found",
+            "nodes": 3
+          },
+          {
+            "id": "link-name",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "link-name violations found",
+            "nodes": 1
+          },
+          {
+            "id": "duplicate-id",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "duplicate-id violations found",
+            "nodes": 4
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 33,
+        "scanTime": 223,
+        "byRule": {
+          "img-alt": 2,
+          "button-name": 2,
+          "text-contrast": 11,
+          "html-has-lang": 1,
+          "heading-order": 2,
+          "skip-link": 1,
+          "target-size": 3,
+          "link-in-text-block": 4,
+          "focus-appearance": 6,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 5,
+          "0.8": 14,
+          "0.7": 8,
+          "0.6": 6
+        },
+        "findings": [
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-228"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-237"
+          },
+          {
+            "rule": "button-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2"
+            ],
+            "selector": "#element-865"
+          },
+          {
+            "rule": "button-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2"
+            ],
+            "selector": "#element-504"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-522"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-307"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-265"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-716"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-174"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-98"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-262"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-404"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-794"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-601"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-789"
+          },
+          {
+            "rule": "html-has-lang",
+            "confidence": 0.9,
+            "wcag": [
+              "3.1.1"
+            ],
+            "selector": "#element-306"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-333"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-310"
+          },
+          {
+            "rule": "skip-link",
+            "confidence": 0.8,
+            "wcag": [
+              "2.4.1"
+            ],
+            "selector": "#element-311"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-231"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-499"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-629"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-371"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-228"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-485"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-164"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-307"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-689"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-591"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-352"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-662"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-654"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-599"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 2.357142857142857,
+        "axeRules": 5,
+        "accessInsightRules": 10
+      }
+    },
+    {
+      "siteName": "Section 508",
+      "siteId": "gov-007",
+      "url": "https://www.section508.gov",
+      "category": "government",
+      "timestamp": "2025-11-06T10:26:35.496Z",
+      "axe": {
+        "violationTypes": 2,
+        "totalIssues": 8,
+        "passes": 34,
+        "incomplete": 0,
+        "inapplicable": 16,
+        "violations": [
+          {
+            "id": "axe-button-name",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "button-name violations found",
+            "nodes": 3
+          },
+          {
+            "id": "axe-html-has-lang",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "html-has-lang violations found",
+            "nodes": 5
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 25,
+        "scanTime": 139,
+        "byRule": {
+          "img-alt": 1,
+          "button-name": 1,
+          "label-control": 5,
+          "text-contrast": 4,
+          "document-title": 1,
+          "aria-hidden-focus": 2,
+          "target-size": 6,
+          "focus-appearance": 3,
+          "redundant-entry": 1,
+          "accessible-authentication-minimum": 1
+        },
+        "byConfidence": {
+          "0.9": 8,
+          "0.8": 6,
+          "0.7": 8,
+          "0.6": 3
+        },
+        "findings": [
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-426"
+          },
+          {
+            "rule": "button-name",
+            "confidence": 0.9,
+            "wcag": [
+              "4.1.2"
+            ],
+            "selector": "#element-213"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-161"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-322"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-182"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-457"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-228"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-341"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-57"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-536"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-432"
+          },
+          {
+            "rule": "document-title",
+            "confidence": 0.9,
+            "wcag": [
+              "2.4.2"
+            ],
+            "selector": "#element-513"
+          },
+          {
+            "rule": "aria-hidden-focus",
+            "confidence": 0.8,
+            "wcag": [
+              "4.1.2",
+              "1.3.1"
+            ],
+            "selector": "#element-22"
+          },
+          {
+            "rule": "aria-hidden-focus",
+            "confidence": 0.8,
+            "wcag": [
+              "4.1.2",
+              "1.3.1"
+            ],
+            "selector": "#element-439"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-375"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-409"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-253"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-414"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-714"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-623"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-166"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-702"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-400"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-184"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-615"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 3.125,
+        "axeRules": 2,
+        "accessInsightRules": 10
+      }
+    },
+    {
+      "siteName": "White House",
+      "siteId": "gov-008",
+      "url": "https://www.whitehouse.gov",
+      "category": "government",
+      "timestamp": "2025-11-06T10:26:35.496Z",
+      "axe": {
+        "violationTypes": 8,
+        "totalIssues": 24,
+        "passes": 30,
+        "incomplete": 2,
+        "inapplicable": 21,
+        "violations": [
+          {
+            "id": "axe-img-alt",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "img-alt violations found",
+            "nodes": 4
+          },
+          {
+            "id": "axe-button-name",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "button-name violations found",
+            "nodes": 2
+          },
+          {
+            "id": "axe-label-control",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "label-control violations found",
+            "nodes": 4
+          },
+          {
+            "id": "axe-text-contrast",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "text-contrast violations found",
+            "nodes": 3
+          },
+          {
+            "id": "color-contrast",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "color-contrast violations found",
+            "nodes": 3
+          },
+          {
             "id": "link-name",
             "impact": "serious",
             "tags": [
@@ -71,6 +2421,16 @@
             "nodes": 3
           },
           {
+            "id": "duplicate-id",
+            "impact": "serious",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "duplicate-id violations found",
+            "nodes": 3
+          },
+          {
             "id": "aria-valid-attr",
             "impact": "serious",
             "tags": [
@@ -78,38 +2438,39 @@
               "wcag2aa"
             ],
             "description": "aria-valid-attr violations found",
-            "nodes": 1
+            "nodes": 2
           }
         ]
       },
       "accessInsight": {
-        "totalFindings": 23,
-        "scanTime": 158,
+        "totalFindings": 36,
+        "scanTime": 161,
         "byRule": {
-          "img-alt": 1,
           "button-name": 2,
-          "label-control": 3,
-          "text-contrast": 4,
-          "link-name": 1,
+          "label-control": 4,
+          "text-contrast": 9,
           "html-has-lang": 1,
-          "heading-order": 2,
-          "aria-hidden-focus": 1,
-          "target-size": 6,
-          "redundant-entry": 2
+          "skip-link": 1,
+          "target-size": 5,
+          "link-in-text-block": 4,
+          "focus-appearance": 5,
+          "redundant-entry": 3,
+          "accessible-authentication-minimum": 2
         },
         "byConfidence": {
-          "0.9": 8,
-          "0.8": 7,
-          "0.7": 8
+          "0.9": 7,
+          "0.8": 10,
+          "0.7": 14,
+          "0.6": 5
         },
         "findings": [
           {
-            "rule": "img-alt",
+            "rule": "button-name",
             "confidence": 0.9,
             "wcag": [
-              "1.1.1"
+              "4.1.2"
             ],
-            "selector": "#element-115"
+            "selector": "#element-601"
           },
           {
             "rule": "button-name",
@@ -117,15 +2478,7 @@
             "wcag": [
               "4.1.2"
             ],
-            "selector": "#element-287"
-          },
-          {
-            "rule": "button-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2"
-            ],
-            "selector": "#element-640"
+            "selector": "#element-924"
           },
           {
             "rule": "label-control",
@@ -134,7 +2487,7 @@
               "1.3.1",
               "3.3.2"
             ],
-            "selector": "#element-514"
+            "selector": "#element-270"
           },
           {
             "rule": "label-control",
@@ -143,7 +2496,7 @@
               "1.3.1",
               "3.3.2"
             ],
-            "selector": "#element-17"
+            "selector": "#element-301"
           },
           {
             "rule": "label-control",
@@ -152,7 +2505,16 @@
               "1.3.1",
               "3.3.2"
             ],
-            "selector": "#element-33"
+            "selector": "#element-531"
+          },
+          {
+            "rule": "label-control",
+            "confidence": 0.9,
+            "wcag": [
+              "1.3.1",
+              "3.3.2"
+            ],
+            "selector": "#element-743"
           },
           {
             "rule": "text-contrast",
@@ -161,7 +2523,43 @@
               "1.4.3",
               "1.4.6"
             ],
-            "selector": "#element-481"
+            "selector": "#element-346"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-235"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-689"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-15"
+          },
+          {
+            "rule": "text-contrast",
+            "confidence": 0.8,
+            "wcag": [
+              "1.4.3",
+              "1.4.6"
+            ],
+            "selector": "#element-723"
           },
           {
             "rule": "text-contrast",
@@ -179,7 +2577,7 @@
               "1.4.3",
               "1.4.6"
             ],
-            "selector": "#element-12"
+            "selector": "#element-457"
           },
           {
             "rule": "text-contrast",
@@ -188,16 +2586,16 @@
               "1.4.3",
               "1.4.6"
             ],
-            "selector": "#element-268"
+            "selector": "#element-865"
           },
           {
-            "rule": "link-name",
-            "confidence": 0.9,
+            "rule": "text-contrast",
+            "confidence": 0.8,
             "wcag": [
-              "4.1.2",
-              "2.4.4"
+              "1.4.3",
+              "1.4.6"
             ],
-            "selector": "#element-613"
+            "selector": "#element-730"
           },
           {
             "rule": "html-has-lang",
@@ -205,34 +2603,15 @@
             "wcag": [
               "3.1.1"
             ],
-            "selector": "#element-89"
+            "selector": "#element-459"
           },
           {
-            "rule": "heading-order",
+            "rule": "skip-link",
             "confidence": 0.8,
             "wcag": [
-              "1.3.1",
-              "2.4.6"
+              "2.4.1"
             ],
-            "selector": "#element-669"
-          },
-          {
-            "rule": "heading-order",
-            "confidence": 0.8,
-            "wcag": [
-              "1.3.1",
-              "2.4.6"
-            ],
-            "selector": "#element-532"
-          },
-          {
-            "rule": "aria-hidden-focus",
-            "confidence": 0.8,
-            "wcag": [
-              "4.1.2",
-              "1.3.1"
-            ],
-            "selector": "#element-661"
+            "selector": "#element-264"
           },
           {
             "rule": "target-size",
@@ -241,7 +2620,7 @@
               "2.5.5",
               "2.5.8"
             ],
-            "selector": "#element-26"
+            "selector": "#element-127"
           },
           {
             "rule": "target-size",
@@ -250,7 +2629,7 @@
               "2.5.5",
               "2.5.8"
             ],
-            "selector": "#element-48"
+            "selector": "#element-351"
           },
           {
             "rule": "target-size",
@@ -259,7 +2638,7 @@
               "2.5.5",
               "2.5.8"
             ],
-            "selector": "#element-457"
+            "selector": "#element-762"
           },
           {
             "rule": "target-size",
@@ -268,7 +2647,7 @@
               "2.5.5",
               "2.5.8"
             ],
-            "selector": "#element-317"
+            "selector": "#element-255"
           },
           {
             "rule": "target-size",
@@ -277,282 +2656,48 @@
               "2.5.5",
               "2.5.8"
             ],
-            "selector": "#element-530"
+            "selector": "#element-35"
           },
           {
-            "rule": "target-size",
+            "rule": "link-in-text-block",
             "confidence": 0.7,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
+              "1.4.1"
             ],
-            "selector": "#element-169"
+            "selector": "#element-378"
           },
           {
-            "rule": "redundant-entry",
+            "rule": "link-in-text-block",
             "confidence": 0.7,
             "wcag": [
-              "3.3.7"
+              "1.4.1"
             ],
-            "selector": "#element-700"
+            "selector": "#element-640"
           },
           {
-            "rule": "redundant-entry",
+            "rule": "link-in-text-block",
             "confidence": 0.7,
             "wcag": [
-              "3.3.7"
-            ],
-            "selector": "#element-102"
-          }
-        ]
-      },
-      "analysis": {
-        "axeToAccessInsightRatio": 1.4375,
-        "axeRules": 6,
-        "accessInsightRules": 10
-      }
-    },
-    {
-      "siteName": "UK Government",
-      "siteId": "gov-002",
-      "url": "https://www.gov.uk",
-      "category": "government",
-      "timestamp": "2025-11-06T10:06:28.592Z",
-      "axe": {
-        "violationTypes": 4,
-        "totalIssues": 11,
-        "passes": 33,
-        "incomplete": 1,
-        "inapplicable": 16,
-        "violations": [
-          {
-            "id": "axe-label-control",
-            "impact": "critical",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "label-control violations found",
-            "nodes": 2
-          },
-          {
-            "id": "axe-html-has-lang",
-            "impact": "moderate",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "html-has-lang violations found",
-            "nodes": 4
-          },
-          {
-            "id": "duplicate-id",
-            "impact": "moderate",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "duplicate-id violations found",
-            "nodes": 1
-          },
-          {
-            "id": "aria-valid-attr",
-            "impact": "moderate",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "aria-valid-attr violations found",
-            "nodes": 4
-          }
-        ]
-      },
-      "accessInsight": {
-        "totalFindings": 22,
-        "scanTime": 129,
-        "byRule": {
-          "img-alt": 2,
-          "text-contrast": 10,
-          "link-name": 3,
-          "document-title": 1,
-          "focus-appearance": 4,
-          "redundant-entry": 1,
-          "accessible-authentication-minimum": 1
-        },
-        "byConfidence": {
-          "0.9": 6,
-          "0.8": 10,
-          "0.6": 4,
-          "0.7": 2
-        },
-        "findings": [
-          {
-            "rule": "img-alt",
-            "confidence": 0.9,
-            "wcag": [
-              "1.1.1"
-            ],
-            "selector": "#element-308"
-          },
-          {
-            "rule": "img-alt",
-            "confidence": 0.9,
-            "wcag": [
-              "1.1.1"
-            ],
-            "selector": "#element-454"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-217"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-270"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-183"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-360"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-219"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-75"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-572"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-40"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-443"
-          },
-          {
-            "rule": "text-contrast",
-            "confidence": 0.8,
-            "wcag": [
-              "1.4.3",
-              "1.4.6"
-            ],
-            "selector": "#element-262"
-          },
-          {
-            "rule": "link-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2",
-              "2.4.4"
-            ],
-            "selector": "#element-461"
-          },
-          {
-            "rule": "link-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2",
-              "2.4.4"
-            ],
-            "selector": "#element-482"
-          },
-          {
-            "rule": "link-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2",
-              "2.4.4"
-            ],
-            "selector": "#element-491"
-          },
-          {
-            "rule": "document-title",
-            "confidence": 0.9,
-            "wcag": [
-              "2.4.2"
-            ],
-            "selector": "#element-44"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-581"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-500"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
+              "1.4.1"
             ],
             "selector": "#element-487"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-296"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-209"
           },
           {
             "rule": "focus-appearance",
@@ -564,12 +2709,55 @@
             "selector": "#element-418"
           },
           {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-806"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-54"
+          },
+          {
+            "rule": "focus-appearance",
+            "confidence": 0.6,
+            "wcag": [
+              "2.4.11",
+              "2.4.7"
+            ],
+            "selector": "#element-765"
+          },
+          {
             "rule": "redundant-entry",
             "confidence": 0.7,
             "wcag": [
               "3.3.7"
             ],
-            "selector": "#element-60"
+            "selector": "#element-582"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-418"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-522"
           },
           {
             "rule": "accessible-authentication-minimum",
@@ -577,28 +2765,36 @@
             "wcag": [
               "3.3.8"
             ],
-            "selector": "#element-638"
+            "selector": "#element-392"
+          },
+          {
+            "rule": "accessible-authentication-minimum",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.8"
+            ],
+            "selector": "#element-241"
           }
         ]
       },
       "analysis": {
-        "axeToAccessInsightRatio": 2,
-        "axeRules": 4,
-        "accessInsightRules": 7
+        "axeToAccessInsightRatio": 1.5,
+        "axeRules": 8,
+        "accessInsightRules": 10
       }
     },
     {
-      "siteName": "Government of Canada",
-      "siteId": "gov-003",
-      "url": "https://www.canada.ca/en.html",
-      "category": "government",
-      "timestamp": "2025-11-06T10:06:28.592Z",
+      "siteName": "Amazon",
+      "siteId": "ecom-001",
+      "url": "https://www.amazon.com",
+      "category": "ecommerce",
+      "timestamp": "2025-11-06T10:26:35.496Z",
       "axe": {
-        "violationTypes": 8,
-        "totalIssues": 26,
-        "passes": 34,
+        "violationTypes": 3,
+        "totalIssues": 7,
+        "passes": 29,
         "incomplete": 0,
-        "inapplicable": 16,
+        "inapplicable": 22,
         "violations": [
           {
             "id": "axe-img-alt",
@@ -609,6 +2805,278 @@
             ],
             "description": "img-alt violations found",
             "nodes": 5
+          },
+          {
+            "id": "axe-label-control",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "label-control violations found",
+            "nodes": 1
+          },
+          {
+            "id": "duplicate-id",
+            "impact": "moderate",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "duplicate-id violations found",
+            "nodes": 1
+          }
+        ]
+      },
+      "accessInsight": {
+        "totalFindings": 24,
+        "scanTime": 291,
+        "byRule": {
+          "img-alt": 5,
+          "heading-order": 3,
+          "skip-link": 1,
+          "target-size": 8,
+          "link-in-text-block": 7
+        },
+        "byConfidence": {
+          "0.9": 5,
+          "0.8": 4,
+          "0.7": 15
+        },
+        "findings": [
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-1449"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-1603"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-446"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-507"
+          },
+          {
+            "rule": "img-alt",
+            "confidence": 0.9,
+            "wcag": [
+              "1.1.1"
+            ],
+            "selector": "#element-868"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-344"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-544"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-1671"
+          },
+          {
+            "rule": "skip-link",
+            "confidence": 0.8,
+            "wcag": [
+              "2.4.1"
+            ],
+            "selector": "#element-852"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-1174"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-1493"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-1255"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-21"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-129"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-1431"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-887"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-1012"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-88"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-923"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-215"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-139"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-189"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-1672"
+          },
+          {
+            "rule": "link-in-text-block",
+            "confidence": 0.7,
+            "wcag": [
+              "1.4.1"
+            ],
+            "selector": "#element-11"
+          }
+        ]
+      },
+      "analysis": {
+        "axeToAccessInsightRatio": 3.4285714285714284,
+        "axeRules": 3,
+        "accessInsightRules": 5
+      }
+    },
+    {
+      "siteName": "Etsy",
+      "siteId": "ecom-002",
+      "url": "https://www.etsy.com",
+      "category": "ecommerce",
+      "timestamp": "2025-11-06T10:26:35.496Z",
+      "axe": {
+        "violationTypes": 7,
+        "totalIssues": 23,
+        "passes": 28,
+        "incomplete": 2,
+        "inapplicable": 21,
+        "violations": [
+          {
+            "id": "axe-img-alt",
+            "impact": "critical",
+            "tags": [
+              "wcag2a",
+              "wcag2aa"
+            ],
+            "description": "img-alt violations found",
+            "nodes": 2
           },
           {
             "id": "axe-button-name",
@@ -638,7 +3106,7 @@
               "wcag2aa"
             ],
             "description": "text-contrast violations found",
-            "nodes": 4
+            "nodes": 2
           },
           {
             "id": "axe-html-has-lang",
@@ -648,17 +3116,7 @@
               "wcag2aa"
             ],
             "description": "html-has-lang violations found",
-            "nodes": 2
-          },
-          {
-            "id": "color-contrast",
-            "impact": "moderate",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "color-contrast violations found",
-            "nodes": 2
+            "nodes": 4
           },
           {
             "id": "duplicate-id",
@@ -668,674 +3126,35 @@
               "wcag2aa"
             ],
             "description": "duplicate-id violations found",
-            "nodes": 4
-          },
-          {
-            "id": "aria-valid-attr",
-            "impact": "serious",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "aria-valid-attr violations found",
-            "nodes": 1
-          }
-        ]
-      },
-      "accessInsight": {
-        "totalFindings": 22,
-        "scanTime": 193,
-        "byRule": {
-          "img-alt": 4,
-          "link-name": 3,
-          "skip-link": 1,
-          "aria-hidden-focus": 1,
-          "target-size": 3,
-          "focus-appearance": 8,
-          "accessible-authentication-minimum": 2
-        },
-        "byConfidence": {
-          "0.9": 7,
-          "0.8": 2,
-          "0.7": 5,
-          "0.6": 8
-        },
-        "findings": [
-          {
-            "rule": "img-alt",
-            "confidence": 0.9,
-            "wcag": [
-              "1.1.1"
-            ],
-            "selector": "#element-739"
-          },
-          {
-            "rule": "img-alt",
-            "confidence": 0.9,
-            "wcag": [
-              "1.1.1"
-            ],
-            "selector": "#element-835"
-          },
-          {
-            "rule": "img-alt",
-            "confidence": 0.9,
-            "wcag": [
-              "1.1.1"
-            ],
-            "selector": "#element-584"
-          },
-          {
-            "rule": "img-alt",
-            "confidence": 0.9,
-            "wcag": [
-              "1.1.1"
-            ],
-            "selector": "#element-880"
-          },
-          {
-            "rule": "link-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2",
-              "2.4.4"
-            ],
-            "selector": "#element-124"
-          },
-          {
-            "rule": "link-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2",
-              "2.4.4"
-            ],
-            "selector": "#element-920"
-          },
-          {
-            "rule": "link-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2",
-              "2.4.4"
-            ],
-            "selector": "#element-435"
-          },
-          {
-            "rule": "skip-link",
-            "confidence": 0.8,
-            "wcag": [
-              "2.4.1"
-            ],
-            "selector": "#element-537"
-          },
-          {
-            "rule": "aria-hidden-focus",
-            "confidence": 0.8,
-            "wcag": [
-              "4.1.2",
-              "1.3.1"
-            ],
-            "selector": "#element-363"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-455"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-452"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-111"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-412"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-757"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-297"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-504"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-893"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-501"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-206"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-893"
-          },
-          {
-            "rule": "accessible-authentication-minimum",
-            "confidence": 0.7,
-            "wcag": [
-              "3.3.8"
-            ],
-            "selector": "#element-701"
-          },
-          {
-            "rule": "accessible-authentication-minimum",
-            "confidence": 0.7,
-            "wcag": [
-              "3.3.8"
-            ],
-            "selector": "#element-805"
-          }
-        ]
-      },
-      "analysis": {
-        "axeToAccessInsightRatio": 0.8461538461538461,
-        "axeRules": 8,
-        "accessInsightRules": 7
-      }
-    },
-    {
-      "siteName": "Social Security Administration",
-      "siteId": "gov-004",
-      "url": "https://www.ssa.gov",
-      "category": "government",
-      "timestamp": "2025-11-06T10:06:28.592Z",
-      "axe": {
-        "violationTypes": 4,
-        "totalIssues": 11,
-        "passes": 29,
-        "incomplete": 1,
-        "inapplicable": 23,
-        "violations": [
-          {
-            "id": "axe-img-alt",
-            "impact": "critical",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "img-alt violations found",
-            "nodes": 5
-          },
-          {
-            "id": "axe-button-name",
-            "impact": "critical",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "button-name violations found",
-            "nodes": 2
-          },
-          {
-            "id": "axe-label-control",
-            "impact": "critical",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "label-control violations found",
-            "nodes": 1
-          },
-          {
-            "id": "aria-valid-attr",
-            "impact": "serious",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "aria-valid-attr violations found",
             "nodes": 3
-          }
-        ]
-      },
-      "accessInsight": {
-        "totalFindings": 31,
-        "scanTime": 174,
-        "byRule": {
-          "img-alt": 1,
-          "button-name": 2,
-          "label-control": 4,
-          "link-name": 1,
-          "aria-hidden-focus": 2,
-          "target-size": 6,
-          "link-in-text-block": 6,
-          "focus-appearance": 6,
-          "redundant-entry": 2,
-          "accessible-authentication-minimum": 1
-        },
-        "byConfidence": {
-          "0.9": 8,
-          "0.8": 2,
-          "0.7": 15,
-          "0.6": 6
-        },
-        "findings": [
-          {
-            "rule": "img-alt",
-            "confidence": 0.9,
-            "wcag": [
-              "1.1.1"
-            ],
-            "selector": "#element-864"
           },
           {
-            "rule": "button-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2"
-            ],
-            "selector": "#element-165"
-          },
-          {
-            "rule": "button-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2"
-            ],
-            "selector": "#element-607"
-          },
-          {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-583"
-          },
-          {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-430"
-          },
-          {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-507"
-          },
-          {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-825"
-          },
-          {
-            "rule": "link-name",
-            "confidence": 0.9,
-            "wcag": [
-              "4.1.2",
-              "2.4.4"
-            ],
-            "selector": "#element-530"
-          },
-          {
-            "rule": "aria-hidden-focus",
-            "confidence": 0.8,
-            "wcag": [
-              "4.1.2",
-              "1.3.1"
-            ],
-            "selector": "#element-513"
-          },
-          {
-            "rule": "aria-hidden-focus",
-            "confidence": 0.8,
-            "wcag": [
-              "4.1.2",
-              "1.3.1"
-            ],
-            "selector": "#element-745"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-308"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-322"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-372"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-187"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-809"
-          },
-          {
-            "rule": "target-size",
-            "confidence": 0.7,
-            "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-678"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-190"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-523"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-473"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-436"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-39"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-477"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-775"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-754"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-482"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-580"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-690"
-          },
-          {
-            "rule": "focus-appearance",
-            "confidence": 0.6,
-            "wcag": [
-              "2.4.11",
-              "2.4.7"
-            ],
-            "selector": "#element-120"
-          },
-          {
-            "rule": "redundant-entry",
-            "confidence": 0.7,
-            "wcag": [
-              "3.3.7"
-            ],
-            "selector": "#element-755"
-          },
-          {
-            "rule": "redundant-entry",
-            "confidence": 0.7,
-            "wcag": [
-              "3.3.7"
-            ],
-            "selector": "#element-710"
-          },
-          {
-            "rule": "accessible-authentication-minimum",
-            "confidence": 0.7,
-            "wcag": [
-              "3.3.8"
-            ],
-            "selector": "#element-314"
-          }
-        ]
-      },
-      "analysis": {
-        "axeToAccessInsightRatio": 2.8181818181818183,
-        "axeRules": 4,
-        "accessInsightRules": 10
-      }
-    },
-    {
-      "siteName": "Medicare",
-      "siteId": "gov-005",
-      "url": "https://www.medicare.gov",
-      "category": "government",
-      "timestamp": "2025-11-06T10:06:28.592Z",
-      "axe": {
-        "violationTypes": 5,
-        "totalIssues": 16,
-        "passes": 26,
-        "incomplete": 0,
-        "inapplicable": 18,
-        "violations": [
-          {
-            "id": "axe-img-alt",
-            "impact": "critical",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "img-alt violations found",
-            "nodes": 5
-          },
-          {
-            "id": "axe-text-contrast",
-            "impact": "serious",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "text-contrast violations found",
-            "nodes": 2
-          },
-          {
-            "id": "axe-html-has-lang",
+            "id": "aria-valid-attr",
             "impact": "moderate",
             "tags": [
               "wcag2a",
               "wcag2aa"
             ],
-            "description": "html-has-lang violations found",
-            "nodes": 5
-          },
-          {
-            "id": "color-contrast",
-            "impact": "serious",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "color-contrast violations found",
-            "nodes": 3
-          },
-          {
-            "id": "link-name",
-            "impact": "serious",
-            "tags": [
-              "wcag2a",
-              "wcag2aa"
-            ],
-            "description": "link-name violations found",
-            "nodes": 1
+            "description": "aria-valid-attr violations found",
+            "nodes": 4
           }
         ]
       },
       "accessInsight": {
         "totalFindings": 24,
-        "scanTime": 157,
+        "scanTime": 206,
         "byRule": {
-          "img-alt": 1,
-          "button-name": 2,
-          "label-control": 4,
-          "document-title": 1,
-          "heading-order": 2,
-          "skip-link": 1,
-          "target-size": 7,
-          "link-in-text-block": 4,
-          "redundant-entry": 1,
-          "accessible-authentication-minimum": 1
+          "img-alt": 3,
+          "text-contrast": 5,
+          "link-name": 5,
+          "heading-order": 3,
+          "target-size": 5,
+          "redundant-entry": 3
         },
         "byConfidence": {
           "0.9": 8,
-          "0.8": 3,
-          "0.7": 13
+          "0.8": 8,
+          "0.7": 8
         },
         "findings": [
           {
@@ -1344,188 +3163,185 @@
             "wcag": [
               "1.1.1"
             ],
-            "selector": "#element-174"
+            "selector": "#element-102"
           },
           {
-            "rule": "button-name",
+            "rule": "img-alt",
             "confidence": 0.9,
             "wcag": [
-              "4.1.2"
+              "1.1.1"
             ],
-            "selector": "#element-248"
+            "selector": "#element-827"
           },
           {
-            "rule": "button-name",
+            "rule": "img-alt",
             "confidence": 0.9,
             "wcag": [
-              "4.1.2"
+              "1.1.1"
             ],
-            "selector": "#element-251"
+            "selector": "#element-839"
           },
           {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-239"
-          },
-          {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-754"
-          },
-          {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-424"
-          },
-          {
-            "rule": "label-control",
-            "confidence": 0.9,
-            "wcag": [
-              "1.3.1",
-              "3.3.2"
-            ],
-            "selector": "#element-576"
-          },
-          {
-            "rule": "document-title",
-            "confidence": 0.9,
-            "wcag": [
-              "2.4.2"
-            ],
-            "selector": "#element-172"
-          },
-          {
-            "rule": "heading-order",
+            "rule": "text-contrast",
             "confidence": 0.8,
             "wcag": [
-              "1.3.1",
-              "2.4.6"
+              "1.4.3",
+              "1.4.6"
             ],
-            "selector": "#element-654"
+            "selector": "#element-292"
           },
           {
-            "rule": "heading-order",
+            "rule": "text-contrast",
             "confidence": 0.8,
             "wcag": [
-              "1.3.1",
-              "2.4.6"
+              "1.4.3",
+              "1.4.6"
             ],
-            "selector": "#element-257"
+            "selector": "#element-472"
           },
           {
-            "rule": "skip-link",
+            "rule": "text-contrast",
             "confidence": 0.8,
             "wcag": [
-              "2.4.1"
+              "1.4.3",
+              "1.4.6"
             ],
-            "selector": "#element-253"
+            "selector": "#element-584"
           },
           {
-            "rule": "target-size",
-            "confidence": 0.7,
+            "rule": "text-contrast",
+            "confidence": 0.8,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
+              "1.4.3",
+              "1.4.6"
             ],
-            "selector": "#element-778"
+            "selector": "#element-1105"
           },
           {
-            "rule": "target-size",
-            "confidence": 0.7,
+            "rule": "text-contrast",
+            "confidence": 0.8,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
+              "1.4.3",
+              "1.4.6"
             ],
-            "selector": "#element-303"
+            "selector": "#element-264"
           },
           {
-            "rule": "target-size",
-            "confidence": 0.7,
+            "rule": "link-name",
+            "confidence": 0.9,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
+              "4.1.2",
+              "2.4.4"
             ],
-            "selector": "#element-791"
+            "selector": "#element-254"
           },
           {
-            "rule": "target-size",
-            "confidence": 0.7,
+            "rule": "link-name",
+            "confidence": 0.9,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
+              "4.1.2",
+              "2.4.4"
             ],
-            "selector": "#element-51"
+            "selector": "#element-916"
           },
           {
-            "rule": "target-size",
-            "confidence": 0.7,
+            "rule": "link-name",
+            "confidence": 0.9,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
+              "4.1.2",
+              "2.4.4"
             ],
-            "selector": "#element-573"
+            "selector": "#element-925"
           },
           {
-            "rule": "target-size",
-            "confidence": 0.7,
+            "rule": "link-name",
+            "confidence": 0.9,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
+              "4.1.2",
+              "2.4.4"
             ],
-            "selector": "#element-659"
+            "selector": "#element-1168"
           },
           {
-            "rule": "target-size",
-            "confidence": 0.7,
+            "rule": "link-name",
+            "confidence": 0.9,
             "wcag": [
-              "2.5.5",
-              "2.5.8"
-            ],
-            "selector": "#element-732"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-720"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-511"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
-            ],
-            "selector": "#element-685"
-          },
-          {
-            "rule": "link-in-text-block",
-            "confidence": 0.7,
-            "wcag": [
-              "1.4.1"
+              "4.1.2",
+              "2.4.4"
             ],
             "selector": "#element-393"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-1085"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-105"
+          },
+          {
+            "rule": "heading-order",
+            "confidence": 0.8,
+            "wcag": [
+              "1.3.1",
+              "2.4.6"
+            ],
+            "selector": "#element-160"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-920"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-479"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-934"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-850"
+          },
+          {
+            "rule": "target-size",
+            "confidence": 0.7,
+            "wcag": [
+              "2.5.5",
+              "2.5.8"
+            ],
+            "selector": "#element-814"
           },
           {
             "rule": "redundant-entry",
@@ -1533,35 +3349,43 @@
             "wcag": [
               "3.3.7"
             ],
-            "selector": "#element-125"
+            "selector": "#element-444"
           },
           {
-            "rule": "accessible-authentication-minimum",
+            "rule": "redundant-entry",
             "confidence": 0.7,
             "wcag": [
-              "3.3.8"
+              "3.3.7"
             ],
-            "selector": "#element-424"
+            "selector": "#element-754"
+          },
+          {
+            "rule": "redundant-entry",
+            "confidence": 0.7,
+            "wcag": [
+              "3.3.7"
+            ],
+            "selector": "#element-630"
           }
         ]
       },
       "analysis": {
-        "axeToAccessInsightRatio": 1.5,
-        "axeRules": 5,
-        "accessInsightRules": 10
+        "axeToAccessInsightRatio": 1.0434782608695652,
+        "axeRules": 7,
+        "accessInsightRules": 6
       }
     }
   ],
   "summary": {
     "axe": {
-      "totalIssues": 80,
-      "avgPerSite": 16
+      "totalIssues": 153,
+      "avgPerSite": 15
     },
     "accessInsight": {
-      "totalFindings": 122,
-      "avgPerSite": 24,
-      "avgScanTime": 162
+      "totalFindings": 278,
+      "avgPerSite": 28,
+      "avgScanTime": 193
     },
-    "avgRatio": "1.72"
+    "avgRatio": "2.16"
   }
 }
