@@ -1,6 +1,17 @@
 // devtools.js — Phase 2 DevTools panel
 const DEBUG = false;
 const tabId = chrome.devtools.inspectedWindow.tabId;
+
+// Security: HTML escape function to prevent XSS
+function escapeHtml(unsafe) {
+  if (unsafe == null) return '';
+  return String(unsafe)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 let port;
 function connectPort() {
   try {
@@ -476,10 +487,10 @@ function appendFindingItem(f) {
     div.title = f.priorityExplanation || f.message || '';
     
     div.innerHTML = `
-      <div><strong>${f.ruleId}</strong> ${impactHtml} ${priorityHtml} ${typeof f.confidence==='number'?`<span class="pill" title="confidence">${(f.confidence||0).toFixed(2)}</span>`:''}</div>
-      <div class="meta">${(f.wcag||[]).join(', ')} • ${f.selector}</div>
-      <div class="kvs">${f.message}
-${f.evidence ? JSON.stringify(f.evidence, null, 2) : ''}</div>
+      <div><strong>${escapeHtml(f.ruleId)}</strong> ${impactHtml} ${priorityHtml} ${typeof f.confidence==='number'?`<span class="pill" title="confidence">${(f.confidence||0).toFixed(2)}</span>`:''}</div>
+      <div class="meta">${escapeHtml((f.wcag||[]).join(', '))} • ${escapeHtml(f.selector)}</div>
+      <div class="kvs">${escapeHtml(f.message)}
+${f.evidence ? escapeHtml(JSON.stringify(f.evidence, null, 2)) : ''}</div>
       <div class="row">
         <button data-act="reveal">Reveal in Elements</button>
         <a href="#" data-act="wcag" class="pill">Open WCAG</a>
@@ -509,14 +520,14 @@ ${f.evidence ? JSON.stringify(f.evidence, null, 2) : ''}</div>
 function renderDetails(f) {
   if (!detailsEl || !f) return;
   const wcag = (f.wcag||[]).join(', ');
-  const evidence = f.evidence ? `<pre>${JSON.stringify(f.evidence, null, 2)}</pre>` : '';
+  const evidence = f.evidence ? `<pre>${escapeHtml(JSON.stringify(f.evidence, null, 2))}</pre>` : '';
   const severity = f.impact || '';
-  const how = guidanceForRule(f.ruleId, f);
+  const how = guidanceForRule(f.ruleId, f); // Returns safe HTML from trusted source
   const helpUrl = (ruleMeta && ruleMeta[f.ruleId] && ruleMeta[f.ruleId].helpUrl) ? ruleMeta[f.ruleId].helpUrl : '';
   detailsEl.innerHTML = `
-    <div><strong>${f.ruleId}</strong> <span class="pill">${severity}</span></div>
-    <div style="margin:6px 0">${f.message}</div>
-    <div class="meta">WCAG: ${wcag}</div>
+    <div><strong>${escapeHtml(f.ruleId)}</strong> <span class="pill">${escapeHtml(severity)}</span></div>
+    <div style="margin:6px 0">${escapeHtml(f.message)}</div>
+    <div class="meta">WCAG: ${escapeHtml(wcag)}</div>
     ${helpUrl?`<div style="margin:6px 0"><a href="#" id="d-help" class="pill">Help</a></div>`:''}
     <div style="margin-top:8px">${how}</div>
     <div style="margin-top:8px">${evidence}</div>
