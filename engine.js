@@ -422,7 +422,7 @@
         if (!hasAlt && !hasAria) {
           out.push(makeFinding({
             ruleId: 'img-alt', message: 'Image lacks a text alternative.', el, wcag: ['1.1.1'],
-            evidence: { role, alt: el.getAttribute('alt') || null }, confidence: 0.95
+            evidence: { role, alt: el.getAttribute('alt') || null }, confidence: 0.85
           }));
         }
       }
@@ -471,9 +471,15 @@
         if (!isElementVisible(el)) continue;
         const { name, evidence } = getAccName(el, new Set(), { sources: [] });
         if (!name) {
+          const placeholder = el.getAttribute('placeholder');
+          let confidence = 0.8;  // Lower base confidence from 0.9 to 0.8
+          // If placeholder exists, it might be used as label (not ideal, but common pattern)
+          if (placeholder && placeholder.trim()) {
+            confidence = 0.7;  // Further reduce confidence for controls with placeholders
+          }
           out.push(makeFinding({
             ruleId: 'label-control', message: 'Form control is missing an associated label.', el,
-            wcag: ['3.3.2','1.3.1'], evidence: { ...evidence, placeholder: el.getAttribute('placeholder') || null }, confidence: 0.9
+            wcag: ['3.3.2','1.3.1'], evidence: { ...evidence, placeholder }, confidence
           }));
         }
       }
@@ -907,7 +913,7 @@
             if (!computedStyleCache.has(node)) computedStyleCache.set(node, cs2);
             if (cs2.backgroundImage && cs2.backgroundImage !== 'none') return true; node = node.parentElement;
           } return false; })();
-        let confidence = bgImg ? 0.6 : 0.9; if (rgba[3] < 1) confidence = Math.min(confidence, 0.85);
+        let confidence = bgImg ? 0.6 : 0.8; if (rgba[3] < 1) confidence = Math.min(confidence, 0.75);
         if (ratio < threshold) {
           out.push(makeFinding({
             ruleId: 'contrast-text', impact: 'serious',
