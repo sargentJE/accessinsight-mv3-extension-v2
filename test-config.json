@@ -1,0 +1,243 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "AccessInsight Automated Testing Configuration",
+  "version": "1.0.0",
+
+  "modes": {
+    "quick": {
+      "description": "Quick validation for rapid feedback",
+      "sites": 10,
+      "categories": ["government", "ecommerce"],
+      "timeout": 600,
+      "estimatedDuration": "10 minutes",
+      "useCase": "Development, quick validation, CI/CD"
+    },
+    "standard": {
+      "description": "Standard validation for regular testing",
+      "sites": 20,
+      "categories": ["government", "ecommerce", "news", "education"],
+      "timeout": 1200,
+      "estimatedDuration": "20 minutes",
+      "useCase": "Pre-release testing, feature validation"
+    },
+    "full": {
+      "description": "Complete validation with all test sites",
+      "sites": 40,
+      "categories": "all",
+      "timeout": 2400,
+      "estimatedDuration": "40 minutes",
+      "useCase": "Final validation, release candidate, comprehensive testing"
+    }
+  },
+
+  "categories": {
+    "government": {
+      "description": "Government and public sector websites",
+      "priority": "high",
+      "expectedComplexity": "medium",
+      "wcagTarget": "AA"
+    },
+    "ecommerce": {
+      "description": "E-commerce and retail websites",
+      "priority": "high",
+      "expectedComplexity": "high",
+      "wcagTarget": "AA"
+    },
+    "news": {
+      "description": "News and media websites",
+      "priority": "medium",
+      "expectedComplexity": "high",
+      "wcagTarget": "AA"
+    },
+    "education": {
+      "description": "Educational institutions and learning platforms",
+      "priority": "high",
+      "expectedComplexity": "medium",
+      "wcagTarget": "AA"
+    },
+    "saas": {
+      "description": "SaaS applications and web tools",
+      "priority": "medium",
+      "expectedComplexity": "high",
+      "wcagTarget": "AA"
+    },
+    "accessibility": {
+      "description": "Accessibility-focused websites (positive controls)",
+      "priority": "high",
+      "expectedComplexity": "low",
+      "wcagTarget": "AAA"
+    },
+    "cms": {
+      "description": "CMS-based and small business websites",
+      "priority": "low",
+      "expectedComplexity": "medium",
+      "wcagTarget": "A"
+    }
+  },
+
+  "successCriteria": {
+    "phase8": {
+      "description": "Phase 8 Real-World Validation success criteria",
+      "metrics": {
+        "precision": {
+          "minimum": 0.75,
+          "target": 0.85,
+          "description": "Percentage of reported issues that are true positives"
+        },
+        "recall": {
+          "minimum": 0.60,
+          "target": 0.70,
+          "description": "Percentage of actual issues that are detected"
+        },
+        "falsePositiveRate": {
+          "maximum": 0.25,
+          "target": 0.15,
+          "description": "Percentage of reported issues that are false positives"
+        },
+        "f1Score": {
+          "minimum": 0.65,
+          "target": 0.75,
+          "description": "Harmonic mean of precision and recall"
+        }
+      },
+      "requirements": {
+        "minimumSites": 10,
+        "minimumRulesCovered": 40,
+        "minimumFindingsValidated": 50
+      }
+    }
+  },
+
+  "pipeline": {
+    "steps": [
+      {
+        "name": "calculate-metrics",
+        "script": "tests/integration/calculate-metrics.js",
+        "description": "Calculate precision, recall, F1 scores",
+        "required": true,
+        "timeout": 60
+      },
+      {
+        "name": "analyze-patterns",
+        "script": "tests/integration/analyze-patterns.js",
+        "description": "Identify false positive/negative patterns",
+        "required": true,
+        "timeout": 120
+      },
+      {
+        "name": "compare-baseline",
+        "script": "tests/integration/compare-baseline.js",
+        "description": "Compare against axe-core baseline",
+        "required": false,
+        "timeout": 120
+      },
+      {
+        "name": "generate-report",
+        "script": "tests/integration/generate-report.js",
+        "description": "Generate comprehensive validation report",
+        "required": true,
+        "timeout": 60
+      }
+    ],
+    "outputFormats": [
+      "json",
+      "markdown",
+      "html"
+    ]
+  },
+
+  "browser": {
+    "chromium": {
+      "enabled": true,
+      "headless": true,
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "timeout": 30000,
+      "slowMo": 0
+    }
+  },
+
+  "output": {
+    "resultsDir": "results",
+    "reportsDir": "results/reports",
+    "baselineDir": "results/baseline",
+    "timestampFormat": "YYYYMMDD_HHmmss",
+    "formats": {
+      "batchResults": "batch-results-{timestamp}.json",
+      "metricsReport": "metrics-{timestamp}.json",
+      "patternsReport": "patterns-{timestamp}.json",
+      "baselineComparison": "baseline-comparison-{timestamp}.json",
+      "validationReport": "VALIDATION-REPORT-{timestamp}.md"
+    }
+  },
+
+  "thresholds": {
+    "warning": {
+      "precision": 0.70,
+      "recall": 0.55,
+      "falsePositiveRate": 0.30,
+      "description": "Below these values requires attention"
+    },
+    "critical": {
+      "precision": 0.60,
+      "recall": 0.45,
+      "falsePositiveRate": 0.40,
+      "description": "Below these values requires significant rework"
+    }
+  },
+
+  "recommendations": {
+    "passing": {
+      "condition": "precision >= 0.75 AND recall >= 0.60",
+      "action": "Proceed to Phase 9 (Performance Optimization)",
+      "confidence": "high",
+      "estimatedEffort": "1-2 weeks"
+    },
+    "tuning": {
+      "condition": "precision >= 0.60 AND recall >= 0.45",
+      "action": "Tune engine configuration and rules",
+      "confidence": "medium",
+      "estimatedEffort": "4-8 hours"
+    },
+    "rework": {
+      "condition": "precision < 0.60 OR recall < 0.45",
+      "action": "Return to unit testing and rule development",
+      "confidence": "low",
+      "estimatedEffort": "1-2 weeks"
+    }
+  },
+
+  "integrations": {
+    "baseline": {
+      "tool": "axe-core",
+      "version": "4.x",
+      "comparison": "enabled",
+      "metrics": ["unique", "overlap", "axe-only", "accessinsight-only"]
+    },
+    "ci": {
+      "githubActions": {
+        "enabled": false,
+        "workflow": ".github/workflows/test.yml",
+        "triggers": ["push", "pull_request"]
+      },
+      "docker": {
+        "enabled": false,
+        "image": "mcr.microsoft.com/playwright:latest"
+      }
+    }
+  },
+
+  "metadata": {
+    "project": "AccessInsight MV3 Extension",
+    "phase": "Phase 8: Real-World Validation",
+    "created": "2025-01-07",
+    "maintainers": ["Claude", "sargentJE"],
+    "documentation": [
+      "MANUAL_TESTING_GUIDE.md",
+      "AUTOMATED_TESTING_SETUP.md",
+      "NEXT_SESSION_PLAN.md"
+    ]
+  }
+}
