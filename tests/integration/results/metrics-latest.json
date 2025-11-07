@@ -1,52 +1,52 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "timestamp": "2025-11-06T19:26:48.672Z",
+    "timestamp": "2025-11-07T15:05:10.647Z",
     "batchFile": "mock-batch-scan.json",
     "validationFile": "manual-validation-completed.csv"
   },
   "overall": {
     "totalSites": 15,
-    "totalFindings": 438,
-    "avgFindings": 29.2,
-    "totalScanTime": 3135,
-    "avgScanTime": 209,
-    "totalElements": 16884,
-    "avgElements": 1126
+    "totalFindings": 465,
+    "avgFindings": 31,
+    "totalScanTime": 3158,
+    "avgScanTime": 211,
+    "totalElements": 16150,
+    "avgElements": 1077
   },
   "byCategory": {
     "government": {
       "sites": 8,
-      "findings": 230,
-      "scanTime": 1432,
-      "elements": 6751,
-      "avgFindings": 28.8,
-      "avgScanTime": 179,
-      "avgElements": 844
+      "findings": 211,
+      "scanTime": 1299,
+      "elements": 6174,
+      "avgFindings": 26.4,
+      "avgScanTime": 162,
+      "avgElements": 772
     },
     "ecommerce": {
       "sites": 6,
-      "findings": 182,
-      "scanTime": 1529,
-      "elements": 9053,
-      "avgFindings": 30.3,
-      "avgScanTime": 255,
-      "avgElements": 1509
+      "findings": 229,
+      "scanTime": 1631,
+      "elements": 9007,
+      "avgFindings": 38.2,
+      "avgScanTime": 272,
+      "avgElements": 1501
     },
     "news": {
       "sites": 1,
-      "findings": 26,
-      "scanTime": 174,
-      "elements": 1080,
-      "avgFindings": 26,
-      "avgScanTime": 174,
-      "avgElements": 1080
+      "findings": 25,
+      "scanTime": 228,
+      "elements": 969,
+      "avgFindings": 25,
+      "avgScanTime": 228,
+      "avgElements": 969
     }
   },
   "byRule": {
     "text-contrast": {
-      "totalFindings": 96,
-      "sitesAffected": 12,
+      "totalFindings": 98,
+      "sitesAffected": 13,
       "avgConfidence": 0.8,
       "mostCommonSeverity": "serious",
       "wcagCriteria": [
@@ -55,8 +55,8 @@
       ]
     },
     "target-size": {
-      "totalFindings": 53,
-      "sitesAffected": 9,
+      "totalFindings": 55,
+      "sitesAffected": 11,
       "avgConfidence": 0.7,
       "mostCommonSeverity": "moderate",
       "wcagCriteria": [
@@ -65,8 +65,8 @@
       ]
     },
     "focus-appearance": {
-      "totalFindings": 44,
-      "sitesAffected": 10,
+      "totalFindings": 52,
+      "sitesAffected": 11,
       "avgConfidence": 0.6,
       "mostCommonSeverity": "moderate",
       "wcagCriteria": [
@@ -74,18 +74,9 @@
         "2.4.7"
       ]
     },
-    "link-in-text-block": {
-      "totalFindings": 38,
-      "sitesAffected": 9,
-      "avgConfidence": 0.7,
-      "mostCommonSeverity": "moderate",
-      "wcagCriteria": [
-        "1.4.1"
-      ]
-    },
     "label-control": {
-      "totalFindings": 33,
-      "sitesAffected": 7,
+      "totalFindings": 44,
+      "sitesAffected": 11,
       "avgConfidence": 0.9,
       "mostCommonSeverity": "critical",
       "wcagCriteria": [
@@ -93,28 +84,27 @@
         "3.3.2"
       ]
     },
+    "link-in-text-block": {
+      "totalFindings": 42,
+      "sitesAffected": 11,
+      "avgConfidence": 0.7,
+      "mostCommonSeverity": "moderate",
+      "wcagCriteria": [
+        "1.4.1"
+      ]
+    },
     "img-alt": {
-      "totalFindings": 33,
-      "sitesAffected": 10,
+      "totalFindings": 38,
+      "sitesAffected": 13,
       "avgConfidence": 0.9,
       "mostCommonSeverity": "critical",
       "wcagCriteria": [
         "1.1.1"
       ]
     },
-    "link-name": {
-      "totalFindings": 32,
-      "sitesAffected": 9,
-      "avgConfidence": 0.9,
-      "mostCommonSeverity": "serious",
-      "wcagCriteria": [
-        "2.4.4",
-        "4.1.2"
-      ]
-    },
     "heading-order": {
-      "totalFindings": 24,
-      "sitesAffected": 12,
+      "totalFindings": 29,
+      "sitesAffected": 14,
       "avgConfidence": 0.8,
       "mostCommonSeverity": "serious",
       "wcagCriteria": [
@@ -123,16 +113,26 @@
       ]
     },
     "redundant-entry": {
-      "totalFindings": 23,
-      "sitesAffected": 9,
+      "totalFindings": 26,
+      "sitesAffected": 11,
       "avgConfidence": 0.7,
       "mostCommonSeverity": "moderate",
       "wcagCriteria": [
         "3.3.7"
       ]
     },
+    "link-name": {
+      "totalFindings": 22,
+      "sitesAffected": 8,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "serious",
+      "wcagCriteria": [
+        "2.4.4",
+        "4.1.2"
+      ]
+    },
     "button-name": {
-      "totalFindings": 18,
+      "totalFindings": 17,
       "sitesAffected": 10,
       "avgConfidence": 0.9,
       "mostCommonSeverity": "critical",
@@ -140,18 +140,9 @@
         "4.1.2"
       ]
     },
-    "accessible-authentication-minimum": {
-      "totalFindings": 14,
-      "sitesAffected": 11,
-      "avgConfidence": 0.7,
-      "mostCommonSeverity": "moderate",
-      "wcagCriteria": [
-        "3.3.8"
-      ]
-    },
     "aria-hidden-focus": {
-      "totalFindings": 10,
-      "sitesAffected": 8,
+      "totalFindings": 14,
+      "sitesAffected": 10,
       "avgConfidence": 0.8,
       "mostCommonSeverity": "serious",
       "wcagCriteria": [
@@ -160,21 +151,21 @@
       ]
     },
     "skip-link": {
-      "totalFindings": 8,
-      "sitesAffected": 8,
+      "totalFindings": 11,
+      "sitesAffected": 11,
       "avgConfidence": 0.8,
       "mostCommonSeverity": "moderate",
       "wcagCriteria": [
         "2.4.1"
       ]
     },
-    "html-has-lang": {
-      "totalFindings": 7,
-      "sitesAffected": 7,
-      "avgConfidence": 0.9,
-      "mostCommonSeverity": "critical",
+    "accessible-authentication-minimum": {
+      "totalFindings": 8,
+      "sitesAffected": 6,
+      "avgConfidence": 0.7,
+      "mostCommonSeverity": "moderate",
       "wcagCriteria": [
-        "3.1.1"
+        "3.3.8"
       ]
     },
     "document-title": {
@@ -185,49 +176,58 @@
       "wcagCriteria": [
         "2.4.2"
       ]
+    },
+    "html-has-lang": {
+      "totalFindings": 4,
+      "sitesAffected": 4,
+      "avgConfidence": 0.9,
+      "mostCommonSeverity": "critical",
+      "wcagCriteria": [
+        "3.1.1"
+      ]
     }
   },
   "byConfidence": {
     "0.9": {
-      "totalFindings": 128,
+      "totalFindings": 130,
       "uniqueRules": 6,
       "sitesAffected": 15
     },
     "0.8": {
-      "totalFindings": 138,
+      "totalFindings": 152,
       "uniqueRules": 4,
       "sitesAffected": 15
     },
     "0.7": {
-      "totalFindings": 128,
+      "totalFindings": 131,
       "uniqueRules": 4,
-      "sitesAffected": 14
+      "sitesAffected": 15
     },
     "0.6": {
-      "totalFindings": 44,
+      "totalFindings": 52,
       "uniqueRules": 1,
-      "sitesAffected": 10
+      "sitesAffected": 11
     }
   },
   "byQuality": {
     "medium": {
       "sites": 15,
-      "findings": 438,
-      "avgFindings": 29.2
+      "findings": 465,
+      "avgFindings": 31
     }
   },
   "accuracy": {
-    "totalFindings": 438,
+    "totalFindings": 465,
     "validatedFindings": 300,
-    "unvalidatedFindings": 138,
-    "validationProgress": 0.684931506849315,
-    "truePositives": 247,
-    "falsePositives": 40,
+    "unvalidatedFindings": 165,
+    "validationProgress": 0.6451612903225806,
+    "truePositives": 237,
+    "falsePositives": 48,
     "falseNegatives": 0,
-    "uncertain": 13,
-    "precision": 0.8606271777003485,
+    "uncertain": 15,
+    "precision": 0.8315789473684211,
     "recall": 1,
-    "f1Score": 0.9250936329588015,
-    "falsePositiveRate": 0.13937282229965156
+    "f1Score": 0.9080459770114944,
+    "falsePositiveRate": 0.16842105263157894
   }
 }
