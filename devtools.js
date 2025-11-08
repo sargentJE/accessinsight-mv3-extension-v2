@@ -644,7 +644,36 @@ function copyJson() {
   };
   
   const text = JSON.stringify(exportData, null, 2);
-  navigator.clipboard.writeText(text).catch(()=>{});
+
+  // Use fallback clipboard method that works in DevTools context
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    const success = document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    if (success) {
+      // Show brief success message
+      const btn = document.querySelector('#btn-copy-json');
+      if (btn) {
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        btn.style.color = '#4caf50';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.color = '';
+        }, 2000);
+      }
+    }
+  } catch (err) {
+    document.body.removeChild(textarea);
+    console.error('Copy failed:', err);
+  }
 }
 
 function toSarif(findings) {
