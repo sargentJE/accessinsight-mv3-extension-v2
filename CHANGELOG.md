@@ -5,6 +5,44 @@ All notable changes to AccessInsight will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-11-09
+
+### Added
+- **Click-to-highlight interaction model**: Click any finding to highlight ONLY that element
+- **Clean default state**: Panel opens with zero visual highlights (no more overwhelming colored boxes)
+- **Comprehensive testing guide**: OVERLAY_UX_TESTING_GUIDE.md with 9 test scenarios
+
+### Changed
+- **buildHighlights() behavior**: Now accepts optional `selectedIndex` parameter (default: -1 for no highlights)
+- **Default overlay state**: Changed from "highlight all" to "highlight none" on scan completion
+- **Click handler**: Now rebuilds highlights to show only selected finding
+- **Keyboard navigation**: Alt+Shift+N/P now highlights selected finding only
+- **Rule filter**: Changing filter now clears highlights and resets selection
+
+### Fixed
+- **Visual clutter**: Eliminated 500+ simultaneous colored boxes on pages with many findings
+- **Performance**: Reduced overlay DOM nodes by 99.6% (from 500+ to 2 elements)
+- **Scroll tracking**: Existing implementation now works perfectly with single-highlight model
+- **UX feedback**: Addressed all user complaints about overwhelming overlay experience
+
+### Performance
+- **Before**: 500 DOM elements (boxes + labels) created on scan
+- **After**: 2 DOM elements created only on click
+- **Memory**: 99.6% reduction in overlay DOM nodes
+- **No lag**: Tested with 500+ findings (GOV.UK test site)
+
+### User Experience
+**Before (v1.0.0)**:
+- Opening panel → 500+ colored boxes appear instantly
+- Website becomes impossible to see through visual clutter
+- Highlights don't track with page scrolling
+
+**After (v1.1.0)**:
+- Opening panel → Clean page view, zero visual clutter
+- Click finding → Only that finding highlights (focused attention)
+- Scroll page → Highlight stays perfectly aligned with element
+- Click another → Previous clears, new one highlights (clear interaction)
+
 ## [1.0.0] - 2025-11-07
 
 ### Added

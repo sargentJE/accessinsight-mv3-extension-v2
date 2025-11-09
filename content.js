@@ -148,20 +148,26 @@
     return { box, lab };
   }
 
-  function buildHighlights(findings) {
+  function buildHighlights(findings, selectedIndex = -1) {
     if (!IS_TOP) return;
     clearHighlights();
     const filter = ruleFilter.value;
     const filtered = findings
       .filter(f => !filter || f.ruleId === filter)
       .filter(f => !ignores.rules.has(f.ruleId) && !ignores.selectors.has(f.selector));
-    filtered.forEach((f, i) => {
+
+    // Only highlight the selected finding (if selectedIndex is valid)
+    // Default: no highlights (clean page view)
+    if (selectedIndex >= 0 && selectedIndex < filtered.length) {
+      const f = filtered[selectedIndex];
       const el = document.querySelector(f.selector);
-      if (!el) return;
-      const color = colorForRule(f.ruleId);
-      const made = makeBoxFor(el, i, color);
-      boxes.set(el, { box: made.box, label: made.lab });
-    });
+      if (el) {
+        const color = colorForRule(f.ruleId);
+        const made = makeBoxFor(el, selectedIndex, color);
+        boxes.set(el, { box: made.box, label: made.lab });
+      }
+    }
+
     requestAnimationFrame(() => { for (const [el, pair] of boxes.entries()) positionBox(el, pair.box, pair.label); });
   }
 
@@ -173,7 +179,9 @@
     const meta = document.createElement('div'); meta.className = 'meta'; meta.textContent = `${item.ruleId.toUpperCase()} • ${item.wcag.join(', ')} • ${item.selector}`;
     body.appendChild(msg); body.appendChild(meta); div.appendChild(idxEl); div.appendChild(body);
     div.addEventListener('click', () => {
-      setState({ index: idx }); renderList();
+      setState({ index: idx });
+      renderList();
+      buildHighlights(getState().findings, idx);
       const el = document.querySelector(item.selector);
       if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); flash(el); }
     });
@@ -213,8 +221,11 @@
     const items = s.findings.filter(f => !filter || f.ruleId === filter);
     if (!items.length) return;
     const i = Math.max(0, Math.min(newIndex, items.length - 1));
-    setState({ index: i }); renderList();
-    const item = items[i]; const el = document.querySelector(item.selector);
+    setState({ index: i });
+    renderList();
+    buildHighlights(s.findings, i);
+    const item = items[i];
+    const el = document.querySelector(item.selector);
     if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); flash(el); announce(`Focused finding ${i+1} of ${items.length}`); }
   }
 
@@ -318,7 +329,7 @@
 
       if (IS_TOP) {
         renderList();
-        buildHighlights(results);
+        buildHighlights(results, -1); // Default: no highlights (clean page view)
         announce(`${filtered.length} issue${filtered.length === 1 ? '' : 's'} found`);
       }
 
@@ -405,7 +416,11 @@
     try { chrome.runtime.sendMessage({ type: 'findings', findings: [], allRuleIds: (window.__a11yEngine?.allRuleIds || []), enabledRules: (window.__a11yConfig?.enabledRules || []), scanMs: 0 }, () => void chrome.runtime.lastError); } catch {}
     announce('Results cleared');
   });
-  IS_TOP && ruleFilter.addEventListener('change', () => { renderList(); buildHighlights(getState().findings); });
+  IS_TOP && ruleFilter.addEventListener('change', () => {
+    setState({ index: -1 }); // Reset selection when filter changes
+    renderList();
+    buildHighlights(getState().findings, -1); // Clear highlights
+  });
 
   listEl?.addEventListener('keydown', (e) => {
     const s = getState(); if (!s.enabled) return;
