@@ -607,7 +607,7 @@ function copyJson() {
   const exportData = {
     exportMetadata: {
       timestamp: new Date().toISOString(),
-      url: chrome.devtools.inspectedWindow.location.href || 'unknown',
+      url: inspectedUrl || 'unknown',
       preset: presetSel?.value || 'default',
       intelligentPriority: scanOptions.intelligentPriority,
       scanOptions: {
