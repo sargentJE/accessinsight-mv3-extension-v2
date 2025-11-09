@@ -70,6 +70,19 @@
         </div>
       </header>
       <div id="counts" class="counts" aria-live="polite"></div>
+      <div id="loading" class="loading" style="display:none; padding:20px; text-align:center; color:#bdbdbd;">
+        <div style="font-size:14px; margin-bottom:8px;">Scanning page...</div>
+        <div style="font-size:12px;">This may take a moment</div>
+      </div>
+      <div id="empty-state" class="empty-state" style="display:none; padding:20px; text-align:center; color:#bdbdbd;">
+        <div style="font-size:14px; margin-bottom:8px;">✅ No accessibility issues found!</div>
+        <div style="font-size:12px;">This page appears to be accessible.</div>
+      </div>
+      <div id="error-state" class="error-state" style="display:none; padding:20px; text-align:center; color:#ff9f0a;">
+        <div style="font-size:14px; margin-bottom:8px;">⚠️ Scanning error</div>
+        <div id="error-message" style="font-size:12px; margin-bottom:12px;">An error occurred during scanning.</div>
+        <button id="btn-retry" type="button" style="background:#2a2a2a; color:#fff; border:1px solid #444; border-radius:8px; padding:6px 10px; cursor:pointer;">Retry Scan</button>
+      </div>
       <div id="list" class="list" role="listbox" tabindex="0" aria-label="Findings list"></div>
       <div class="footer">Shortcuts: Alt+Shift+A (toggle), Alt+Shift+N / P (next/prev)</div>
       <div id="live" class="sr-only" aria-live="polite"></div>
@@ -80,6 +93,11 @@
   const panel = IS_TOP ? container.querySelector('.panel') : null;
   const listEl = IS_TOP ? container.querySelector('#list') : null;
   const countsEl = IS_TOP ? container.querySelector('#counts') : null;
+  const loadingEl = IS_TOP ? container.querySelector('#loading') : null;
+  const emptyStateEl = IS_TOP ? container.querySelector('#empty-state') : null;
+  const errorStateEl = IS_TOP ? container.querySelector('#error-state') : null;
+  const errorMessageEl = IS_TOP ? container.querySelector('#error-message') : null;
+  const btnRetry = IS_TOP ? container.querySelector('#btn-retry') : null;
   const live = IS_TOP ? container.querySelector('#live') : null;
   const btnClose = IS_TOP ? container.querySelector('#btn-close') : null;
   const btnRescan = IS_TOP ? container.querySelector('#btn-rescan') : null;
@@ -169,10 +187,23 @@
     const items = s.findings
       .filter(f => !filter || f.ruleId === filter)
       .filter(f => !ignores.rules.has(f.ruleId) && !ignores.selectors.has(f.selector));
-    countsEl.textContent = `${items.length} issue${items.length===1?'':'s'}${filter?` • ${filter}`:''}`;
-    listEl.innerHTML = ''; items.forEach((it, i) => {
-      const row = buildListItem(it, i); row.setAttribute('aria-selected', String(i === s.index)); listEl.appendChild(row);
-    });
+
+    // Show empty state if no findings
+    if (items.length === 0 && s.findings.length === 0) {
+      if (emptyStateEl) emptyStateEl.style.display = 'block';
+      if (listEl) listEl.style.display = 'none';
+      if (countsEl) countsEl.textContent = '0 issues';
+    } else {
+      if (emptyStateEl) emptyStateEl.style.display = 'none';
+      if (listEl) listEl.style.display = 'block';
+      countsEl.textContent = `${items.length} issue${items.length===1?'':'s'}${filter?` • ${filter}`:''}`;
+      listEl.innerHTML = '';
+      items.forEach((it, i) => {
+        const row = buildListItem(it, i);
+        row.setAttribute('aria-selected', String(i === s.index));
+        listEl.appendChild(row);
+      });
+    }
   }
 
   function selectIndex(newIndex) {
@@ -213,33 +244,98 @@
     } catch { return false; }
   }
 
+  function showLoading() {
+    if (!IS_TOP) return;
+    if (loadingEl) loadingEl.style.display = 'block';
+    if (emptyStateEl) emptyStateEl.style.display = 'none';
+    if (errorStateEl) errorStateEl.style.display = 'none';
+    if (listEl) listEl.style.display = 'none';
+    if (countsEl) countsEl.textContent = 'Scanning...';
+  }
+
+  function hideLoading() {
+    if (!IS_TOP) return;
+    if (loadingEl) loadingEl.style.display = 'none';
+  }
+
+  function showError(message) {
+    if (!IS_TOP) return;
+    if (errorStateEl) errorStateEl.style.display = 'block';
+    if (errorMessageEl) errorMessageEl.textContent = message || 'An error occurred during scanning.';
+    if (emptyStateEl) emptyStateEl.style.display = 'none';
+    if (listEl) listEl.style.display = 'none';
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (countsEl) countsEl.textContent = 'Scan failed';
+  }
+
+  function hideError() {
+    if (!IS_TOP) return;
+    if (errorStateEl) errorStateEl.style.display = 'none';
+  }
+
   function scanNow() {
-    if (!window.__a11yEngine) { console.warn('A11y engine missing'); return; }
+    if (!window.__a11yEngine) {
+      console.warn('A11y engine missing');
+      if (IS_TOP) showError('Accessibility engine not loaded. Try refreshing the page.');
+      return;
+    }
+
+    showLoading();
     const t0 = performance.now();
+
     try {
-      if (!window.__a11yConfig) window.__a11yConfig = {};
-      window.__a11yConfig.viewportOnly = !!scanOptions.viewportOnly;
-      window.__a11yConfig.shadow = !!scanOptions.shadow;
-      window.__a11yConfig.iframes = !!scanOptions.iframes;
-    } catch {}
-    let results = window.__a11yEngine.run(window.__a11yConfig?.enabledRules);
-    if (scanOptions.viewportOnly) {
-      results = results.filter(f => isInViewport(f.selector));
+      try {
+        if (!window.__a11yConfig) window.__a11yConfig = {};
+        window.__a11yConfig.viewportOnly = !!scanOptions.viewportOnly;
+        window.__a11yConfig.shadow = !!scanOptions.shadow;
+        window.__a11yConfig.iframes = !!scanOptions.iframes;
+      } catch (e) {
+        console.error('Config error:', e);
+      }
+
+      let results;
+      try {
+        results = window.__a11yEngine.run(window.__a11yConfig?.enabledRules);
+      } catch (e) {
+        console.error('Engine run error:', e);
+        showError('Scanning engine error: ' + (e.message || 'Unknown error'));
+        return;
+      }
+
+      if (scanOptions.viewportOnly) {
+        results = results.filter(f => isInViewport(f.selector));
+      }
+      if (hideNeedsReview || scanOptions.hideNeedsReview) {
+        results = results.filter(f => !f.needsReview);
+      }
+      const filtered = results.filter(f => !ignores.rules.has(f.ruleId) && !ignores.selectors.has(f.selector));
+
+      try { window.__A11Y_LAST_RESULTS__ = filtered; } catch {}
+      setState({ findings: filtered, index: filtered.length ? 0 : -1 });
+
+      hideLoading();
+      hideError();
+
+      if (IS_TOP) {
+        renderList();
+        buildHighlights(results);
+        announce(`${filtered.length} issue${filtered.length === 1 ? '' : 's'} found`);
+      }
+
+      try {
+        const scanMs = Math.max(0, Math.round(performance.now() - t0));
+        chrome.runtime.sendMessage(
+          { type: 'findings', findings: filtered, allRuleIds: (window.__a11yEngine?.allRuleIds || []), enabledRules: (window.__a11yConfig?.enabledRules || []), ruleMeta: (window.__a11yEngine?.ruleMeta || null), scanMs },
+          () => void chrome.runtime.lastError
+        );
+      } catch (e) {
+        console.warn('Failed to send findings to background:', e);
+      }
+    } catch (e) {
+      console.error('Unexpected scan error:', e);
+      hideLoading();
+      showError('Unexpected error during scan: ' + (e.message || 'Unknown error'));
     }
-    if (hideNeedsReview || scanOptions.hideNeedsReview) {
-      results = results.filter(f => !f.needsReview);
-    }
-    const filtered = results.filter(f => !ignores.rules.has(f.ruleId) && !ignores.selectors.has(f.selector));
-    try { window.__A11Y_LAST_RESULTS__ = filtered; } catch {}
-    setState({ findings: filtered, index: filtered.length ? 0 : -1 });
-    if (IS_TOP) { renderList(); buildHighlights(results); announce(`${filtered.length} issues found`); }
-    try {
-      const scanMs = Math.max(0, Math.round(performance.now() - t0));
-      chrome.runtime.sendMessage(
-        { type: 'findings', findings: filtered, allRuleIds: (window.__a11yEngine?.allRuleIds || []), enabledRules: (window.__a11yConfig?.enabledRules || []), ruleMeta: (window.__a11yEngine?.ruleMeta || null), scanMs },
-        () => void chrome.runtime.lastError
-      );
-    } catch {}
   }
 
   function openPanel() {
@@ -267,7 +363,13 @@
       panel.setAttribute('aria-hidden', 'true');
       panel.setAttribute('inert', '');
     }, 0);
+    // Clean up highlights and observers to prevent memory leaks
+    clearHighlights();
   }
+
+  // Store event listeners for cleanup
+  let scrollListener = null;
+  let resizeListener = null;
 
   function togglePanel() {
     if (!IS_TOP) return;
@@ -275,12 +377,27 @@
     if (enabled) {
       populateRuleFilter(); scanNow(); openPanel(); layer.setAttribute('aria-hidden','false');
       const reposition = () => requestAnimationFrame(() => { for (const [el, pair] of boxes.entries()) positionBox(el, pair.box, pair.label); });
-      window.addEventListener('scroll', reposition, { passive: true }); window.addEventListener('resize', reposition);
-    } else { closePanel(); clearHighlights(); layer.setAttribute('aria-hidden','true'); }
+      scrollListener = reposition;
+      resizeListener = reposition;
+      window.addEventListener('scroll', scrollListener, { passive: true });
+      window.addEventListener('resize', resizeListener);
+    } else {
+      // Remove event listeners to prevent memory leaks
+      if (scrollListener) {
+        window.removeEventListener('scroll', scrollListener, { passive: true });
+        scrollListener = null;
+      }
+      if (resizeListener) {
+        window.removeEventListener('resize', resizeListener);
+        resizeListener = null;
+      }
+      closePanel(); clearHighlights(); layer.setAttribute('aria-hidden','true');
+    }
   }
 
   btnClose?.addEventListener('click', () => togglePanel());
   btnRescan?.addEventListener('click', () => scanNow());
+  btnRetry?.addEventListener('click', () => scanNow());
   btnClear?.addEventListener('click', () => {
     setState({ findings: [], index: -1 });
     renderList();

@@ -1,0 +1,156 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "timestamp": "2025-11-07T15:33:37.964Z",
+    "comparisonFile": "mock-baseline-comparison.json",
+    "sitesCompared": 10
+  },
+  "summary": {
+    "accessInsight": {
+      "totalFindings": 345,
+      "avgPerSite": 35
+    },
+    "axeCore": {
+      "totalIssues": 153,
+      "avgPerSite": 15
+    },
+    "ratio": 2.25,
+    "avgScanTime": 199
+  },
+  "toolOverlap": {
+    "sitesCompared": 10,
+    "totalAxeIssues": 153,
+    "totalAccessInsightFindings": 345,
+    "avgAxePerSite": 15,
+    "avgAccessInsightPerSite": 35,
+    "ratio": "2.25",
+    "ruleFrequency": {
+      "axe": {
+        "axe-label-control": 7,
+        "axe-text-contrast": 8,
+        "color-contrast": 5,
+        "link-name": 4,
+        "axe-img-alt": 7,
+        "axe-button-name": 6,
+        "aria-valid-attr": 3,
+        "duplicate-id": 4,
+        "axe-html-has-lang": 4
+      },
+      "accessInsight": {
+        "button-name": 8,
+        "label-control": 10,
+        "text-contrast": 10,
+        "link-name": 9,
+        "heading-order": 9,
+        "skip-link": 6,
+        "aria-hidden-focus": 7,
+        "link-in-text-block": 8,
+        "focus-appearance": 8,
+        "redundant-entry": 6,
+        "img-alt": 7,
+        "accessible-authentication-minimum": 4,
+        "target-size": 5,
+        "document-title": 2,
+        "html-has-lang": 1
+      },
+      "both": {}
+    }
+  },
+  "coverageGaps": {
+    "missedRules": [],
+    "uniqueRules": [
+      {
+        "rule": "label-control",
+        "sitesAffected": 10
+      },
+      {
+        "rule": "heading-order",
+        "sitesAffected": 9
+      },
+      {
+        "rule": "button-name",
+        "sitesAffected": 8
+      },
+      {
+        "rule": "link-in-text-block",
+        "sitesAffected": 8
+      },
+      {
+        "rule": "focus-appearance",
+        "sitesAffected": 8
+      },
+      {
+        "rule": "aria-hidden-focus",
+        "sitesAffected": 7
+      },
+      {
+        "rule": "img-alt",
+        "sitesAffected": 7
+      },
+      {
+        "rule": "skip-link",
+        "sitesAffected": 6
+      },
+      {
+        "rule": "redundant-entry",
+        "sitesAffected": 6
+      },
+      {
+        "rule": "text-contrast",
+        "sitesAffected": 5
+      },
+      {
+        "rule": "link-name",
+        "sitesAffected": 5
+      },
+      {
+        "rule": "target-size",
+        "sitesAffected": 5
+      },
+      {
+        "rule": "accessible-authentication-minimum",
+        "sitesAffected": 4
+      },
+      {
+        "rule": "document-title",
+        "sitesAffected": 2
+      },
+      {
+        "rule": "html-has-lang",
+        "sitesAffected": 1
+      }
+    ],
+    "totalMisses": 0,
+    "totalUnique": 91
+  },
+  "performance": {
+    "avgScanTime": 199,
+    "scanTimeRange": {
+      "min": 133,
+      "max": 283
+    },
+    "avgFindingRatio": 3.14,
+    "interpretation": "AccessInsight finds more issues than axe on average"
+  },
+  "insights": [
+    {
+      "type": "coverage",
+      "level": "positive",
+      "title": "AccessInsight finds more issues",
+      "description": "AccessInsight finds 2.25x more issues than axe-core on average. This suggests broader rule coverage or more sensitive detection."
+    },
+    {
+      "type": "performance",
+      "level": "positive",
+      "title": "Fast scanning",
+      "description": "Average scan time of 199ms is excellent. Well within target of <500ms per page."
+    },
+    {
+      "type": "value",
+      "level": "positive",
+      "title": "Unique coverage",
+      "description": "AccessInsight detects issues axe-core doesn't. Unique rules: label-control, heading-order, button-name. Provides complementary value."
+    }
+  ],
+  "recommendations": []
+}

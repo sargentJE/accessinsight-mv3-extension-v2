@@ -1,0 +1,424 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-11-05",
+  "totalSites": 40,
+  "description": "Diverse test websites for AccessInsight integration testing and accuracy validation",
+  "categories": [
+    {
+      "name": "government",
+      "expectedQuality": "good",
+      "description": "Government sites with Section 508 compliance requirements",
+      "count": 8,
+      "sites": [
+        {
+          "id": "gov-001",
+          "url": "https://www.usa.gov",
+          "name": "USA.gov",
+          "description": "Official guide to government information and services",
+          "technology": "modern",
+          "expectedIssues": "< 10",
+          "notes": "High accessibility compliance expected (Section 508)"
+        },
+        {
+          "id": "gov-002",
+          "url": "https://www.gov.uk",
+          "name": "UK Government",
+          "description": "UK government services and information",
+          "technology": "modern",
+          "expectedIssues": "< 10",
+          "notes": "Excellent accessibility track record"
+        },
+        {
+          "id": "gov-003",
+          "url": "https://www.canada.ca/en.html",
+          "name": "Government of Canada",
+          "description": "Canadian government portal",
+          "technology": "modern",
+          "expectedIssues": "< 15",
+          "notes": "Strong accessibility commitment"
+        },
+        {
+          "id": "gov-004",
+          "url": "https://www.ssa.gov",
+          "name": "Social Security Administration",
+          "description": "US Social Security services",
+          "technology": "mixed",
+          "expectedIssues": "10-20",
+          "notes": "Complex forms, older sections"
+        },
+        {
+          "id": "gov-005",
+          "url": "https://www.medicare.gov",
+          "name": "Medicare",
+          "description": "US Medicare information",
+          "technology": "modern",
+          "expectedIssues": "< 15",
+          "notes": "Healthcare focus, accessibility priority"
+        },
+        {
+          "id": "gov-006",
+          "url": "https://www.nps.gov",
+          "name": "National Park Service",
+          "description": "US National Parks",
+          "technology": "modern",
+          "expectedIssues": "10-20",
+          "notes": "Image-heavy, media content"
+        },
+        {
+          "id": "gov-007",
+          "url": "https://www.section508.gov",
+          "name": "Section 508",
+          "description": "Section 508 accessibility standards",
+          "technology": "modern",
+          "expectedIssues": "< 5",
+          "notes": "Should be highly accessible"
+        },
+        {
+          "id": "gov-008",
+          "url": "https://www.whitehouse.gov",
+          "name": "White House",
+          "description": "Official White House website",
+          "technology": "modern",
+          "expectedIssues": "10-20",
+          "notes": "News content, multimedia"
+        }
+      ]
+    },
+    {
+      "name": "ecommerce",
+      "expectedQuality": "medium",
+      "description": "E-commerce sites with complex interactions and forms",
+      "count": 6,
+      "sites": [
+        {
+          "id": "ecom-001",
+          "url": "https://www.amazon.com",
+          "name": "Amazon",
+          "description": "Major e-commerce platform",
+          "technology": "modern",
+          "expectedIssues": "30-50",
+          "notes": "Very complex, many interactive elements"
+        },
+        {
+          "id": "ecom-002",
+          "url": "https://www.etsy.com",
+          "name": "Etsy",
+          "description": "Handmade and vintage marketplace",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Image-heavy, search functionality"
+        },
+        {
+          "id": "ecom-003",
+          "url": "https://www.target.com",
+          "name": "Target",
+          "description": "Major retailer",
+          "technology": "modern",
+          "expectedIssues": "25-35",
+          "notes": "Product listings, filters"
+        },
+        {
+          "id": "ecom-004",
+          "url": "https://www.walmart.com",
+          "name": "Walmart",
+          "description": "Retail giant",
+          "technology": "modern",
+          "expectedIssues": "25-35",
+          "notes": "Complex product pages"
+        },
+        {
+          "id": "ecom-005",
+          "url": "https://www.bestbuy.com",
+          "name": "Best Buy",
+          "description": "Electronics retailer",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Product comparisons, reviews"
+        },
+        {
+          "id": "ecom-006",
+          "url": "https://www.ebay.com",
+          "name": "eBay",
+          "description": "Online auction and marketplace",
+          "technology": "modern",
+          "expectedIssues": "30-40",
+          "notes": "Auction interface, dynamic content"
+        }
+      ]
+    },
+    {
+      "name": "news",
+      "expectedQuality": "medium",
+      "description": "News and media sites with content focus",
+      "count": 6,
+      "sites": [
+        {
+          "id": "news-001",
+          "url": "https://www.bbc.com",
+          "name": "BBC",
+          "description": "British Broadcasting Corporation",
+          "technology": "modern",
+          "expectedIssues": "15-25",
+          "notes": "Good accessibility reputation"
+        },
+        {
+          "id": "news-002",
+          "url": "https://www.cnn.com",
+          "name": "CNN",
+          "description": "Cable News Network",
+          "technology": "modern",
+          "expectedIssues": "25-35",
+          "notes": "Video content, ads"
+        },
+        {
+          "id": "news-003",
+          "url": "https://www.nytimes.com",
+          "name": "New York Times",
+          "description": "Major newspaper",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Paywall, multimedia"
+        },
+        {
+          "id": "news-004",
+          "url": "https://www.npr.org",
+          "name": "NPR",
+          "description": "National Public Radio",
+          "technology": "modern",
+          "expectedIssues": "15-25",
+          "notes": "Audio content, transcripts"
+        },
+        {
+          "id": "news-005",
+          "url": "https://www.theguardian.com",
+          "name": "The Guardian",
+          "description": "British newspaper",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "International content"
+        },
+        {
+          "id": "news-006",
+          "url": "https://www.reuters.com",
+          "name": "Reuters",
+          "description": "News agency",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Breaking news, updates"
+        }
+      ]
+    },
+    {
+      "name": "education",
+      "expectedQuality": "good",
+      "description": "Educational institutions and platforms",
+      "count": 5,
+      "sites": [
+        {
+          "id": "edu-001",
+          "url": "https://www.harvard.edu",
+          "name": "Harvard University",
+          "description": "Ivy League university",
+          "technology": "modern",
+          "expectedIssues": "15-25",
+          "notes": "Educational focus, accessibility priority"
+        },
+        {
+          "id": "edu-002",
+          "url": "https://www.mit.edu",
+          "name": "MIT",
+          "description": "Massachusetts Institute of Technology",
+          "technology": "modern",
+          "expectedIssues": "10-20",
+          "notes": "Tech-forward institution"
+        },
+        {
+          "id": "edu-003",
+          "url": "https://www.khanacademy.org",
+          "name": "Khan Academy",
+          "description": "Free online education",
+          "technology": "modern",
+          "expectedIssues": "10-20",
+          "notes": "Inclusive mission, video content"
+        },
+        {
+          "id": "edu-004",
+          "url": "https://www.coursera.org",
+          "name": "Coursera",
+          "description": "Online learning platform",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Complex course interface"
+        },
+        {
+          "id": "edu-005",
+          "url": "https://www.edx.org",
+          "name": "edX",
+          "description": "MOOC platform",
+          "technology": "modern",
+          "expectedIssues": "15-25",
+          "notes": "University partnerships"
+        }
+      ]
+    },
+    {
+      "name": "saas",
+      "expectedQuality": "medium",
+      "description": "Software as a Service and tech platforms",
+      "count": 5,
+      "sites": [
+        {
+          "id": "saas-001",
+          "url": "https://github.com",
+          "name": "GitHub",
+          "description": "Code hosting platform",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Developer tool, complex UI"
+        },
+        {
+          "id": "saas-002",
+          "url": "https://about.gitlab.com",
+          "name": "GitLab",
+          "description": "DevOps platform",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Similar to GitHub"
+        },
+        {
+          "id": "saas-003",
+          "url": "https://trello.com",
+          "name": "Trello",
+          "description": "Project management",
+          "technology": "modern",
+          "expectedIssues": "25-35",
+          "notes": "Drag-and-drop interface"
+        },
+        {
+          "id": "saas-004",
+          "url": "https://www.notion.so",
+          "name": "Notion",
+          "description": "Workspace and notes",
+          "technology": "modern",
+          "expectedIssues": "25-35",
+          "notes": "Rich editor, complex interactions"
+        },
+        {
+          "id": "saas-005",
+          "url": "https://www.figma.com",
+          "name": "Figma",
+          "description": "Design tool",
+          "technology": "modern",
+          "expectedIssues": "30-40",
+          "notes": "Canvas-based, complex app"
+        }
+      ]
+    },
+    {
+      "name": "accessibility",
+      "expectedQuality": "excellent",
+      "description": "Accessibility-focused sites (positive controls)",
+      "count": 5,
+      "sites": [
+        {
+          "id": "a11y-001",
+          "url": "https://www.w3.org",
+          "name": "W3C",
+          "description": "World Wide Web Consortium",
+          "technology": "modern",
+          "expectedIssues": "< 10",
+          "notes": "Web standards organization, should be exemplary"
+        },
+        {
+          "id": "a11y-002",
+          "url": "https://webaim.org",
+          "name": "WebAIM",
+          "description": "Web Accessibility In Mind",
+          "technology": "modern",
+          "expectedIssues": "< 5",
+          "notes": "Accessibility specialists"
+        },
+        {
+          "id": "a11y-003",
+          "url": "https://www.a11yproject.com",
+          "name": "The A11Y Project",
+          "description": "Community-driven accessibility resources",
+          "technology": "modern",
+          "expectedIssues": "< 5",
+          "notes": "Accessibility-focused community"
+        },
+        {
+          "id": "a11y-004",
+          "url": "https://www.deque.com",
+          "name": "Deque",
+          "description": "Accessibility software company",
+          "technology": "modern",
+          "expectedIssues": "< 10",
+          "notes": "Makes axe-core, should be accessible"
+        },
+        {
+          "id": "a11y-005",
+          "url": "https://developer.mozilla.org",
+          "name": "MDN Web Docs",
+          "description": "Mozilla Developer Network",
+          "technology": "modern",
+          "expectedIssues": "< 15",
+          "notes": "Developer documentation, accessibility priority"
+        }
+      ]
+    },
+    {
+      "name": "cms",
+      "expectedQuality": "medium",
+      "description": "CMS platforms and small business sites",
+      "count": 5,
+      "sites": [
+        {
+          "id": "cms-001",
+          "url": "https://wordpress.org",
+          "name": "WordPress.org",
+          "description": "CMS platform site",
+          "technology": "wordpress",
+          "expectedIssues": "15-25",
+          "notes": "Powers 40% of web, should be good"
+        },
+        {
+          "id": "cms-002",
+          "url": "https://www.squarespace.com",
+          "name": "Squarespace",
+          "description": "Website builder",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Marketing site for builder"
+        },
+        {
+          "id": "cms-003",
+          "url": "https://www.wix.com",
+          "name": "Wix",
+          "description": "Website builder",
+          "technology": "modern",
+          "expectedIssues": "25-35",
+          "notes": "Complex builder interface"
+        },
+        {
+          "id": "cms-004",
+          "url": "https://www.shopify.com",
+          "name": "Shopify",
+          "description": "E-commerce platform",
+          "technology": "modern",
+          "expectedIssues": "20-30",
+          "notes": "Marketing site for platform"
+        },
+        {
+          "id": "cms-005",
+          "url": "https://www.godaddy.com",
+          "name": "GoDaddy",
+          "description": "Web hosting and domains",
+          "technology": "modern",
+          "expectedIssues": "25-35",
+          "notes": "Marketing heavy"
+        }
+      ]
+    }
+  ]
+}

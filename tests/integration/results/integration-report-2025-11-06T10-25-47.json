@@ -1,0 +1,535 @@
+{
+  "metrics": {
+    "metadata": {
+      "version": "1.0.0",
+      "timestamp": "2025-11-06T10:08:29.924Z",
+      "batchFile": "mock-batch-scan.json",
+      "validationFile": null
+    },
+    "overall": {
+      "totalSites": 10,
+      "totalFindings": 290,
+      "avgFindings": 29,
+      "totalScanTime": 1892,
+      "avgScanTime": 189,
+      "totalElements": 9620,
+      "avgElements": 962
+    },
+    "byCategory": {
+      "government": {
+        "sites": 8,
+        "findings": 218,
+        "scanTime": 1351,
+        "elements": 6346,
+        "avgFindings": 27.3,
+        "avgScanTime": 169,
+        "avgElements": 793
+      },
+      "ecommerce": {
+        "sites": 2,
+        "findings": 72,
+        "scanTime": 541,
+        "elements": 3274,
+        "avgFindings": 36,
+        "avgScanTime": 271,
+        "avgElements": 1637
+      }
+    },
+    "byRule": {
+      "target-size": {
+        "totalFindings": 51,
+        "sitesAffected": 8,
+        "avgConfidence": 0.7,
+        "mostCommonSeverity": "moderate",
+        "wcagCriteria": [
+          "2.5.5",
+          "2.5.8"
+        ]
+      },
+      "focus-appearance": {
+        "totalFindings": 43,
+        "sitesAffected": 7,
+        "avgConfidence": 0.6,
+        "mostCommonSeverity": "moderate",
+        "wcagCriteria": [
+          "2.4.11",
+          "2.4.7"
+        ]
+      },
+      "text-contrast": {
+        "totalFindings": 41,
+        "sitesAffected": 6,
+        "avgConfidence": 0.8,
+        "mostCommonSeverity": "serious",
+        "wcagCriteria": [
+          "1.4.3",
+          "1.4.6"
+        ]
+      },
+      "label-control": {
+        "totalFindings": 27,
+        "sitesAffected": 7,
+        "avgConfidence": 0.9,
+        "mostCommonSeverity": "critical",
+        "wcagCriteria": [
+          "1.3.1",
+          "3.3.2"
+        ]
+      },
+      "link-name": {
+        "totalFindings": 24,
+        "sitesAffected": 8,
+        "avgConfidence": 0.9,
+        "mostCommonSeverity": "serious",
+        "wcagCriteria": [
+          "2.4.4",
+          "4.1.2"
+        ]
+      },
+      "link-in-text-block": {
+        "totalFindings": 21,
+        "sitesAffected": 5,
+        "avgConfidence": 0.7,
+        "mostCommonSeverity": "moderate",
+        "wcagCriteria": [
+          "1.4.1"
+        ]
+      },
+      "img-alt": {
+        "totalFindings": 20,
+        "sitesAffected": 8,
+        "avgConfidence": 0.9,
+        "mostCommonSeverity": "critical",
+        "wcagCriteria": [
+          "1.1.1"
+        ]
+      },
+      "heading-order": {
+        "totalFindings": 14,
+        "sitesAffected": 6,
+        "avgConfidence": 0.8,
+        "mostCommonSeverity": "serious",
+        "wcagCriteria": [
+          "1.3.1",
+          "2.4.6"
+        ]
+      },
+      "redundant-entry": {
+        "totalFindings": 12,
+        "sitesAffected": 7,
+        "avgConfidence": 0.7,
+        "mostCommonSeverity": "moderate",
+        "wcagCriteria": [
+          "3.3.7"
+        ]
+      },
+      "aria-hidden-focus": {
+        "totalFindings": 10,
+        "sitesAffected": 7,
+        "avgConfidence": 0.8,
+        "mostCommonSeverity": "serious",
+        "wcagCriteria": [
+          "1.3.1",
+          "4.1.2"
+        ]
+      },
+      "button-name": {
+        "totalFindings": 9,
+        "sitesAffected": 5,
+        "avgConfidence": 0.9,
+        "mostCommonSeverity": "critical",
+        "wcagCriteria": [
+          "4.1.2"
+        ]
+      },
+      "accessible-authentication-minimum": {
+        "totalFindings": 7,
+        "sitesAffected": 6,
+        "avgConfidence": 0.7,
+        "mostCommonSeverity": "moderate",
+        "wcagCriteria": [
+          "3.3.8"
+        ]
+      },
+      "skip-link": {
+        "totalFindings": 5,
+        "sitesAffected": 5,
+        "avgConfidence": 0.8,
+        "mostCommonSeverity": "moderate",
+        "wcagCriteria": [
+          "2.4.1"
+        ]
+      },
+      "document-title": {
+        "totalFindings": 4,
+        "sitesAffected": 4,
+        "avgConfidence": 0.9,
+        "mostCommonSeverity": "critical",
+        "wcagCriteria": [
+          "2.4.2"
+        ]
+      },
+      "html-has-lang": {
+        "totalFindings": 2,
+        "sitesAffected": 2,
+        "avgConfidence": 0.9,
+        "mostCommonSeverity": "critical",
+        "wcagCriteria": [
+          "3.1.1"
+        ]
+      }
+    },
+    "byConfidence": {
+      "0.9": {
+        "totalFindings": 86,
+        "uniqueRules": 6,
+        "sitesAffected": 10
+      },
+      "0.8": {
+        "totalFindings": 70,
+        "uniqueRules": 4,
+        "sitesAffected": 10
+      },
+      "0.7": {
+        "totalFindings": 91,
+        "uniqueRules": 4,
+        "sitesAffected": 10
+      },
+      "0.6": {
+        "totalFindings": 43,
+        "uniqueRules": 1,
+        "sitesAffected": 7
+      }
+    },
+    "byQuality": {
+      "medium": {
+        "sites": 10,
+        "findings": 290,
+        "avgFindings": 29
+      }
+    },
+    "accuracy": null
+  },
+  "patterns": {
+    "metadata": {
+      "version": "1.0.0",
+      "timestamp": "2025-11-06T10:19:41.014Z",
+      "batchFile": "mock-batch-scan.json",
+      "validationFile": "manual-validation-completed.csv",
+      "validatedFindings": 60,
+      "totalFindings": 290,
+      "validationCoverage": 0.20689655172413793
+    },
+    "summary": {
+      "totalPatterns": 0,
+      "criticalPatterns": 0,
+      "confidenceIssues": 0,
+      "poorPerformingRules": 0,
+      "totalRecommendations": 1,
+      "p0Recommendations": 0,
+      "p1Recommendations": 1
+    },
+    "validationStats": {
+      "totalFindings": 290,
+      "validatedFindings": 60,
+      "validationProgress": 0.20689655172413793,
+      "truePositives": 52,
+      "falsePositives": 7,
+      "precision": 0.8813559322033898,
+      "recall": 1,
+      "f1Score": 0.936936936936937,
+      "falsePositiveRate": 0.11864406779661017
+    },
+    "falsePositivePatterns": {
+      "patterns": [],
+      "totalFalsePositives": 7,
+      "patternsIdentified": 0,
+      "criticalPatterns": 0
+    },
+    "confidenceAccuracy": {
+      "assessments": [
+        {
+          "confidence": 0.9,
+          "expectedPrecision": 0.9,
+          "actualPrecision": 0.9,
+          "difference": 0,
+          "sampleSize": 21,
+          "truePositives": 19,
+          "falsePositives": 2,
+          "assessment": "ACCURATE",
+          "recommendation": "Confidence level 0.9 is accurate (actual precision: 90.5%)",
+          "sufficientSampleSize": true
+        }
+      ],
+      "totalAssessed": 1,
+      "needsAdjustment": 0
+    },
+    "rulePerformance": {
+      "performances": [
+        {
+          "rule": "focus-appearance",
+          "performance": "FAIR",
+          "precision": 0.67,
+          "falsePositiveRate": 0.33,
+          "totalFindings": 43,
+          "validated": 12,
+          "truePositives": 8,
+          "falsePositives": 4,
+          "uncertain": 0,
+          "validationCoverage": 0.28,
+          "assessment": "Performing adequately but needs improvement",
+          "recommendation": "Rule needs improvement. 4 false positives out of 12 validated findings (33% FP rate). Review detection logic."
+        },
+        {
+          "rule": "text-contrast",
+          "performance": "EXCELLENT",
+          "precision": 0.93,
+          "falsePositiveRate": 0.07,
+          "totalFindings": 41,
+          "validated": 14,
+          "truePositives": 13,
+          "falsePositives": 1,
+          "uncertain": 0,
+          "validationCoverage": 0.34,
+          "assessment": "Performing excellently with high precision",
+          "recommendation": "Rule is performing excellently. Maintain current implementation."
+        }
+      ],
+      "totalRulesAnalyzed": 2,
+      "excellentRules": 1,
+      "goodRules": 0,
+      "fairRules": 1,
+      "poorRules": 0
+    },
+    "categoryCorrelation": {
+      "correlations": [
+        {
+          "category": "government",
+          "sites": 8,
+          "avgFindingsPerSite": 27.3,
+          "expectedQuality": "medium",
+          "validated": 60,
+          "precision": 0.88,
+          "falsePositiveRate": 0.12,
+          "assessment": "government sites: Acceptable false positive rate (12%). Performing well on government sites."
+        },
+        {
+          "category": "ecommerce",
+          "sites": 2,
+          "avgFindingsPerSite": 36,
+          "expectedQuality": "medium",
+          "validated": 0,
+          "precision": 0,
+          "falsePositiveRate": 0,
+          "assessment": "ecommerce sites: Acceptable false positive rate (0%). Performing well on ecommerce sites."
+        }
+      ],
+      "totalCategories": 2
+    },
+    "recommendations": [
+      {
+        "type": "rule_improvement",
+        "priority": "P1",
+        "rule": "focus-appearance",
+        "issue": "Low precision: 67% (4 FP out of 12 validated)",
+        "evidence": {
+          "precision": 0.67,
+          "falsePositiveRate": 0.33,
+          "validated": 12
+        },
+        "recommendation": "Rule needs improvement. 4 false positives out of 12 validated findings (33% FP rate). Review detection logic.",
+        "expectedImpact": "Improve precision from 67% to 75%+",
+        "implementation": {
+          "difficulty": "medium",
+          "estimatedTime": "1-2 hours"
+        }
+      }
+    ]
+  },
+  "comparison": {
+    "metadata": {
+      "version": "1.0.0",
+      "timestamp": "2025-11-06T10:21:28.063Z",
+      "comparisonFile": "mock-baseline-comparison.json",
+      "sitesCompared": 5
+    },
+    "summary": {
+      "accessInsight": {
+        "totalFindings": 122,
+        "avgPerSite": 24
+      },
+      "axeCore": {
+        "totalIssues": 80,
+        "avgPerSite": 16
+      },
+      "ratio": 1.52,
+      "avgScanTime": 162
+    },
+    "toolOverlap": {
+      "sitesCompared": 5,
+      "totalAxeIssues": 80,
+      "totalAccessInsightFindings": 122,
+      "avgAxePerSite": 16,
+      "avgAccessInsightPerSite": 24,
+      "ratio": "1.52",
+      "ruleFrequency": {
+        "axe": {
+          "axe-img-alt": 4,
+          "axe-button-name": 3,
+          "axe-label-control": 4,
+          "axe-html-has-lang": 4,
+          "link-name": 2,
+          "aria-valid-attr": 4,
+          "duplicate-id": 2,
+          "axe-text-contrast": 2,
+          "color-contrast": 2
+        },
+        "accessInsight": {
+          "img-alt": 5,
+          "button-name": 3,
+          "label-control": 3,
+          "text-contrast": 2,
+          "link-name": 4,
+          "html-has-lang": 1,
+          "heading-order": 2,
+          "aria-hidden-focus": 3,
+          "target-size": 4,
+          "redundant-entry": 4,
+          "document-title": 2,
+          "focus-appearance": 3,
+          "accessible-authentication-minimum": 4,
+          "skip-link": 2,
+          "link-in-text-block": 2
+        },
+        "both": {}
+      }
+    },
+    "coverageGaps": {
+      "missedRules": [
+        {
+          "rule": "text-contrast",
+          "sitesAffected": 2
+        },
+        {
+          "rule": "link-name",
+          "sitesAffected": 1
+        }
+      ],
+      "uniqueRules": [
+        {
+          "rule": "img-alt",
+          "sitesAffected": 5
+        },
+        {
+          "rule": "target-size",
+          "sitesAffected": 4
+        },
+        {
+          "rule": "redundant-entry",
+          "sitesAffected": 4
+        },
+        {
+          "rule": "accessible-authentication-minimum",
+          "sitesAffected": 4
+        },
+        {
+          "rule": "button-name",
+          "sitesAffected": 3
+        },
+        {
+          "rule": "label-control",
+          "sitesAffected": 3
+        },
+        {
+          "rule": "aria-hidden-focus",
+          "sitesAffected": 3
+        },
+        {
+          "rule": "link-name",
+          "sitesAffected": 3
+        },
+        {
+          "rule": "focus-appearance",
+          "sitesAffected": 3
+        },
+        {
+          "rule": "text-contrast",
+          "sitesAffected": 2
+        },
+        {
+          "rule": "heading-order",
+          "sitesAffected": 2
+        },
+        {
+          "rule": "document-title",
+          "sitesAffected": 2
+        },
+        {
+          "rule": "skip-link",
+          "sitesAffected": 2
+        },
+        {
+          "rule": "link-in-text-block",
+          "sitesAffected": 2
+        },
+        {
+          "rule": "html-has-lang",
+          "sitesAffected": 1
+        }
+      ],
+      "totalMisses": 3,
+      "totalUnique": 43
+    },
+    "performance": {
+      "avgScanTime": 162,
+      "scanTimeRange": {
+        "min": 129,
+        "max": 193
+      },
+      "avgFindingRatio": 1.72,
+      "interpretation": "AccessInsight finds more issues than axe on average"
+    },
+    "insights": [
+      {
+        "type": "coverage",
+        "level": "positive",
+        "title": "AccessInsight finds more issues",
+        "description": "AccessInsight finds 1.52x more issues than axe-core on average. This suggests broader rule coverage or more sensitive detection."
+      },
+      {
+        "type": "performance",
+        "level": "positive",
+        "title": "Fast scanning",
+        "description": "Average scan time of 162ms is excellent. Well within target of <500ms per page."
+      },
+      {
+        "type": "gaps",
+        "level": "attention",
+        "title": "Coverage gaps identified",
+        "description": "AccessInsight misses some issues that axe-core finds. Top gaps: text-contrast, link-name. Consider enhancing these rules."
+      },
+      {
+        "type": "value",
+        "level": "positive",
+        "title": "Unique coverage",
+        "description": "AccessInsight detects issues axe-core doesn't. Unique rules: img-alt, target-size, redundant-entry. Provides complementary value."
+      }
+    ],
+    "recommendations": [
+      {
+        "type": "coverage_gap",
+        "priority": "P2",
+        "rule": "text-contrast",
+        "issue": "axe-core detects this issue on 2 sites, but AccessInsight doesn't",
+        "recommendation": "Review and enhance text-contrast detection to match or exceed axe-core coverage"
+      },
+      {
+        "type": "coverage_gap",
+        "priority": "P2",
+        "rule": "link-name",
+        "issue": "axe-core detects this issue on 1 sites, but AccessInsight doesn't",
+        "recommendation": "Review and enhance link-name detection to match or exceed axe-core coverage"
+      }
+    ]
+  }
+}

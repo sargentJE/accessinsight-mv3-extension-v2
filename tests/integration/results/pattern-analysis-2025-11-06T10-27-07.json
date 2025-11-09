@@ -1,0 +1,426 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "timestamp": "2025-11-06T10:27:07.489Z",
+    "batchFile": "mock-batch-scan.json",
+    "validationFile": "manual-validation-completed.csv",
+    "validatedFindings": 300,
+    "totalFindings": 438,
+    "validationCoverage": 0.684931506849315
+  },
+  "summary": {
+    "totalPatterns": 5,
+    "criticalPatterns": 2,
+    "confidenceIssues": 0,
+    "poorPerformingRules": 0,
+    "totalRecommendations": 6,
+    "p0Recommendations": 0,
+    "p1Recommendations": 3
+  },
+  "validationStats": {
+    "totalFindings": 438,
+    "validatedFindings": 300,
+    "validationProgress": 0.684931506849315,
+    "truePositives": 247,
+    "falsePositives": 40,
+    "precision": 0.8606271777003485,
+    "recall": 1,
+    "f1Score": 0.9250936329588015,
+    "falsePositiveRate": 0.13937282229965156
+  },
+  "falsePositivePatterns": {
+    "patterns": [
+      {
+        "type": "false_positive",
+        "rule": "text-contrast",
+        "frequency": 9,
+        "sitesAffected": 6,
+        "avgConfidence": 0.8,
+        "commonSelectors": [],
+        "mostCommonCategory": "government",
+        "categoryDistribution": {
+          "government": 5,
+          "ecommerce": 4
+        },
+        "impactScore": 46,
+        "priority": "P1",
+        "isCritical": true,
+        "recommendation": "Rule \"text-contrast\" has 9 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions."
+      },
+      {
+        "type": "false_positive",
+        "rule": "label-control",
+        "frequency": 5,
+        "sitesAffected": 5,
+        "avgConfidence": 0.9,
+        "commonSelectors": [],
+        "mostCommonCategory": "government",
+        "categoryDistribution": {
+          "government": 3,
+          "ecommerce": 1,
+          "news": 1
+        },
+        "impactScore": 35,
+        "priority": "P1",
+        "isCritical": true,
+        "recommendation": "Rule \"label-control\" has 5 false positives across 5 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions."
+      },
+      {
+        "type": "false_positive",
+        "rule": "link-name",
+        "frequency": 5,
+        "sitesAffected": 4,
+        "avgConfidence": 0.9,
+        "commonSelectors": [],
+        "mostCommonCategory": "government",
+        "categoryDistribution": {
+          "government": 3,
+          "ecommerce": 2
+        },
+        "impactScore": 22,
+        "priority": "P2",
+        "isCritical": false,
+        "recommendation": "Rule \"link-name\" has 5 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions."
+      },
+      {
+        "type": "false_positive",
+        "rule": "heading-order",
+        "frequency": 4,
+        "sitesAffected": 3,
+        "avgConfidence": 0.8,
+        "commonSelectors": [],
+        "mostCommonCategory": "ecommerce",
+        "categoryDistribution": {
+          "government": 1,
+          "ecommerce": 3
+        },
+        "impactScore": 17,
+        "priority": "P2",
+        "isCritical": false,
+        "recommendation": "Rule \"heading-order\" has 4 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions."
+      },
+      {
+        "type": "false_positive",
+        "rule": "button-name",
+        "frequency": 3,
+        "sitesAffected": 3,
+        "avgConfidence": 0.9,
+        "commonSelectors": [],
+        "mostCommonCategory": "government",
+        "categoryDistribution": {
+          "government": 2,
+          "ecommerce": 1
+        },
+        "impactScore": 15,
+        "priority": "P2",
+        "isCritical": false,
+        "recommendation": "Rule \"button-name\" has 3 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions."
+      }
+    ],
+    "totalFalsePositives": 40,
+    "patternsIdentified": 5,
+    "criticalPatterns": 2
+  },
+  "confidenceAccuracy": {
+    "assessments": [
+      {
+        "confidence": 0.9,
+        "expectedPrecision": 0.9,
+        "actualPrecision": 0.85,
+        "difference": -0.05,
+        "sampleSize": 125,
+        "truePositives": 106,
+        "falsePositives": 17,
+        "assessment": "MINOR_ADJUSTMENT",
+        "recommendation": "Confidence 0.9 is close but could be adjusted to 0.85 for better accuracy",
+        "sufficientSampleSize": true
+      },
+      {
+        "confidence": 0.8,
+        "expectedPrecision": 0.8,
+        "actualPrecision": 0.83,
+        "difference": 0.03,
+        "sampleSize": 127,
+        "truePositives": 105,
+        "falsePositives": 14,
+        "assessment": "ACCURATE",
+        "recommendation": "Confidence level 0.8 is accurate (actual precision: 82.7%)",
+        "sufficientSampleSize": true
+      },
+      {
+        "confidence": 0.7,
+        "expectedPrecision": 0.7,
+        "actualPrecision": 0.79,
+        "difference": 0.09,
+        "sampleSize": 42,
+        "truePositives": 33,
+        "falsePositives": 7,
+        "assessment": "MINOR_ADJUSTMENT",
+        "recommendation": "Confidence 0.7 is close but could be adjusted to 0.79 for better accuracy",
+        "sufficientSampleSize": true
+      }
+    ],
+    "totalAssessed": 3,
+    "needsAdjustment": 0
+  },
+  "rulePerformance": {
+    "performances": [
+      {
+        "rule": "link-in-text-block",
+        "performance": "FAIR",
+        "precision": 0.67,
+        "falsePositiveRate": 0.31,
+        "totalFindings": 38,
+        "validated": 13,
+        "truePositives": 8,
+        "falsePositives": 4,
+        "uncertain": 1,
+        "validationCoverage": 0.34,
+        "assessment": "Performing adequately but needs improvement",
+        "recommendation": "Rule needs improvement. 4 false positives out of 13 validated findings (31% FP rate). Review detection logic."
+      },
+      {
+        "rule": "heading-order",
+        "performance": "GOOD",
+        "precision": 0.75,
+        "falsePositiveRate": 0.24,
+        "totalFindings": 24,
+        "validated": 17,
+        "truePositives": 12,
+        "falsePositives": 4,
+        "uncertain": 1,
+        "validationCoverage": 0.71,
+        "assessment": "Performing well with acceptable precision",
+        "recommendation": "Rule is performing well. Minor tuning could improve to 4 fewer false positives."
+      },
+      {
+        "rule": "link-name",
+        "performance": "GOOD",
+        "precision": 0.83,
+        "falsePositiveRate": 0.16,
+        "totalFindings": 32,
+        "validated": 31,
+        "truePositives": 25,
+        "falsePositives": 5,
+        "uncertain": 1,
+        "validationCoverage": 0.97,
+        "assessment": "Performing well with acceptable precision",
+        "recommendation": "Rule is performing well. Minor tuning could improve to 5 fewer false positives."
+      },
+      {
+        "rule": "button-name",
+        "performance": "GOOD",
+        "precision": 0.83,
+        "falsePositiveRate": 0.17,
+        "totalFindings": 18,
+        "validated": 18,
+        "truePositives": 15,
+        "falsePositives": 3,
+        "uncertain": 0,
+        "validationCoverage": 1,
+        "assessment": "Performing well with acceptable precision",
+        "recommendation": "Rule is performing well. Minor tuning could improve to 3 fewer false positives."
+      },
+      {
+        "rule": "label-control",
+        "performance": "GOOD",
+        "precision": 0.85,
+        "falsePositiveRate": 0.15,
+        "totalFindings": 33,
+        "validated": 33,
+        "truePositives": 28,
+        "falsePositives": 5,
+        "uncertain": 0,
+        "validationCoverage": 1,
+        "assessment": "Performing well with acceptable precision",
+        "recommendation": "Rule is performing well. Minor tuning could improve to 5 fewer false positives."
+      },
+      {
+        "rule": "text-contrast",
+        "performance": "GOOD",
+        "precision": 0.9,
+        "falsePositiveRate": 0.09,
+        "totalFindings": 96,
+        "validated": 96,
+        "truePositives": 80,
+        "falsePositives": 9,
+        "uncertain": 7,
+        "validationCoverage": 1,
+        "assessment": "Performing well with acceptable precision",
+        "recommendation": "Rule is performing well. Minor tuning could improve to 9 fewer false positives."
+      },
+      {
+        "rule": "target-size",
+        "performance": "EXCELLENT",
+        "precision": 0.92,
+        "falsePositiveRate": 0.08,
+        "totalFindings": 53,
+        "validated": 26,
+        "truePositives": 23,
+        "falsePositives": 2,
+        "uncertain": 1,
+        "validationCoverage": 0.49,
+        "assessment": "Performing excellently with high precision",
+        "recommendation": "Rule is performing excellently. Maintain current implementation."
+      },
+      {
+        "rule": "img-alt",
+        "performance": "EXCELLENT",
+        "precision": 0.94,
+        "falsePositiveRate": 0.06,
+        "totalFindings": 33,
+        "validated": 33,
+        "truePositives": 30,
+        "falsePositives": 2,
+        "uncertain": 1,
+        "validationCoverage": 1,
+        "assessment": "Performing excellently with high precision",
+        "recommendation": "Rule is performing excellently. Maintain current implementation."
+      }
+    ],
+    "totalRulesAnalyzed": 8,
+    "excellentRules": 2,
+    "goodRules": 5,
+    "fairRules": 1,
+    "poorRules": 0
+  },
+  "categoryCorrelation": {
+    "correlations": [
+      {
+        "category": "ecommerce",
+        "sites": 6,
+        "avgFindingsPerSite": 30.3,
+        "expectedQuality": "medium",
+        "validated": 120,
+        "precision": 0.81,
+        "falsePositiveRate": 0.18,
+        "assessment": "ecommerce sites: Acceptable false positive rate (18%). Performing well on ecommerce sites."
+      },
+      {
+        "category": "government",
+        "sites": 8,
+        "avgFindingsPerSite": 28.8,
+        "expectedQuality": "medium",
+        "validated": 160,
+        "precision": 0.89,
+        "falsePositiveRate": 0.1,
+        "assessment": "government sites: Acceptable false positive rate (10%). Performing well on government sites."
+      },
+      {
+        "category": "news",
+        "sites": 1,
+        "avgFindingsPerSite": 26,
+        "expectedQuality": "medium",
+        "validated": 20,
+        "precision": 0.89,
+        "falsePositiveRate": 0.1,
+        "assessment": "news sites: Acceptable false positive rate (10%). Performing well on news sites."
+      }
+    ],
+    "totalCategories": 3
+  },
+  "recommendations": [
+    {
+      "type": "rule_logic_fix",
+      "priority": "P1",
+      "rule": "text-contrast",
+      "issue": "9 false positives across 6 sites",
+      "evidence": {
+        "frequency": 9,
+        "sitesAffected": 6,
+        "impactScore": 46
+      },
+      "recommendation": "Rule \"text-contrast\" has 9 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.",
+      "expectedImpact": "Reduce false positives by ~9 findings",
+      "implementation": {
+        "difficulty": "easy",
+        "estimatedTime": "30-60 minutes"
+      }
+    },
+    {
+      "type": "rule_logic_fix",
+      "priority": "P1",
+      "rule": "label-control",
+      "issue": "5 false positives across 5 sites",
+      "evidence": {
+        "frequency": 5,
+        "sitesAffected": 5,
+        "impactScore": 35
+      },
+      "recommendation": "Rule \"label-control\" has 5 false positives across 5 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.",
+      "expectedImpact": "Reduce false positives by ~5 findings",
+      "implementation": {
+        "difficulty": "easy",
+        "estimatedTime": "30-60 minutes"
+      }
+    },
+    {
+      "type": "rule_improvement",
+      "priority": "P1",
+      "rule": "link-in-text-block",
+      "issue": "Low precision: 67% (4 FP out of 13 validated)",
+      "evidence": {
+        "precision": 0.67,
+        "falsePositiveRate": 0.31,
+        "validated": 13
+      },
+      "recommendation": "Rule needs improvement. 4 false positives out of 13 validated findings (31% FP rate). Review detection logic.",
+      "expectedImpact": "Improve precision from 67% to 75%+",
+      "implementation": {
+        "difficulty": "medium",
+        "estimatedTime": "1-2 hours"
+      }
+    },
+    {
+      "type": "rule_logic_fix",
+      "priority": "P2",
+      "rule": "link-name",
+      "issue": "5 false positives across 4 sites",
+      "evidence": {
+        "frequency": 5,
+        "sitesAffected": 4,
+        "impactScore": 22
+      },
+      "recommendation": "Rule \"link-name\" has 5 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.",
+      "expectedImpact": "Reduce false positives by ~5 findings",
+      "implementation": {
+        "difficulty": "easy",
+        "estimatedTime": "30-60 minutes"
+      }
+    },
+    {
+      "type": "rule_logic_fix",
+      "priority": "P2",
+      "rule": "heading-order",
+      "issue": "4 false positives across 3 sites",
+      "evidence": {
+        "frequency": 4,
+        "sitesAffected": 3,
+        "impactScore": 17
+      },
+      "recommendation": "Rule \"heading-order\" has 4 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.",
+      "expectedImpact": "Reduce false positives by ~4 findings",
+      "implementation": {
+        "difficulty": "easy",
+        "estimatedTime": "30-60 minutes"
+      }
+    },
+    {
+      "type": "rule_logic_fix",
+      "priority": "P2",
+      "rule": "button-name",
+      "issue": "3 false positives across 3 sites",
+      "evidence": {
+        "frequency": 3,
+        "sitesAffected": 3,
+        "impactScore": 15
+      },
+      "recommendation": "Rule \"button-name\" has 3 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.",
+      "expectedImpact": "Reduce false positives by ~3 findings",
+      "implementation": {
+        "difficulty": "easy",
+        "estimatedTime": "30-60 minutes"
+      }
+    }
+  ]
+}

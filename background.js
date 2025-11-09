@@ -1,5 +1,7 @@
 // background.js (MV3 service worker) — routes between DevTools and content scripts
 const DEBUG = false;
+const MAX_PORTS = 50; // Limit number of concurrent devtools connections
+const MAX_AGGREGATORS = 100; // Limit number of frame aggregators
 const devtoolsPorts = new Map(); // tabId -> Port
 // Aggregate frame findings per tab over a short window to avoid flicker
 const frameAggregators = new Map(); // tabId -> { timer, findings, allRuleIds:Set, enabledRules:Set, maxScanMs, ruleMeta }
@@ -37,10 +39,27 @@ function injectAllFrames(tabId, done) {
 chrome.runtime.onConnect.addListener((port) => {
   if (!port.name.startsWith('devtools-')) return;
   const tabId = parseInt(port.name.split('-')[1], 10);
+
+  // Prevent memory leaks from too many ports
+  if (devtoolsPorts.size >= MAX_PORTS && !devtoolsPorts.has(tabId)) {
+    // Clean up oldest port if limit exceeded
+    const oldest = devtoolsPorts.keys().next().value;
+    const oldPort = devtoolsPorts.get(oldest);
+    if (oldPort) try { oldPort.disconnect(); } catch {}
+    devtoolsPorts.delete(oldest);
+  }
+
   devtoolsPorts.set(tabId, port);
   if (DEBUG) try { console.debug('[A11y][BG] DevTools connected for tab', tabId); } catch {}
 
-  port.onDisconnect.addListener(() => { devtoolsPorts.delete(tabId); if (DEBUG) try { console.debug('[A11y][BG] DevTools disconnected for tab', tabId); } catch {} });
+  port.onDisconnect.addListener(() => {
+    devtoolsPorts.delete(tabId);
+    // Also clean up aggregator for this tab
+    const agg = frameAggregators.get(tabId);
+    if (agg && agg.timer) clearTimeout(agg.timer);
+    frameAggregators.delete(tabId);
+    if (DEBUG) try { console.debug('[A11y][BG] DevTools disconnected for tab', tabId); } catch {}
+  });
 
   port.onMessage.addListener((msg) => {
     if (DEBUG) try { console.debug('[A11y][BG] Port→Content', tabId, msg && msg.type); } catch {}
@@ -64,6 +83,15 @@ chrome.runtime.onMessage.addListener((msg, sender) => {
   if (DEBUG) try { console.debug('[A11y][BG] Content→Port', tabId, msg && msg.type); } catch {}
   // Aggregate 'findings' from multiple frames into a single message
   if (msg && msg.type === 'findings') {
+    // Prevent memory leaks from too many aggregators
+    if (frameAggregators.size >= MAX_AGGREGATORS && !frameAggregators.has(tabId)) {
+      // Clean up oldest aggregator if limit exceeded
+      const oldest = frameAggregators.keys().next().value;
+      const oldAgg = frameAggregators.get(oldest);
+      if (oldAgg && oldAgg.timer) clearTimeout(oldAgg.timer);
+      frameAggregators.delete(oldest);
+    }
+
     let agg = frameAggregators.get(tabId);
     if (!agg) { agg = { timer: 0, findings: [], allRuleIds: new Set(), enabledRules: new Set(), maxScanMs: 0, ruleMeta: null }; frameAggregators.set(tabId, agg); }
     try {

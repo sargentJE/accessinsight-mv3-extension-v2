@@ -106,9 +106,10 @@
         if (includeShadow && node.shadowRoot) {
           stack.push(node.shadowRoot);
         }
-        for (let i = node.children.length - 1; i >= 0; i--) stack.push(node.children[i]);
+        // Use childNodes to include text nodes, not just element children
+        for (let i = node.childNodes.length - 1; i >= 0; i--) stack.push(node.childNodes[i]);
       } else if (node instanceof DocumentFragment || node instanceof Document) {
-        for (let i = (node.children?.length||0) - 1; i >= 0; i--) stack.push(node.children[i]);
+        for (let i = (node.childNodes?.length||0) - 1; i >= 0; i--) stack.push(node.childNodes[i]);
       }
     }
   }
@@ -164,14 +165,16 @@
   const isFocusableByHeuristic = (el) => {
     if (!(el instanceof Element)) return false;
     const name = el.tagName;
+    // Check natively focusable elements
     if (['BUTTON','SELECT','TEXTAREA'].includes(name)) return true;
     if (name === 'A' && el.hasAttribute('href')) return true;
     if (name === 'INPUT') return true;
-    const role = el.getAttribute('role');
-    const interactiveRoles = new Set(['button','link','switch','menuitem','tab','textbox','checkbox','radio','combobox','listbox','option','slider','spinbutton']);
-    if (role && interactiveRoles.has(role)) return true;
+    // Check for explicit tabindex >= 0
     const ti = el.getAttribute('tabindex');
     if (ti !== null && !isNaN(parseInt(ti)) && parseInt(ti) >= 0) return true;
+    // NOTE: We deliberately do NOT check for interactive roles here.
+    // Having role="button" doesn't make an element focusable - that's what
+    // the interactive-role-focusable rule detects as a violation.
     return false;
   };
 
@@ -419,7 +422,7 @@
         if (!hasAlt && !hasAria) {
           out.push(makeFinding({
             ruleId: 'img-alt', message: 'Image lacks a text alternative.', el, wcag: ['1.1.1'],
-            evidence: { role, alt: el.getAttribute('alt') || null }, confidence: 0.95
+            evidence: { role, alt: el.getAttribute('alt') || null }, confidence: 0.85
           }));
         }
       }
@@ -468,9 +471,15 @@
         if (!isElementVisible(el)) continue;
         const { name, evidence } = getAccName(el, new Set(), { sources: [] });
         if (!name) {
+          const placeholder = el.getAttribute('placeholder');
+          let confidence = 0.8;  // Lower base confidence from 0.9 to 0.8
+          // If placeholder exists, it might be used as label (not ideal, but common pattern)
+          if (placeholder && placeholder.trim()) {
+            confidence = 0.7;  // Further reduce confidence for controls with placeholders
+          }
           out.push(makeFinding({
             ruleId: 'label-control', message: 'Form control is missing an associated label.', el,
-            wcag: ['3.3.2','1.3.1'], evidence: { ...evidence, placeholder: el.getAttribute('placeholder') || null }, confidence: 0.9
+            wcag: ['3.3.2','1.3.1'], evidence: { ...evidence, placeholder }, confidence
           }));
         }
       }
@@ -904,7 +913,7 @@
             if (!computedStyleCache.has(node)) computedStyleCache.set(node, cs2);
             if (cs2.backgroundImage && cs2.backgroundImage !== 'none') return true; node = node.parentElement;
           } return false; })();
-        let confidence = bgImg ? 0.6 : 0.9; if (rgba[3] < 1) confidence = Math.min(confidence, 0.85);
+        let confidence = bgImg ? 0.6 : 0.8; if (rgba[3] < 1) confidence = Math.min(confidence, 0.75);
         if (ratio < threshold) {
           out.push(makeFinding({
             ruleId: 'contrast-text', impact: 'serious',
@@ -2803,6 +2812,35 @@
     // Get frequency of a specific rule in current scan
     getRuleFrequency: function(ruleId) {
       return window.__a11yEngine._ruleFrequencies.get(ruleId) || 0;
+    },
+
+    // Test API - Exported internal functions for unit testing
+    // Only use these in test environments, not in production code
+    _test: {
+      // Color/contrast functions
+      parseColorToRgb,
+      relLuminance,
+      contrastRatio,
+      compositeOver,
+      resolveBackground,
+
+      // Accessible name computation (ANDC)
+      getAccName,
+      getAccDescription,
+      textFromIds,
+      collectTextForName,
+
+      // Utility functions
+      isElementVisible,
+      cssPath,
+      isFocusableByHeuristic,
+      isPresentational,
+
+      // Context analysis
+      analyzeElementContext,
+
+      // Finding creation
+      makeFinding
     }
   };
 })();
