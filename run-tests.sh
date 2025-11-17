@@ -302,8 +302,8 @@ Phase 8 Validation Pipeline:
   5. Generate validation report with recommendations
 
 For more information, see:
-  - tests/integration/PIPELINE_USAGE_GUIDE.md
-  - docs/PHASE_8_INTEGRATION_TESTING_PLAN.md
+  - docs/development/integration/PIPELINE_USAGE_GUIDE.md
+  - docs/archive/phases/PHASE_8_INTEGRATION_TESTING_PLAN.md
 
 EOF
 }

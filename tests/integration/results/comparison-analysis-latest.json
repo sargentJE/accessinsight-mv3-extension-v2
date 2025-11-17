@@ -1,57 +1,57 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "timestamp": "2025-11-07T15:33:37.964Z",
+    "timestamp": "2025-11-17T10:48:40.610Z",
     "comparisonFile": "mock-baseline-comparison.json",
     "sitesCompared": 10
   },
   "summary": {
     "accessInsight": {
-      "totalFindings": 345,
-      "avgPerSite": 35
+      "totalFindings": 287,
+      "avgPerSite": 29
     },
     "axeCore": {
-      "totalIssues": 153,
-      "avgPerSite": 15
+      "totalIssues": 140,
+      "avgPerSite": 14
     },
-    "ratio": 2.25,
-    "avgScanTime": 199
+    "ratio": 2.05,
+    "avgScanTime": 179
   },
   "toolOverlap": {
     "sitesCompared": 10,
-    "totalAxeIssues": 153,
-    "totalAccessInsightFindings": 345,
-    "avgAxePerSite": 15,
-    "avgAccessInsightPerSite": 35,
-    "ratio": "2.25",
+    "totalAxeIssues": 140,
+    "totalAccessInsightFindings": 287,
+    "avgAxePerSite": 14,
+    "avgAccessInsightPerSite": 29,
+    "ratio": "2.05",
     "ruleFrequency": {
       "axe": {
-        "axe-label-control": 7,
-        "axe-text-contrast": 8,
-        "color-contrast": 5,
-        "link-name": 4,
-        "axe-img-alt": 7,
-        "axe-button-name": 6,
-        "aria-valid-attr": 3,
-        "duplicate-id": 4,
-        "axe-html-has-lang": 4
+        "axe-button-name": 8,
+        "axe-html-has-lang": 8,
+        "link-name": 3,
+        "duplicate-id": 8,
+        "axe-img-alt": 8,
+        "axe-text-contrast": 9,
+        "aria-valid-attr": 2,
+        "color-contrast": 3,
+        "axe-label-control": 2
       },
       "accessInsight": {
-        "button-name": 8,
-        "label-control": 10,
-        "text-contrast": 10,
-        "link-name": 9,
-        "heading-order": 9,
-        "skip-link": 6,
-        "aria-hidden-focus": 7,
-        "link-in-text-block": 8,
-        "focus-appearance": 8,
-        "redundant-entry": 6,
+        "label-control": 6,
+        "link-name": 6,
+        "document-title": 5,
+        "html-has-lang": 4,
+        "heading-order": 8,
+        "aria-hidden-focus": 5,
+        "target-size": 8,
+        "focus-appearance": 6,
         "img-alt": 7,
-        "accessible-authentication-minimum": 4,
-        "target-size": 5,
-        "document-title": 2,
-        "html-has-lang": 1
+        "button-name": 5,
+        "text-contrast": 8,
+        "redundant-entry": 8,
+        "skip-link": 5,
+        "link-in-text-block": 6,
+        "accessible-authentication-minimum": 3
       },
       "both": {}
     }
@@ -60,76 +60,76 @@
     "missedRules": [],
     "uniqueRules": [
       {
-        "rule": "label-control",
-        "sitesAffected": 10
-      },
-      {
         "rule": "heading-order",
-        "sitesAffected": 9
-      },
-      {
-        "rule": "button-name",
         "sitesAffected": 8
       },
       {
-        "rule": "link-in-text-block",
+        "rule": "target-size",
         "sitesAffected": 8
       },
       {
-        "rule": "focus-appearance",
+        "rule": "redundant-entry",
         "sitesAffected": 8
-      },
-      {
-        "rule": "aria-hidden-focus",
-        "sitesAffected": 7
       },
       {
         "rule": "img-alt",
         "sitesAffected": 7
       },
       {
-        "rule": "skip-link",
+        "rule": "label-control",
         "sitesAffected": 6
       },
       {
-        "rule": "redundant-entry",
+        "rule": "focus-appearance",
         "sitesAffected": 6
+      },
+      {
+        "rule": "link-in-text-block",
+        "sitesAffected": 6
+      },
+      {
+        "rule": "document-title",
+        "sitesAffected": 5
+      },
+      {
+        "rule": "aria-hidden-focus",
+        "sitesAffected": 5
+      },
+      {
+        "rule": "button-name",
+        "sitesAffected": 5
       },
       {
         "rule": "text-contrast",
         "sitesAffected": 5
       },
       {
-        "rule": "link-name",
+        "rule": "skip-link",
         "sitesAffected": 5
-      },
-      {
-        "rule": "target-size",
-        "sitesAffected": 5
-      },
-      {
-        "rule": "accessible-authentication-minimum",
-        "sitesAffected": 4
-      },
-      {
-        "rule": "document-title",
-        "sitesAffected": 2
       },
       {
         "rule": "html-has-lang",
-        "sitesAffected": 1
+        "sitesAffected": 4
+      },
+      {
+        "rule": "link-name",
+        "sitesAffected": 3
+      },
+      {
+        "rule": "accessible-authentication-minimum",
+        "sitesAffected": 3
       }
     ],
     "totalMisses": 0,
-    "totalUnique": 91
+    "totalUnique": 84
   },
   "performance": {
-    "avgScanTime": 199,
+    "avgScanTime": 179,
     "scanTimeRange": {
-      "min": 133,
-      "max": 283
+      "min": 135,
+      "max": 260
     },
-    "avgFindingRatio": 3.14,
+    "avgFindingRatio": 2.09,
     "interpretation": "AccessInsight finds more issues than axe on average"
   },
   "insights": [
@@ -137,19 +137,19 @@
       "type": "coverage",
       "level": "positive",
       "title": "AccessInsight finds more issues",
-      "description": "AccessInsight finds 2.25x more issues than axe-core on average. This suggests broader rule coverage or more sensitive detection."
+      "description": "AccessInsight finds 2.05x more issues than axe-core on average. This suggests broader rule coverage or more sensitive detection."
     },
     {
       "type": "performance",
       "level": "positive",
       "title": "Fast scanning",
-      "description": "Average scan time of 199ms is excellent. Well within target of <500ms per page."
+      "description": "Average scan time of 179ms is excellent. Well within target of <500ms per page."
     },
     {
       "type": "value",
       "level": "positive",
       "title": "Unique coverage",
-      "description": "AccessInsight detects issues axe-core doesn't. Unique rules: label-control, heading-order, button-name. Provides complementary value."
+      "description": "AccessInsight detects issues axe-core doesn't. Unique rules: heading-order, target-size, redundant-entry. Provides complementary value."
     }
   ],
   "recommendations": []

@@ -1,28 +1,28 @@
 # AccessInsight Integration Testing Report
 
-**Generated**: 2025-11-07T15:33:55.376Z
-**Analysis Date**: 2025-11-07T15:33:16.079Z
+**Generated**: 2025-11-17T10:48:40.680Z
+**Analysis Date**: 2025-11-17T10:48:40.453Z
 
 ---
 
 ## Executive Summary
 
 **Overall Accuracy**:
-- Precision: **82.7%**
+- Precision: **84.0%**
 - Recall: **100.0%**
-- F1 Score: **90.5%**
-- False Positive Rate: **17.3%**
+- F1 Score: **91.3%**
+- False Positive Rate: **16.0%**
 
 **Testing Coverage**:
-- Sites Tested: **30**
-- Total Findings: **997**
-- Avg Findings/Site: **33.2**
-- Avg Scan Time: **223ms**
+- Sites Tested: **15**
+- Total Findings: **464**
+- Avg Findings/Site: **30.9**
+- Avg Scan Time: **200ms**
 
 **Comparison with axe-core**:
-- AccessInsight: **345** findings
-- axe-core: **153** issues
-- Ratio: **2.25x**
+- AccessInsight: **287** findings
+- axe-core: **140** issues
+- Ratio: **2.05x**
 
 ---
 
@@ -44,20 +44,18 @@
 
 | Category | Sites | Avg Findings | Avg Scan Time |
 |----------|-------|--------------|---------------|
-| saas | 5 | 38.6 | 287ms |
-| ecommerce | 6 | 37 | 247ms |
-| news | 6 | 33 | 222ms |
-| government | 8 | 32.8 | 184ms |
-| education | 5 | 24.4 | 195ms |
+| ecommerce | 6 | 36.7 | 246ms |
+| news | 1 | 33 | 236ms |
+| government | 8 | 26.4 | 162ms |
 
 ### By Confidence Level
 
 | Confidence | Findings | Rules | Sites |
 |------------|----------|-------|-------|
-| 0.9 | 282 | 6 | 29 |
-| 0.8 | 280 | 4 | 30 |
-| 0.7 | 304 | 4 | 28 |
-| 0.6 | 131 | 1 | 25 |
+| 0.9 | 133 | 6 | 15 |
+| 0.8 | 130 | 4 | 14 |
+| 0.7 | 142 | 4 | 15 |
+| 0.6 | 59 | 1 | 11 |
 
 ---
 
@@ -65,125 +63,77 @@
 
 ### Performance Summary
 
-- **Excellent Rules**: 1
-- **Good Rules**: 8
-- **Fair Rules**: 2
+- **Excellent Rules**: 2
+- **Good Rules**: 5
+- **Fair Rules**: 1
 - **Poor Rules**: 0
 
 ### Detailed Performance
 
 | Rule | Performance | Precision | FP Rate | Validated |
 |------|-------------|-----------|---------|-----------|
-| 🟠 link-in-text-block | FAIR | 71% | 28% | 18 |
-| 🟠 skip-link | FAIR | 73% | 25% | 12 |
-| 🟡 focus-appearance | GOOD | 78% | 18% | 22 |
-| 🟡 img-alt | GOOD | 79% | 21% | 53 |
-| 🟡 target-size | GOOD | 82% | 17% | 52 |
-| 🟡 link-name | GOOD | 83% | 15% | 52 |
-| 🟡 label-control | GOOD | 84% | 16% | 87 |
-| 🟡 heading-order | GOOD | 84% | 15% | 26 |
-| 🟡 button-name | GOOD | 86% | 13% | 46 |
-| 🟡 text-contrast | GOOD | 86% | 14% | 192 |
-| 🟢 document-title | EXCELLENT | 90% | 9% | 11 |
+| 🟠 button-name | FAIR | 71% | 27% | 22 |
+| 🟡 target-size | GOOD | 76% | 23% | 31 |
+| 🟡 focus-appearance | GOOD | 77% | 21% | 14 |
+| 🟡 img-alt | GOOD | 82% | 16% | 31 |
+| 🟡 label-control | GOOD | 85% | 15% | 39 |
+| 🟡 text-contrast | GOOD | 87% | 12% | 91 |
+| 🟢 heading-order | EXCELLENT | 91% | 8% | 12 |
+| 🟢 link-name | EXCELLENT | 96% | 4% | 26 |
 
 ---
 
 ## False Positive Patterns
 
-**Total Patterns Identified**: 11
-**Critical Patterns**: 6
+**Total Patterns Identified**: 5
+**Critical Patterns**: 2
 
 ### Top Patterns
 
 #### 1. text-contrast [P0]
 
-- **Frequency**: 26 occurrences
-- **Sites Affected**: 16
-- **Avg Confidence**: 0.8
-- **Impact Score**: 110
-
-**Recommendation**: Rule "text-contrast" has 26 false positives across 16 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
-
-#### 2. label-control [P0]
-
-- **Frequency**: 14 occurrences
-- **Sites Affected**: 10
-- **Avg Confidence**: 0.9
-- **Impact Score**: 68
-
-**Recommendation**: Rule "label-control" has 14 false positives across 10 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
-
-#### 3. img-alt [P0]
-
 - **Frequency**: 11 occurrences
-- **Sites Affected**: 8
-- **Avg Confidence**: 0.9
-- **Impact Score**: 56
-
-**Recommendation**: Rule "img-alt" has 11 false positives across 8 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
-
-#### 4. target-size [P1]
-
-- **Frequency**: 9 occurrences
 - **Sites Affected**: 7
-- **Avg Confidence**: 0.7
-- **Impact Score**: 49
+- **Avg Confidence**: 0.8
+- **Impact Score**: 53
 
-**Recommendation**: Rule "target-size" has 9 false positives across 7 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
+**Recommendation**: Rule "text-contrast" has 11 false positives across 7 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
 
-#### 5. link-name [P1]
-
-- **Frequency**: 8 occurrences
-- **Sites Affected**: 6
-- **Avg Confidence**: 0.9
-- **Impact Score**: 44
-
-**Recommendation**: Rule "link-name" has 8 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
-
-#### 6. button-name [P1]
+#### 2. label-control [P1]
 
 - **Frequency**: 6 occurrences
 - **Sites Affected**: 6
 - **Avg Confidence**: 0.9
 - **Impact Score**: 40
 
-**Recommendation**: Rule "button-name" has 6 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
+**Recommendation**: Rule "label-control" has 6 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
 
-#### 7. heading-order [P2]
+#### 3. target-size [P2]
 
-- **Frequency**: 4 occurrences
+- **Frequency**: 7 occurrences
 - **Sites Affected**: 4
-- **Avg Confidence**: 0.8
-- **Impact Score**: 20
+- **Avg Confidence**: 0.7
+- **Impact Score**: 26
 
-**Recommendation**: Rule "heading-order" has 4 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
+**Recommendation**: Rule "target-size" has 7 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
 
-#### 8. link-in-text-block [P2]
+#### 4. button-name [P2]
+
+- **Frequency**: 6 occurrences
+- **Sites Affected**: 4
+- **Avg Confidence**: 0.9
+- **Impact Score**: 24
+
+**Recommendation**: Rule "button-name" has 6 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
+
+#### 5. img-alt [P2]
 
 - **Frequency**: 5 occurrences
 - **Sites Affected**: 3
-- **Avg Confidence**: 0.7
+- **Avg Confidence**: 0.9
 - **Impact Score**: 19
 
-**Recommendation**: Rule "link-in-text-block" has 5 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
-
-#### 9. redundant-entry [P2]
-
-- **Frequency**: 4 occurrences
-- **Sites Affected**: 3
-- **Avg Confidence**: 0.7
-- **Impact Score**: 17
-
-**Recommendation**: Rule "redundant-entry" has 4 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
-
-#### 10. skip-link [P2]
-
-- **Frequency**: 3 occurrences
-- **Sites Affected**: 3
-- **Avg Confidence**: 0.8
-- **Impact Score**: 15
-
-**Recommendation**: Rule "skip-link" has 3 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
+**Recommendation**: Rule "img-alt" has 5 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
 
 ---
 
@@ -191,14 +141,13 @@
 
 | Confidence | Expected | Actual | Assessment | Sample Size |
 |------------|----------|--------|------------|-------------|
-| 0.9 | 90% | 81% | ⚠️ MINOR_ADJUSTMENT | 257 |
-| 0.8 | 80% | 79% | ✅ ACCURATE | 239 |
-| 0.7 | 70% | 74% | ✅ ACCURATE | 78 |
-| 0.6 | 60% | 64% | ✅ ACCURATE | 22 |
+| 0.9 | 90% | 78% | 🔴 TOO_OPTIMISTIC | 129 |
+| 0.8 | 80% | 85% | ✅ ACCURATE | 117 |
+| 0.7 | 70% | 74% | ✅ ACCURATE | 38 |
 
 ### Adjustment Recommendations
 
-- **0.9**: Confidence 0.9 is close but could be adjusted to 0.81 for better accuracy
+- **0.9**: Confidence 0.9 is too optimistic. Actual precision is 77.5%, should decrease to 0.78
 
 ---
 
@@ -208,27 +157,27 @@
 
 | Metric | AccessInsight | axe-core |
 |--------|---------------|----------|
-| Total Findings | 345 | 153 |
-| Avg per Site | 35 | 15 |
-| Avg Scan Time | 199ms | N/A |
+| Total Findings | 287 | 140 |
+| Avg per Site | 29 | 14 |
+| Avg Scan Time | 179ms | N/A |
 
 ### Key Insights
 
-✅ **AccessInsight finds more issues**: AccessInsight finds 2.25x more issues than axe-core on average. This suggests broader rule coverage or more sensitive detection.
+✅ **AccessInsight finds more issues**: AccessInsight finds 2.05x more issues than axe-core on average. This suggests broader rule coverage or more sensitive detection.
 
-✅ **Fast scanning**: Average scan time of 199ms is excellent. Well within target of <500ms per page.
+✅ **Fast scanning**: Average scan time of 179ms is excellent. Well within target of <500ms per page.
 
-✅ **Unique coverage**: AccessInsight detects issues axe-core doesn't. Unique rules: label-control, heading-order, button-name. Provides complementary value.
+✅ **Unique coverage**: AccessInsight detects issues axe-core doesn't. Unique rules: heading-order, target-size, redundant-entry. Provides complementary value.
 
 ### Coverage Gaps
 
 **Unique to AccessInsight**:
 
-- label-control (10 sites)
-- heading-order (9 sites)
-- button-name (8 sites)
-- link-in-text-block (8 sites)
-- focus-appearance (8 sites)
+- heading-order (8 sites)
+- target-size (8 sites)
+- redundant-entry (8 sites)
+- img-alt (7 sites)
+- label-control (6 sites)
 - *...and 10 more*
 
 ---
@@ -237,102 +186,60 @@
 
 ### Prioritized Action Items
 
-#### P0 Priority (3 items)
+#### P0 Priority (1 items)
 
 **1. rule_logic_fix: text-contrast**
 
-- **Issue**: 26 false positives across 16 sites
-- **Recommendation**: Rule "text-contrast" has 26 false positives across 16 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~26 findings
+- **Issue**: 11 false positives across 7 sites
+- **Recommendation**: Rule "text-contrast" has 11 false positives across 7 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
+- **Expected Impact**: Reduce false positives by ~11 findings
+- **Implementation**: easy, ~30-60 minutes
+
+#### P1 Priority (2 items)
+
+**1. rule_logic_fix: label-control**
+
+- **Issue**: 6 false positives across 6 sites
+- **Recommendation**: Rule "label-control" has 6 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
+- **Expected Impact**: Reduce false positives by ~6 findings
+- **Implementation**: easy, ~30-60 minutes
+
+**2. rule_improvement: button-name**
+
+- **Issue**: Low precision: 71% (6 FP out of 22 validated)
+- **Recommendation**: Rule needs improvement. 6 false positives out of 22 validated findings (27% FP rate). Review detection logic.
+- **Expected Impact**: Improve precision from 71% to 75%+
 - **Implementation**: medium, ~1-2 hours
 
-**2. rule_logic_fix: label-control**
+#### P2 Priority (4 items)
 
-- **Issue**: 14 false positives across 10 sites
-- **Recommendation**: Rule "label-control" has 14 false positives across 10 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~14 findings
+**1. rule_logic_fix: target-size**
+
+- **Issue**: 7 false positives across 4 sites
+- **Recommendation**: Rule "target-size" has 7 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
+- **Expected Impact**: Reduce false positives by ~7 findings
+- **Implementation**: easy, ~30-60 minutes
+
+**2. rule_logic_fix: button-name**
+
+- **Issue**: 6 false positives across 4 sites
+- **Recommendation**: Rule "button-name" has 6 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
+- **Expected Impact**: Reduce false positives by ~6 findings
 - **Implementation**: easy, ~30-60 minutes
 
 **3. rule_logic_fix: img-alt**
 
-- **Issue**: 11 false positives across 8 sites
-- **Recommendation**: Rule "img-alt" has 11 false positives across 8 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~11 findings
-- **Implementation**: easy, ~30-60 minutes
-
-#### P1 Priority (5 items)
-
-**1. rule_logic_fix: target-size**
-
-- **Issue**: 9 false positives across 7 sites
-- **Recommendation**: Rule "target-size" has 9 false positives across 7 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~9 findings
-- **Implementation**: easy, ~30-60 minutes
-
-**2. rule_logic_fix: link-name**
-
-- **Issue**: 8 false positives across 6 sites
-- **Recommendation**: Rule "link-name" has 8 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~8 findings
-- **Implementation**: easy, ~30-60 minutes
-
-**3. rule_logic_fix: button-name**
-
-- **Issue**: 6 false positives across 6 sites
-- **Recommendation**: Rule "button-name" has 6 false positives across 6 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~6 findings
-- **Implementation**: easy, ~30-60 minutes
-
-**4. rule_improvement: link-in-text-block**
-
-- **Issue**: Low precision: 71% (5 FP out of 18 validated)
-- **Recommendation**: Rule needs improvement. 5 false positives out of 18 validated findings (28% FP rate). Review detection logic.
-- **Expected Impact**: Improve precision from 71% to 75%+
-- **Implementation**: medium, ~1-2 hours
-
-**5. rule_improvement: skip-link**
-
-- **Issue**: Low precision: 73% (3 FP out of 12 validated)
-- **Recommendation**: Rule needs improvement. 3 false positives out of 12 validated findings (25% FP rate). Review detection logic.
-- **Expected Impact**: Improve precision from 73% to 75%+
-- **Implementation**: medium, ~1-2 hours
-
-#### P2 Priority (5 items)
-
-**1. rule_logic_fix: heading-order**
-
-- **Issue**: 4 false positives across 4 sites
-- **Recommendation**: Rule "heading-order" has 4 false positives across 4 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~4 findings
-- **Implementation**: easy, ~30-60 minutes
-
-**2. rule_logic_fix: link-in-text-block**
-
 - **Issue**: 5 false positives across 3 sites
-- **Recommendation**: Rule "link-in-text-block" has 5 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
+- **Recommendation**: Rule "img-alt" has 5 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.9 or adding exceptions.
 - **Expected Impact**: Reduce false positives by ~5 findings
 - **Implementation**: easy, ~30-60 minutes
 
-**3. rule_logic_fix: redundant-entry**
+**4. confidence_adjustment**
 
-- **Issue**: 4 false positives across 3 sites
-- **Recommendation**: Rule "redundant-entry" has 4 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.7 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~4 findings
-- **Implementation**: easy, ~30-60 minutes
-
-**4. rule_logic_fix: skip-link**
-
-- **Issue**: 3 false positives across 3 sites
-- **Recommendation**: Rule "skip-link" has 3 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~3 findings
-- **Implementation**: easy, ~30-60 minutes
-
-**5. rule_logic_fix: aria-hidden-focus**
-
-- **Issue**: 3 false positives across 3 sites
-- **Recommendation**: Rule "aria-hidden-focus" has 3 false positives across 3 sites. Patterns are diverse. Review rule logic for over-flagging. Consider lowering confidence from 0.8 or adding exceptions.
-- **Expected Impact**: Reduce false positives by ~3 findings
-- **Implementation**: easy, ~30-60 minutes
+- **Issue**: Confidence level 0.9 too_optimistic
+- **Recommendation**: Confidence 0.9 is too optimistic. Actual precision is 77.5%, should decrease to 0.78
+- **Expected Impact**: Improve confidence accuracy by 12%
+- **Implementation**: easy, ~15 minutes
 
 ---
 
@@ -342,27 +249,27 @@
 
 | Rank | Rule | Findings | Sites | Avg Confidence | WCAG |
 |------|------|----------|-------|----------------|------|
-| 1 | text-contrast | 195 | 23 | 0.8 | 1.4.3, 1.4.6 |
-| 2 | target-size | 140 | 19 | 0.7 | 2.5.5, 2.5.8 |
-| 3 | focus-appearance | 131 | 25 | 0.6 | 2.4.11, 2.4.7 |
-| 4 | link-in-text-block | 93 | 21 | 0.7 | 1.4.1 |
-| 5 | label-control | 87 | 22 | 0.9 | 1.3.1, 3.3.2 |
-| 6 | link-name | 69 | 21 | 0.9 | 2.4.4, 4.1.2 |
-| 7 | img-alt | 53 | 15 | 0.9 | 1.1.1 |
-| 8 | redundant-entry | 48 | 22 | 0.7 | 3.3.7 |
-| 9 | button-name | 46 | 19 | 0.9 | 4.1.2 |
-| 10 | heading-order | 46 | 22 | 0.8 | 1.3.1, 2.4.6 |
-| 11 | accessible-authentication-minimum | 23 | 16 | 0.7 | 3.3.8 |
-| 12 | aria-hidden-focus | 21 | 15 | 0.8 | 1.3.1, 4.1.2 |
-| 13 | skip-link | 18 | 18 | 0.8 | 2.4.1 |
-| 14 | document-title | 16 | 16 | 0.9 | 2.4.2 |
-| 15 | html-has-lang | 11 | 11 | 0.9 | 3.1.1 |
+| 1 | text-contrast | 95 | 11 | 0.8 | 1.4.3, 1.4.6 |
+| 2 | target-size | 73 | 12 | 0.7 | 2.5.5, 2.5.8 |
+| 3 | focus-appearance | 59 | 11 | 0.6 | 2.4.11, 2.4.7 |
+| 4 | label-control | 39 | 10 | 0.9 | 1.3.1, 3.3.2 |
+| 5 | link-in-text-block | 35 | 9 | 0.7 | 1.4.1 |
+| 6 | img-alt | 31 | 11 | 0.9 | 1.1.1 |
+| 7 | link-name | 27 | 9 | 0.9 | 2.4.4, 4.1.2 |
+| 8 | redundant-entry | 23 | 12 | 0.7 | 3.3.7 |
+| 9 | button-name | 22 | 10 | 0.9 | 4.1.2 |
+| 10 | heading-order | 20 | 10 | 0.8 | 1.3.1, 2.4.6 |
+| 11 | accessible-authentication-minimum | 11 | 7 | 0.7 | 3.3.8 |
+| 12 | document-title | 8 | 8 | 0.9 | 2.4.2 |
+| 13 | aria-hidden-focus | 8 | 7 | 0.8 | 1.3.1, 4.1.2 |
+| 14 | skip-link | 7 | 7 | 0.8 | 2.4.1 |
+| 15 | html-has-lang | 6 | 6 | 0.9 | 3.1.1 |
 
 ---
 
 ## Analysis Metadata
 
-- **Validated Findings**: 596 / 997 (59.8%)
+- **Validated Findings**: 298 / 464 (64.2%)
 - **Batch File**: mock-batch-scan.json
 - **Validation File**: manual-validation-completed.csv
 - **Comparison File**: mock-baseline-comparison.json

@@ -27,6 +27,7 @@ Powerful overlay + DevTools panel with presets (axe, Lighthouse, IBM), scan opti
 - [Architecture](#architecture)
 - [Troubleshooting](#troubleshooting)
 - [Development](#development)
+  - [Documentation Structure](#documentation-structure)
 - [Privacy](#privacy)
 - [Changelog](#changelog)
 - [Roadmap](#roadmap)
@@ -111,6 +112,21 @@ Powerful overlay + DevTools panel with presets (axe, Lighthouse, IBM), scan opti
 - Profiles: normalize impact/needsReview per preset (axe, Lighthouse, IBM) for comparable output.
 - Confidence: each finding includes a `confidence` score; the DevTools slider filters by minimum confidence.
 - Debugging: set `DEBUG = true` in `background.js`, `content.js`, or `devtools.js` for verbose logs.
+
+### Documentation Structure
+The repository documentation is organized in the `docs/` folder:
+- **`docs/guides/`** - User-facing guides (USER_GUIDE, test guides)
+- **`docs/development/`** - Development documentation and testing guides
+  - **`docs/development/integration/`** - Integration testing pipeline docs
+- **`docs/releases/`** - Release notes, changelog, and production readiness docs
+- **`docs/legal/`** - Privacy policy and terms of service
+- **`docs/archive/`** - Historical development documentation
+  - **`docs/archive/phases/`** - Phase-by-phase development history
+  - **`docs/archive/sessions/`** - Development session summaries
+  - **`docs/archive/validation-reports/`** - Historical validation reports
+  - **`docs/archive/planning/`** - Planning documents and implementation strategies
+
+Additional test artifacts are in `test-artifacts/` (HTML test pages, analysis data, exports).
 
 ## Privacy
 All analysis runs locally in the inspected page. The extension does not transmit page data. Per‑host preferences (ignores, scan options, preset) are stored locally.
