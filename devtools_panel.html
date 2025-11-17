@@ -40,6 +40,7 @@
       flex-wrap: wrap;
       gap: var(--space-2);
       align-items: center;
+      overflow-x: hidden;
     }
 
     /* Form Controls Base */
@@ -296,10 +297,6 @@
       width: 100%;
     }
 
-    .controls {
-      overflow-x: hidden;
-    }
-
     /* Filter Controls */
     #filter-rule {
       min-width: 200px;
@@ -325,6 +322,21 @@
       width: 16px;
       height: 16px;
     }
+
+    /* Utility Classes */
+    .hidden {
+      display: none;
+    }
+
+    /* Rules Display */
+    #rules {
+      flex-wrap: wrap;
+    }
+
+    /* Details Panel */
+    #details {
+      white-space: normal;
+    }
   </style>
   <header>
     <h1>A11y DevTools</h1>
@@ -338,7 +350,7 @@
         <option value="lighthouse">Preset: Lighthouse</option>
         <option value="ibm">Preset: IBM Accessibility</option>
       </select>
-      <button id="btn-reset-preset" class="advanced" style="display:none">Reset to Preset</button>
+      <button id="btn-reset-preset" class="advanced hidden">Reset to Preset</button>
       <label>Rule
         <select id="filter-rule"><option value="">All rules</option></select>
       </label>
@@ -371,13 +383,13 @@
         <label><input id="opt-iframes" type="checkbox" /> Scan iframes</label>
         <label><input id="opt-hide-nr" type="checkbox" /> Hide needsReview</label>
         <label><input id="opt-intelligent-priority" type="checkbox" /> Intelligent Priority</label>
-        <button id="btn-priority-config" style="display:none;">Configure Priority</button>
+        <button id="btn-priority-config" class="hidden">Configure Priority</button>
         <button id="btn-copy-json">Copy JSON</button>
         <button id="btn-download-sarif">Download SARIF</button>
         <button id="btn-download-html">Download HTML</button>
         <button id="btn-download-csv">Download CSV</button>
         <button id="btn-compare-axe" title="Run axe-core in page and compare">Compare axe</button>
-        <span id="axe-status" class="pill" style="display:none"></span>
+        <span id="axe-status" class="pill hidden"></span>
         <button id="btn-clear-results-dev">Clear All</button>
         <button id="btn-clear-ignores">Clear Ignores</button>
       </span>
@@ -391,11 +403,11 @@
     <div class="right">
       <div class="section advanced">
         <div class="row"><strong>Enabled rules</strong></div>
-        <div id="rules" class="row" style="flex-wrap: wrap;"></div>
+        <div id="rules" class="row"></div>
       </div>
       <div class="section">
         <div class="row"><strong>Finding details</strong></div>
-        <div id="details" class="kvs" style="white-space: normal;">
+        <div id="details" class="kvs">
           Select a finding to see guidance and actions.
         </div>
       </div>
