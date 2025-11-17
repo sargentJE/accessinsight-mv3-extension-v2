@@ -3,6 +3,9 @@
   <meta charset="utf-8" />
   <title>A11y Panel</title>
   <link rel="stylesheet" href="styles/design-tokens.css" />
+  <link rel="stylesheet" href="styles/utilities/animations.css" />
+  <link rel="stylesheet" href="styles/components/spinner.css" />
+  <link rel="stylesheet" href="styles/components/toast.css" />
   <style>
     /* Base Styles */
     body {
@@ -336,6 +339,60 @@
     /* Details Panel */
     #details {
       white-space: normal;
+    }
+
+    /* State Transitions */
+    .item[aria-selected="true"] {
+      background: var(--color-bg-tertiary);
+      border-left: 3px solid var(--color-accent-primary);
+      transform: translateX(3px);
+    }
+
+    /* List Item Entrance Animation */
+    .item {
+      animation: fade-in-up var(--transition-fast);
+    }
+
+    /* Stagger animation for first 10 items */
+    .item:nth-child(1) { animation-delay: 0ms; }
+    .item:nth-child(2) { animation-delay: 30ms; }
+    .item:nth-child(3) { animation-delay: 60ms; }
+    .item:nth-child(4) { animation-delay: 90ms; }
+    .item:nth-child(5) { animation-delay: 120ms; }
+    .item:nth-child(6) { animation-delay: 150ms; }
+    .item:nth-child(7) { animation-delay: 180ms; }
+    .item:nth-child(8) { animation-delay: 210ms; }
+    .item:nth-child(9) { animation-delay: 240ms; }
+    .item:nth-child(10) { animation-delay: 270ms; }
+
+    /* Pill Micro-interactions */
+    .pill {
+      transition: transform var(--transition-fast),
+                  box-shadow var(--transition-fast);
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Summary Counter Animation */
+    #summary strong {
+      animation: count-up var(--transition-base);
+    }
+
+    /* Button Success State */
+    button.btn-success {
+      background: var(--color-minor) !important;
+      border-color: var(--color-minor) !important;
+      animation: pulse-scale var(--transition-base);
+    }
+
+    /* Button Error State */
+    button.btn-error {
+      background: var(--color-critical) !important;
+      border-color: var(--color-critical) !important;
+      animation: shake var(--transition-base);
     }
   </style>
   <header>

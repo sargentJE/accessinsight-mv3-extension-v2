@@ -2,6 +2,56 @@
 const DEBUG = false;
 const tabId = chrome.devtools.inspectedWindow.tabId;
 
+// Toast Manager - Phase 2
+const ToastManager = {
+  container: null,
+
+  init() {
+    if (!this.container) {
+      this.container = document.createElement('div');
+      this.container.className = 'toast-container';
+      this.container.setAttribute('aria-live', 'polite');
+      this.container.setAttribute('aria-atomic', 'true');
+      document.body.appendChild(this.container);
+    }
+  },
+
+  show(message, type = 'info', duration = 3000) {
+    this.init();
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.setAttribute('role', 'status');
+
+    const icons = {
+      success: '✓',
+      error: '✕',
+      warning: '⚠',
+      info: 'ℹ'
+    };
+
+    toast.innerHTML = `
+      <span class="toast-icon" aria-hidden="true">${icons[type] || icons.info}</span>
+      <span class="toast-message">${escapeHtml(message)}</span>
+      <button class="toast-dismiss" aria-label="Dismiss">&times;</button>
+    `;
+
+    const dismiss = () => {
+      toast.classList.add('toast-exit');
+      setTimeout(() => toast.remove(), 200);
+    };
+
+    toast.querySelector('.toast-dismiss').addEventListener('click', dismiss);
+    this.container.appendChild(toast);
+
+    if (duration > 0) {
+      setTimeout(dismiss, duration);
+    }
+
+    return toast;
+  }
+};
+
 // Security: HTML escape function to prevent XSS
 function escapeHtml(unsafe) {
   if (unsafe == null) return '';
@@ -71,7 +121,10 @@ function requestFindings() { send({ type: 'request-findings' }); }
 function toggleOverlay() { send({ type: 'toggle-panel' }); }
 function rescan() {
   const btn = $('#btn-rescan');
-  if (btn) { btn.disabled = true; btn.textContent = 'Rescanning…'; }
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner spinner-sm spinner-inline spinner-light"></span>Rescanning…';
+  }
   send({ type: 'rescan-now' });
   // Safety: re-enable button if no response within 8s
   try { if (rescanTimer) { clearTimeout(rescanTimer); rescanTimer = 0; } } catch {}
@@ -311,6 +364,7 @@ function applyPreset(name) {
   persistSelectedPreset(name);
   const btnReset = document.querySelector('#btn-reset-preset');
   if (btnReset) btnReset.style.display = 'none';
+  ToastManager.show(`Switched to ${name.charAt(0).toUpperCase() + name.slice(1)} preset`, 'info', 2000);
 }
 
 function revealInElements(selector) {
@@ -658,16 +712,16 @@ function copyJson() {
     document.body.removeChild(textarea);
 
     if (success) {
-      // Show brief success message
+      // Show toast notification
+      ToastManager.show('Copied to clipboard', 'success', 2000);
+
+      // Brief button success state
       const btn = document.querySelector('#btn-copy-json');
       if (btn) {
-        const originalText = btn.textContent;
-        btn.textContent = '✓ Copied!';
-        btn.style.color = '#4caf50';
+        btn.classList.add('btn-success');
         setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.color = '';
-        }, 2000);
+          btn.classList.remove('btn-success');
+        }, 1000);
       }
     }
   } catch (err) {
@@ -709,6 +763,7 @@ function downloadSarif() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'a11y-results.sarif.json'; a.click();
   setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  ToastManager.show('SARIF export complete', 'success', 2000);
 }
 
 $('#btn-toggle').addEventListener('click', toggleOverlay);
@@ -876,6 +931,7 @@ optIntelligentPriority?.addEventListener('change', () => {
 });
 
 function downloadHtmlReport() {
+  ToastManager.show('Generating HTML report...', 'info', 1000);
   const items = getFilteredFindings();
   
   // Enhanced row generation with priority data
@@ -923,6 +979,7 @@ function downloadHtmlReport() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'a11y-report.html'; a.click();
   setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  ToastManager.show('HTML report downloaded', 'success', 2000);
 }
 
 function downloadCsv() {
@@ -935,6 +992,7 @@ function downloadCsv() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'a11y-results.csv'; a.click();
   setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  ToastManager.show('CSV export complete', 'success', 2000);
 }
 
 function maybeAutoApplyPreset() {
