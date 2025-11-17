@@ -2,76 +2,336 @@
 <html lang="en">
   <meta charset="utf-8" />
   <title>A11y Panel</title>
+  <link rel="stylesheet" href="styles/design-tokens.css" />
   <style>
-    :root { --g: 8px; }
-    body { margin: 0; font: 13px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color: #eaeaea; background: #202124; }
-    header { display: grid; grid-template-columns: 1fr; gap: var(--g); padding: 8px 10px; border-bottom: 1px solid #3a3a3a; background: #1f1f1f; }
-    @media (min-width: 900px) { header { grid-template-columns: auto 1fr; align-items: center; } }
-    h1 { margin: 0; font-size: 14px; }
-    .controls { display: flex; flex-wrap: wrap; gap: var(--g); align-items: center; }
-    button, select, input[type="range"] { background: #2a2a2a; color: #fff; border: 1px solid #444; border-radius: 6px; padding: 6px 8px; cursor: pointer; }
-    button:hover, select:hover { background: #333; }
-    main { display: grid; grid-template-columns: 1fr; gap: 0; height: calc(100vh - 46px); }
-    @media (min-width: 1100px) { main { grid-template-columns: 1fr 360px; } }
-    .left, .right { overflow: auto; }
-    .list { padding: 8px 0; }
-    .item { padding: 8px 10px; border-bottom: 1px solid #303134; display: grid; gap: 4px; }
-    .item .meta { font-size: 12px; color: #bdbdbd; }
-    .kvs { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; background: #1d1e1f; padding: 6px 8px; border-radius: 6px; white-space: pre-wrap; }
-    .section { padding: 8px 10px; border-bottom: 1px solid #303134; }
-    .row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
-    .pill { display: inline-block; padding: 2px 6px; border-radius: 999px; font-size: 11px; background: #303134; color: #e0e0e0; }
+    /* Base Styles */
+    body {
+      margin: 0;
+      font: var(--font-size-base)/var(--line-height-base) var(--font-sans);
+      color: var(--color-text-primary);
+      background: var(--color-bg-primary);
+    }
+
+    /* Header */
+    header {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--color-border-default);
+      background: var(--color-bg-secondary);
+    }
+    @media (min-width: 900px) {
+      header {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
+    }
+
+    /* Form Controls Base */
+    button, select, input[type="range"], input[type="search"] {
+      font-family: var(--font-sans);
+      font-size: var(--font-size-base);
+      border-radius: var(--button-radius);
+      cursor: pointer;
+      transition: background-color var(--transition-fast),
+                  border-color var(--transition-fast),
+                  box-shadow var(--transition-fast),
+                  transform var(--transition-fast);
+    }
+
+    /* Button Hierarchy */
+
+    /* Primary Button - For main actions (Rescan, Toggle Overlay) */
+    button.btn-primary {
+      background: var(--color-accent-primary);
+      color: white;
+      border: 1px solid var(--color-accent-primary);
+      padding: var(--button-padding-y) var(--button-padding-x);
+      font-weight: var(--font-weight-medium);
+    }
+
+    button.btn-primary:hover {
+      background: var(--color-accent-hover);
+      border-color: var(--color-accent-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    button.btn-primary:active {
+      background: var(--color-accent-active);
+      border-color: var(--color-accent-active);
+      transform: translateY(0);
+    }
+
+    /* Secondary Button - Default style for most buttons */
+    button, button.btn-secondary {
+      background: var(--color-bg-input);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-strong);
+      padding: var(--button-padding-y) var(--button-padding-x);
+    }
+
+    button:hover, button.btn-secondary:hover {
+      background: var(--color-bg-hover);
+      transform: translateY(-1px);
+    }
+
+    button:active, button.btn-secondary:active {
+      background: var(--color-bg-active);
+      transform: translateY(0);
+    }
+
+    /* Tertiary Button - Ghost/text-only style */
+    button.btn-tertiary {
+      background: transparent;
+      color: var(--color-text-secondary);
+      border: 1px solid transparent;
+      padding: var(--button-padding-y) var(--button-padding-x);
+    }
+
+    button.btn-tertiary:hover {
+      background: var(--color-bg-input);
+      color: var(--color-text-primary);
+      border-color: var(--color-border-subtle);
+    }
+
+    /* Disabled State */
+    button:disabled, select:disabled, input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Focus States */
+    button:focus, select:focus, input:focus {
+      outline: none;
+      box-shadow: var(--shadow-focus);
+      border-color: var(--color-focus);
+    }
+
+    button:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+
+    /* Select Controls */
+    select {
+      background: var(--color-bg-input);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-strong);
+      padding: var(--button-padding-y) var(--button-padding-x);
+    }
+
+    select:hover {
+      background: var(--color-bg-hover);
+    }
+
+    /* Input Controls */
+    input[type="search"] {
+      background: var(--color-bg-input);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-strong);
+      padding: var(--input-padding-y) var(--input-padding-x);
+      min-width: 220px;
+    }
+
+    input[type="search"]:hover {
+      border-color: var(--color-border-default);
+    }
+
+    input[type="search"]:focus {
+      border-color: var(--color-focus);
+    }
+
+    /* Main Layout */
+    main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      height: calc(100vh - 46px);
+    }
+    @media (min-width: 1100px) {
+      main {
+        grid-template-columns: 1fr 360px;
+      }
+    }
+
+    .left, .right {
+      overflow: auto;
+    }
+
+    /* List */
+    .list {
+      padding: var(--space-2) 0;
+    }
+
+    .item {
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--color-border-subtle);
+      display: grid;
+      gap: var(--space-1);
+      transition: background-color var(--transition-fast);
+    }
+
+    .item:hover {
+      background: var(--color-bg-secondary);
+      cursor: pointer;
+    }
+
+    .item .meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    /* Code/Selector Display */
+    .kvs {
+      font-family: var(--font-mono);
+      font-size: var(--font-size-sm);
+      background: var(--color-bg-tertiary);
+      padding: var(--space-2);
+      border-radius: var(--radius-base);
+      white-space: pre-wrap;
+    }
+
+    /* Section */
+    .section {
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    /* Row */
+    .row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    /* Pills/Badges */
+    .pill {
+      display: inline-block;
+      padding: var(--pill-padding-y) var(--pill-padding-x);
+      border-radius: var(--pill-radius);
+      font-size: var(--font-size-xs);
+      background: var(--color-pill-bg);
+      color: var(--color-pill-text);
+    }
     
-    /* Enhanced priority styling */
-    .priority-critical { 
-      background: #dc2626 !important; 
-      animation: pulse-critical 2s infinite; 
-      box-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
+    /* Enhanced Priority Styling */
+    .priority-critical {
+      background: var(--color-priority-critical) !important;
+      animation: pulse-critical 2s infinite;
+      box-shadow: var(--shadow-critical);
+      color: white;
     }
-    .priority-high { 
-      background: #ea580c !important; 
-      box-shadow: 0 0 4px rgba(234, 88, 12, 0.3);
+
+    .priority-high {
+      background: var(--color-priority-high) !important;
+      box-shadow: var(--shadow-high);
+      color: white;
     }
-    .priority-medium { 
-      background: #ca8a04 !important; 
+
+    .priority-medium {
+      background: var(--color-priority-medium) !important;
+      color: white;
     }
-    .priority-low { 
-      background: #16a34a !important; 
+
+    .priority-low {
+      background: var(--color-priority-low) !important;
+      color: white;
     }
-    .priority-minimal { 
-      background: #6b7280 !important; 
+
+    .priority-minimal {
+      background: var(--color-priority-minimal) !important;
+      color: white;
     }
-    
+
     @keyframes pulse-critical {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.7; }
     }
-    
-    /* Priority status indicator */
+
+    /* Priority Status Indicator */
     .priority-status {
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-left: 8px;
+      font-size: var(--font-size-sm);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      margin-left: var(--space-2);
     }
-  </style>
-  <style>
-    /* Simple/Advanced toggle */
-    .advanced { display: none; }
-    .show-advanced .advanced { display: inline-flex; }
-    /* Advanced tray wraps controls onto new lines */
-    #advanced-wrap.advanced { display: none; }
-    .show-advanced #advanced-wrap.advanced { display: flex; flex-wrap: wrap; gap: var(--g); width: 100%; }
-    .controls { overflow-x: hidden; }
-    #filter-rule { min-width: 200px; }
-    #search { min-width: 260px; }
+
+    /* Simple/Advanced Toggle */
+    .advanced {
+      display: none;
+    }
+
+    .show-advanced .advanced {
+      display: inline-flex;
+    }
+
+    /* Advanced Controls Wrap */
+    #advanced-wrap.advanced {
+      display: none;
+    }
+
+    .show-advanced #advanced-wrap.advanced {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      width: 100%;
+    }
+
+    .controls {
+      overflow-x: hidden;
+    }
+
+    /* Filter Controls */
+    #filter-rule {
+      min-width: 200px;
+    }
+
+    #search {
+      min-width: 260px;
+    }
+
+    /* Label Styles */
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-base);
+      cursor: pointer;
+    }
+
+    /* Checkbox/Radio Styles */
+    input[type="checkbox"],
+    input[type="radio"] {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
   </style>
   <header>
     <h1>A11y DevTools</h1>
     <div class="controls">
       <span id="status" class="pill">Connecting…</span>
-      <button id="btn-toggle">Toggle Overlay</button>
-      <button id="btn-rescan">Rescan</button>
+      <button id="btn-toggle" class="btn-primary">Toggle Overlay</button>
+      <button id="btn-rescan" class="btn-primary">Rescan</button>
       <select id="preset">
         <option value="default">Preset: Default</option>
         <option value="axe">Preset: Axe Core</option>
@@ -79,12 +339,12 @@
         <option value="ibm">Preset: IBM Accessibility</option>
       </select>
       <button id="btn-reset-preset" class="advanced" style="display:none">Reset to Preset</button>
-      <label style="display:inline-flex;align-items:center;gap:6px">Rule
+      <label>Rule
         <select id="filter-rule"><option value="">All rules</option></select>
       </label>
       <select id="filter-impact" class="advanced"><option value="">All severities</option><option value="critical">critical</option><option value="serious">serious</option><option value="moderate">moderate</option><option value="minor">minor</option></select>
-      <input id="search" type="search" placeholder="Search (rule, selector, message)" style="min-width:220px" />
-      <label style="display:inline-flex;align-items:center;gap:6px">Sort
+      <input id="search" type="search" placeholder="Search (rule, selector, message)" />
+      <label>Sort
         <select id="sort">
           <option value="priority">Priority (desc)</option>
           <option value="impact">Impact (desc)</option>
@@ -95,22 +355,22 @@
       </label>
       <button id="btn-advanced" title="Show advanced controls">Advanced ▾</button>
       <span id="advanced-wrap" class="advanced">
-        <label style="display:inline-flex;align-items:center;gap:6px">Group
+        <label>Group
           <select id="group">
             <option value="none">None</option>
             <option value="rule">By rule</option>
             <option value="impact">By impact</option>
           </select>
         </label>
-        <label style="display:inline-flex;align-items:center;gap:6px">Min conf <span id="conf-val">0.0</span>
+        <label>Min conf <span id="conf-val">0.0</span>
           <input id="min-conf" type="range" min="0" max="0.95" step="0.05" value="0" />
         </label>
-        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-live" type="checkbox" /> Live</label>
-        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-viewport" type="checkbox" /> Viewport only</label>
-        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-shadow" type="checkbox" /> Scan shadow DOM</label>
-        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-iframes" type="checkbox" /> Scan iframes</label>
-        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-hide-nr" type="checkbox" /> Hide needsReview</label>
-        <label style="display:inline-flex;align-items:center;gap:6px"><input id="opt-intelligent-priority" type="checkbox" /> Intelligent Priority</label>
+        <label><input id="opt-live" type="checkbox" /> Live</label>
+        <label><input id="opt-viewport" type="checkbox" /> Viewport only</label>
+        <label><input id="opt-shadow" type="checkbox" /> Scan shadow DOM</label>
+        <label><input id="opt-iframes" type="checkbox" /> Scan iframes</label>
+        <label><input id="opt-hide-nr" type="checkbox" /> Hide needsReview</label>
+        <label><input id="opt-intelligent-priority" type="checkbox" /> Intelligent Priority</label>
         <button id="btn-priority-config" style="display:none;">Configure Priority</button>
         <button id="btn-copy-json">Copy JSON</button>
         <button id="btn-download-sarif">Download SARIF</button>

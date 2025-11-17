@@ -1,0 +1,244 @@
+/**
+ * AccessInsight Design Tokens
+ * Foundation for consistent visual language
+ * Version: 2.0.0 (Phase 1)
+ */
+
+:root {
+  /* ========================================
+     SPACING SYSTEM (8px grid)
+     ======================================== */
+  --space-0: 0;
+  --space-1: 4px;    /* 0.5 × base */
+  --space-2: 8px;    /* 1 × base */
+  --space-3: 12px;   /* 1.5 × base */
+  --space-4: 16px;   /* 2 × base */
+  --space-5: 20px;   /* 2.5 × base */
+  --space-6: 24px;   /* 3 × base */
+  --space-8: 32px;   /* 4 × base */
+  --space-10: 40px;  /* 5 × base */
+  --space-12: 48px;  /* 6 × base */
+  --space-16: 64px;  /* 8 × base */
+
+  /* ========================================
+     COLOR PALETTE - Dark Theme
+     ======================================== */
+
+  /* Neutrals */
+  --color-bg-primary: #202124;        /* Main background */
+  --color-bg-secondary: #1f1f1f;      /* Header/panel bg */
+  --color-bg-tertiary: #1a1a1a;       /* Elevated surface */
+  --color-bg-input: #2a2a2a;          /* Form controls */
+  --color-bg-hover: #333333;          /* Hover state */
+  --color-bg-active: #3a3a3a;         /* Active/pressed */
+
+  /* Text */
+  --color-text-primary: #eaeaea;      /* Body text */
+  --color-text-secondary: #bdbdbd;    /* Meta/supporting */
+  --color-text-tertiary: #9e9e9e;     /* Disabled/subtle */
+  --color-text-inverse: #111111;      /* Text on light */
+
+  /* Borders */
+  --color-border-subtle: #303134;     /* Dividers */
+  --color-border-default: #3a3a3a;    /* Standard borders */
+  --color-border-strong: #444444;     /* Emphasized borders */
+
+  /* Semantic Colors */
+  --color-critical: #dc2626;          /* Critical issues/errors */
+  --color-serious: #ea580c;           /* Serious issues/warnings */
+  --color-moderate: #ca8a04;          /* Moderate issues */
+  --color-minor: #16a34a;             /* Minor issues/success */
+  --color-info: #3b82f6;              /* Informational */
+
+  /* Priority Levels */
+  --color-priority-critical: #dc2626;
+  --color-priority-high: #ea580c;
+  --color-priority-medium: #ca8a04;
+  --color-priority-low: #16a34a;
+  --color-priority-minimal: #6b7280;
+
+  /* Accent/Brand */
+  --color-accent-primary: #ff3b30;    /* Primary actions */
+  --color-accent-hover: #ff584e;      /* Accent hover */
+  --color-accent-active: #cc2e26;     /* Accent pressed */
+
+  /* UI Elements */
+  --color-pill-bg: #303134;
+  --color-pill-text: #e0e0e0;
+  --color-focus: #ff3b30;             /* Focus indicator */
+  --color-overlay: rgba(0, 0, 0, 0.6); /* Backdrop */
+
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+
+  /* Font Families */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* Font Sizes (modular scale 1.125) */
+  --font-size-xs: 11px;     /* 0.688rem */
+  --font-size-sm: 12px;     /* 0.75rem */
+  --font-size-base: 13px;   /* 0.813rem - DevTools standard */
+  --font-size-md: 14px;     /* 0.875rem */
+  --font-size-lg: 16px;     /* 1rem */
+  --font-size-xl: 18px;     /* 1.125rem */
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-base: 1.4;
+  --line-height-relaxed: 1.6;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --radius-sm: 4px;
+  --radius-base: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;   /* Pills/badges */
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: -6px 0 16px rgba(0, 0, 0, 0.4);  /* Panel shadow */
+  --shadow-focus: 0 0 0 3px rgba(255, 59, 48, 0.3);  /* Focus ring */
+
+  /* Priority Shadows */
+  --shadow-critical: 0 0 8px rgba(220, 38, 38, 0.5);
+  --shadow-high: 0 0 4px rgba(234, 88, 12, 0.3);
+
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-overlay: 2147483647;  /* Extension overlay */
+
+  /* ========================================
+     TRANSITIONS & ANIMATIONS
+     ======================================== */
+  --transition-fast: 150ms ease-out;
+  --transition-base: 200ms ease-out;
+  --transition-slow: 300ms ease-out;
+  --transition-bounce: 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Animation durations */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  /* Easing functions */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ========================================
+     COMPONENT-SPECIFIC
+     ======================================== */
+
+  /* Buttons */
+  --button-padding-x: var(--space-3);
+  --button-padding-y: var(--space-2);
+  --button-radius: var(--radius-md);
+  --button-height: 32px;
+
+  /* Inputs */
+  --input-padding-x: var(--space-3);
+  --input-padding-y: var(--space-2);
+  --input-radius: var(--radius-base);
+  --input-height: 32px;
+
+  /* Pills/Badges */
+  --pill-padding-x: var(--space-2);
+  --pill-padding-y: 2px;
+  --pill-radius: var(--radius-full);
+
+  /* Panel */
+  --panel-width: 380px;
+  --panel-width-min: 280px;
+  --panel-width-max: 600px;
+  --panel-padding: var(--space-3);
+
+  /* List Items */
+  --item-padding-x: var(--space-3);
+  --item-padding-y: var(--space-3);
+  --item-gap: var(--space-2);
+}
+
+/* ========================================
+   ACCESSIBILITY OVERRIDES
+   ======================================== */
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+    --transition-bounce: 0ms;
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   LIGHT THEME (Future)
+   ======================================== */
+
+@media (prefers-color-scheme: light) {
+  /* Light theme tokens can be added here in Phase 6 */
+  /* For now, dark theme only */
+}
+
+/* ========================================
+   UTILITY CLASSES (Optional)
+   ======================================== */
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible utility */
+.focus-visible-only:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.focus-visible-only:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
