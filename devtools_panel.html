@@ -4,8 +4,10 @@
   <title>A11y Panel</title>
   <link rel="stylesheet" href="styles/design-tokens.css" />
   <link rel="stylesheet" href="styles/utilities/animations.css" />
+  <link rel="stylesheet" href="styles/utilities/truncation.css" />
   <link rel="stylesheet" href="styles/components/spinner.css" />
   <link rel="stylesheet" href="styles/components/toast.css" />
+  <link rel="stylesheet" href="styles/components/collapsible.css" />
   <style>
     /* Base Styles */
     body {
@@ -162,16 +164,36 @@
       border-color: var(--color-focus);
     }
 
-    /* Main Layout */
+    /* Main Layout - Phase 3: Improved Responsive */
     main {
       display: grid;
       grid-template-columns: 1fr;
       gap: 0;
       height: calc(100vh - 46px);
     }
+
+    /* Tablet: Single column with optimized spacing */
+    @media (min-width: 800px) {
+      .section {
+        padding: var(--space-4);
+      }
+
+      .item {
+        padding: var(--space-3);
+      }
+    }
+
+    /* Desktop: Two columns with flexible right panel */
     @media (min-width: 1100px) {
       main {
-        grid-template-columns: 1fr 360px;
+        grid-template-columns: 1fr minmax(320px, 380px);
+      }
+    }
+
+    /* Wide: Larger details panel */
+    @media (min-width: 1400px) {
+      main {
+        grid-template-columns: 1fr 460px;
       }
     }
 
@@ -394,6 +416,53 @@
       border-color: var(--color-critical) !important;
       animation: shake var(--transition-base);
     }
+
+    /* Phase 3: Priority-Based Visual Hierarchy */
+    /* Critical priority items */
+    .item.finding-critical {
+      border-left: 4px solid var(--color-critical);
+      background: linear-gradient(to right, rgba(220, 38, 38, 0.08) 0%, transparent 20%);
+    }
+
+    .item.finding-critical strong {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-critical);
+    }
+
+    /* High priority items */
+    .item.finding-high {
+      border-left: 3px solid var(--color-serious);
+      background: linear-gradient(to right, rgba(234, 88, 12, 0.05) 0%, transparent 20%);
+    }
+
+    .item.finding-high strong {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-serious);
+    }
+
+    /* Medium priority items */
+    .item.finding-medium {
+      border-left: 2px solid var(--color-moderate);
+      background: linear-gradient(to right, rgba(202, 138, 4, 0.03) 0%, transparent 20%);
+    }
+
+    /* Low priority items */
+    .item.finding-low {
+      border-left: 1px solid var(--color-border-subtle);
+      opacity: 0.95;
+    }
+
+    /* Minimal priority items */
+    .item.finding-minimal {
+      border-left: 1px solid var(--color-border-subtle);
+      opacity: 0.85;
+    }
+
+    .item.finding-minimal strong {
+      font-weight: var(--font-weight-normal);
+      color: var(--color-text-tertiary);
+    }
   </style>
   <header>
     <h1>A11y DevTools</h1>
@@ -454,13 +523,32 @@
   </header>
   <main>
     <div class="left">
-      <div id="summary" class="section"></div>
+      <!-- Collapsible Summary Section -->
+      <div id="summary-section" class="section-collapsible" aria-expanded="true">
+        <button class="section-header" aria-controls="summary-body" type="button">
+          <span class="section-title">Summary</span>
+          <span class="section-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="section-body-wrapper">
+          <div id="summary-body" class="section-body">
+            <div id="summary" class="section"></div>
+          </div>
+        </div>
+      </div>
       <div id="list" class="list" role="list"></div>
     </div>
     <div class="right">
-      <div class="section advanced">
-        <div class="row"><strong>Enabled rules</strong></div>
-        <div id="rules" class="row"></div>
+      <!-- Collapsible Enabled Rules Section -->
+      <div id="rules-section" class="section-collapsible advanced" aria-expanded="false">
+        <button class="section-header" aria-controls="rules-body" type="button">
+          <span class="section-title">Enabled rules</span>
+          <span class="section-toggle" aria-hidden="true"></span>
+        </button>
+        <div class="section-body-wrapper">
+          <div id="rules-body" class="section-body">
+            <div id="rules" class="row section"></div>
+          </div>
+        </div>
       </div>
       <div class="section">
         <div class="row"><strong>Finding details</strong></div>

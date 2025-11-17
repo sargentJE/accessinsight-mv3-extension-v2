@@ -52,6 +52,133 @@ const ToastManager = {
   }
 };
 
+// Collapsible Section Manager - Phase 3
+const CollapsibleManager = {
+  STORAGE_KEYS: {
+    SUMMARY: 'a11y.ui.summary.collapsed',
+    RULES: 'a11y.ui.rules.collapsed',
+  },
+
+  DEFAULTS: {
+    SUMMARY: false,    // Summary expanded by default
+    RULES: true,       // Rules collapsed by default
+  },
+
+  init() {
+    // Initialize all collapsible sections
+    document.querySelectorAll('.section-collapsible').forEach(section => {
+      const button = section.querySelector('.section-header');
+      if (!button) return;
+
+      // Get storage key from section ID
+      let storageKey = null;
+      if (section.id === 'summary-section') storageKey = this.STORAGE_KEYS.SUMMARY;
+      if (section.id === 'rules-section') storageKey = this.STORAGE_KEYS.RULES;
+
+      // Restore collapsed state from localStorage
+      if (storageKey) {
+        const collapsed = this.getCollapsedState(storageKey);
+        section.setAttribute('aria-expanded', String(!collapsed));
+      }
+
+      // Add click handler
+      button.addEventListener('click', () => {
+        const isExpanded = section.getAttribute('aria-expanded') === 'true';
+        const newExpanded = !isExpanded;
+        section.setAttribute('aria-expanded', String(newExpanded));
+
+        // Save state to localStorage
+        if (storageKey) {
+          this.setCollapsedState(storageKey, !newExpanded);
+        }
+      });
+
+      // Keyboard support (Enter and Space)
+      button.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          button.click();
+        }
+      });
+    });
+  },
+
+  getCollapsedState(key) {
+    try {
+      const value = localStorage.getItem(key);
+      if (value !== null) {
+        return JSON.parse(value);
+      }
+      // Return default based on key
+      if (key === this.STORAGE_KEYS.SUMMARY) return this.DEFAULTS.SUMMARY;
+      if (key === this.STORAGE_KEYS.RULES) return this.DEFAULTS.RULES;
+      return false;
+    } catch (e) {
+      console.warn('localStorage read failed:', e);
+      return false;
+    }
+  },
+
+  setCollapsedState(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      console.warn('localStorage write failed:', e);
+    }
+  }
+};
+
+// Truncation Manager - Phase 3
+const TruncationManager = {
+  SELECTOR_MAX_LENGTH: 60,
+  MESSAGE_MAX_LENGTH: 100,
+
+  init() {
+    // Delegated event listener for truncated selectors and messages
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('selector-truncate')) {
+        e.stopPropagation(); // Prevent item selection
+        this.toggleExpand(e.target);
+      }
+      if (e.target.classList.contains('message-truncate')) {
+        e.stopPropagation(); // Prevent item selection
+        this.toggleExpand(e.target);
+      }
+    });
+  },
+
+  toggleExpand(element) {
+    element.classList.toggle('expanded');
+  },
+
+  truncateSelector(selector) {
+    if (!selector || selector.length <= this.SELECTOR_MAX_LENGTH) {
+      return escapeHtml(selector);
+    }
+
+    // Return HTML with truncation class and full text in title attribute
+    const truncated = selector.slice(0, this.SELECTOR_MAX_LENGTH) + '...';
+    return `<span class="selector-truncate"
+                  title="${escapeAttr(selector)}"
+                  tabindex="0"
+                  role="button"
+                  aria-label="Click to expand full selector">${escapeHtml(truncated)}</span>`;
+  },
+
+  truncateMessage(message) {
+    if (!message || message.length <= this.MESSAGE_MAX_LENGTH) {
+      return escapeHtml(message);
+    }
+
+    // Use CSS line-clamp for multi-line truncation
+    return `<span class="message-truncate truncate-lines truncate-lines-2"
+                  title="${escapeAttr(message)}"
+                  tabindex="0"
+                  role="button"
+                  aria-label="Click to expand full message">${escapeHtml(message)}</span>`;
+  }
+};
+
 // Security: HTML escape function to prevent XSS
 function escapeHtml(unsafe) {
   if (unsafe == null) return '';
@@ -504,15 +631,24 @@ function escapeAttr(value) {
 }
 
 function appendFindingItem(f) {
-    const div = document.createElement('div'); div.className = 'item';
+  const div = document.createElement('div');
+
+  // Phase 3: Add priority-based visual hierarchy class
+  let priorityClass = '';
+  if (scanOptions.intelligentPriority && f.priorityScore !== undefined) {
+    const level = getPriorityLevel(f.priorityScore);
+    priorityClass = ` finding-${level}`;
+  }
+  div.className = `item${priorityClass}`;
+
   const helpUrl = (ruleMeta && ruleMeta[f.ruleId] && ruleMeta[f.ruleId].helpUrl) ? ruleMeta[f.ruleId].helpUrl : '';
   const helpHtml = helpUrl ? `<a href="#" data-act=\"help\" class=\"pill\">Help</a>` : '';
-    // Build enhanced priority display with accessibility
-    let priorityHtml = '';
-    // Default severity pill (hidden in intelligent mode to avoid duplication)
-    let impactHtml = f.impact ? `<span class="pill" title="severity">${f.impact}</span>` : '';
-    
-    if (scanOptions.intelligentPriority && f.priorityScore !== undefined) {
+  // Build enhanced priority display with accessibility
+  let priorityHtml = '';
+  // Default severity pill (hidden in intelligent mode to avoid duplication)
+  let impactHtml = f.impact ? `<span class="pill" title="severity">${f.impact}</span>` : '';
+
+  if (scanOptions.intelligentPriority && f.priorityScore !== undefined) {
       const level = getPriorityLevel(f.priorityScore);
       const icon = getPriorityIcon(f.priorityScore);
       const color = getPriorityColor(f.priorityScore);
@@ -542,8 +678,8 @@ function appendFindingItem(f) {
     
     div.innerHTML = `
       <div><strong>${escapeHtml(f.ruleId)}</strong> ${impactHtml} ${priorityHtml} ${typeof f.confidence==='number'?`<span class="pill" title="confidence">${(f.confidence||0).toFixed(2)}</span>`:''}</div>
-      <div class="meta">${escapeHtml((f.wcag||[]).join(', '))} • ${escapeHtml(f.selector)}</div>
-      <div class="kvs">${escapeHtml(f.message)}
+      <div class="meta">${escapeHtml((f.wcag||[]).join(', '))} • ${TruncationManager.truncateSelector(f.selector)}</div>
+      <div class="kvs">${TruncationManager.truncateMessage(f.message)}
 ${f.evidence ? escapeHtml(JSON.stringify(f.evidence, null, 2)) : ''}</div>
       <div class="row">
         <button data-act="reveal">Reveal in Elements</button>
@@ -574,7 +710,20 @@ ${f.evidence ? escapeHtml(JSON.stringify(f.evidence, null, 2)) : ''}</div>
 function renderDetails(f) {
   if (!detailsEl || !f) return;
   const wcag = (f.wcag||[]).join(', ');
-  const evidence = f.evidence ? `<pre>${escapeHtml(JSON.stringify(f.evidence, null, 2))}</pre>` : '';
+
+  // Phase 3: Collapsible evidence display
+  const evidenceHtml = f.evidence ? `
+    <div class="evidence-collapsible" aria-expanded="false" style="margin-top:8px">
+      <button class="evidence-header" aria-controls="evidence-content" type="button">
+        <span class="evidence-toggle-icon">▶</span>
+        <span>Show Evidence</span>
+      </button>
+      <div id="evidence-content" class="evidence-content hidden">
+        <pre>${escapeHtml(JSON.stringify(f.evidence, null, 2))}</pre>
+      </div>
+    </div>
+  ` : '';
+
   const severity = f.impact || '';
   const how = guidanceForRule(f.ruleId, f); // Returns safe HTML from trusted source
   const helpUrl = (ruleMeta && ruleMeta[f.ruleId] && ruleMeta[f.ruleId].helpUrl) ? ruleMeta[f.ruleId].helpUrl : '';
@@ -584,7 +733,7 @@ function renderDetails(f) {
     <div class="meta">WCAG: ${escapeHtml(wcag)}</div>
     ${helpUrl?`<div style="margin:6px 0"><a href="#" id="d-help" class="pill">Help</a></div>`:''}
     <div style="margin-top:8px">${how}</div>
-    <div style="margin-top:8px">${evidence}</div>
+    ${evidenceHtml}
     <div class="row" style="margin-top:8px">
       <button id="d-reveal">Reveal</button>
       <button id="d-ignore-this">Ignore this</button>
@@ -594,6 +743,23 @@ function renderDetails(f) {
   detailsEl.querySelector('#d-ignore-this').addEventListener('click', () => { ignores.selectors.add(f.selector); persistIgnores(); render(); renderDetails(f); });
   detailsEl.querySelector('#d-ignore-rule').addEventListener('click', () => { ignores.rules.add(f.ruleId); persistIgnores(); render(); renderDetails(f); });
   if (helpUrl) detailsEl.querySelector('#d-help')?.addEventListener('click', (e) => { e.preventDefault(); window.open(helpUrl, '_blank', 'noopener'); });
+
+  // Phase 3: Add evidence toggle handler
+  const evidenceToggle = detailsEl.querySelector('.evidence-header');
+  if (evidenceToggle) {
+    evidenceToggle.addEventListener('click', () => {
+      const section = evidenceToggle.closest('.evidence-collapsible');
+      const content = detailsEl.querySelector('#evidence-content');
+      const icon = evidenceToggle.querySelector('.evidence-toggle-icon');
+      const text = evidenceToggle.querySelector('span:last-child');
+      const isExpanded = section.getAttribute('aria-expanded') === 'true';
+
+      section.setAttribute('aria-expanded', String(!isExpanded));
+      content.classList.toggle('hidden');
+      icon.textContent = isExpanded ? '▶' : '▼';
+      text.textContent = isExpanded ? 'Show Evidence' : 'Hide Evidence';
+    });
+  }
 }
 
 function guidanceForRule(ruleId, f) {
@@ -1042,3 +1208,14 @@ function handlePortMessage(msg) {
 }
 // bind for current connection
 try { port.onMessage.addListener(handlePortMessage); } catch {}
+
+// Initialize Phase 3 UI enhancements
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    CollapsibleManager.init();
+    TruncationManager.init();
+  });
+} else {
+  CollapsibleManager.init();
+  TruncationManager.init();
+}

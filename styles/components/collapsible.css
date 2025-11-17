@@ -1,0 +1,195 @@
+/**
+ * Collapsible Section Component
+ *
+ * Provides expand/collapse functionality for sections with smooth animations.
+ * Uses CSS Grid for smooth height transitions without needing to know content height.
+ * Fully accessible with ARIA attributes and keyboard support.
+ */
+
+/* Section container */
+.section-collapsible {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Section header (clickable) */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-secondary);
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  transition: background var(--transition-fast);
+}
+
+.section-header:hover {
+  background: var(--color-bg-tertiary);
+}
+
+.section-header:focus {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: -2px;
+  box-shadow: var(--shadow-focus);
+}
+
+.section-header:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Section title */
+.section-title {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Section badge (e.g., count) */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--space-1);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* Toggle icon */
+.section-toggle {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  transition: transform var(--transition-fast);
+  font-size: 12px;
+}
+
+.section-toggle::before {
+  content: '▼';
+}
+
+/* Collapsed state - rotate icon */
+.section-collapsible[aria-expanded="false"] .section-toggle {
+  transform: rotate(-90deg);
+}
+
+/* Body wrapper - using grid for smooth animation */
+.section-body-wrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--transition-base),
+              opacity var(--transition-fast);
+  opacity: 1;
+}
+
+.section-collapsible[aria-expanded="false"] .section-body-wrapper {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+/* Body content */
+.section-body {
+  overflow: hidden;
+}
+
+/* Smooth transition helper */
+@media (prefers-reduced-motion: reduce) {
+  .section-body-wrapper {
+    transition: none;
+  }
+
+  .section-toggle {
+    transition: none;
+  }
+
+  .section-collapsible[aria-expanded="false"] .section-body-wrapper {
+    display: none;
+  }
+}
+
+/* Specific section styles */
+#summary-section.section-collapsible {
+  margin-bottom: var(--space-3);
+}
+
+#rules-section.section-collapsible {
+  margin-bottom: var(--space-3);
+}
+
+/* Evidence collapsible (nested variant) */
+.evidence-collapsible {
+  margin-top: var(--space-3);
+}
+
+.evidence-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.evidence-header:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+}
+
+.evidence-header:focus {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+.evidence-toggle-icon {
+  transition: transform var(--transition-fast);
+  display: inline-block;
+  font-size: 10px;
+}
+
+.evidence-collapsible[aria-expanded="false"] .evidence-toggle-icon {
+  transform: rotate(-90deg);
+}
+
+.evidence-content {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.evidence-content pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
