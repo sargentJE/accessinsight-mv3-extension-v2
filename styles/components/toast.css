@@ -1,0 +1,106 @@
+/**
+ * Toast Notification System
+ * Non-intrusive feedback for user actions
+ */
+
+.toast-container {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  z-index: var(--z-tooltip);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+  max-width: 400px;
+}
+
+.toast {
+  min-width: 280px;
+  background: var(--color-bg-secondary);
+  border-left: 4px solid var(--color-accent-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-lg);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  animation: slide-in-right var(--transition-base);
+}
+
+/* Toast variants */
+.toast-success {
+  border-left-color: var(--color-minor);
+}
+
+.toast-success .toast-icon {
+  color: var(--color-minor);
+}
+
+.toast-error {
+  border-left-color: var(--color-critical);
+}
+
+.toast-error .toast-icon {
+  color: var(--color-critical);
+}
+
+.toast-warning {
+  border-left-color: var(--color-moderate);
+}
+
+.toast-warning .toast-icon {
+  color: var(--color-moderate);
+}
+
+.toast-info {
+  border-left-color: var(--color-info);
+}
+
+.toast-info .toast-icon {
+  color: var(--color-info);
+}
+
+/* Toast components */
+.toast-icon {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.toast-message {
+  flex: 1;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-base);
+}
+
+.toast-dismiss {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.toast-dismiss:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.toast-dismiss:focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Exit animation */
+.toast-exit {
+  animation: slide-out-right var(--transition-base);
+}

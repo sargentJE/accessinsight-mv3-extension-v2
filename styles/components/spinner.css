@@ -1,0 +1,42 @@
+/**
+ * Spinner Component
+ * Loading indicator with multiple sizes
+ */
+
+.spinner {
+  display: inline-block;
+  border: 2px solid var(--color-bg-input);
+  border-top-color: var(--color-accent-primary);
+  border-radius: 50%;
+  animation: spin var(--duration-base) linear infinite;
+}
+
+.spinner-sm {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+.spinner-md {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.spinner-lg {
+  width: 32px;
+  height: 32px;
+  border-width: 3px;
+}
+
+/* Inline spinner (for buttons) */
+.spinner-inline {
+  margin-right: var(--space-1);
+  vertical-align: middle;
+}
+
+/* Light variant (for dark backgrounds) */
+.spinner-light {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+}
