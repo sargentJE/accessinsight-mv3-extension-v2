@@ -388,6 +388,17 @@
   }
 
   function makeFinding({ ruleId, impact='serious', message, el, wcag=[], evidence={}, confidence=0.9 }) {
+    // Capture element HTML for portal remediation system
+    try {
+      if (el && el.outerHTML) {
+        const html = el.outerHTML;
+        // Truncate to 2000 chars to prevent massive payloads
+        evidence.html = html.length > 2000 ? html.substring(0, 2000) + '...' : html;
+      }
+    } catch (e) {
+      // Silent fail - some elements may not support outerHTML
+    }
+
     const finding = { ruleId, impact, message, selector: cssPath(el), wcag, evidence, confidence };
     
     // Add context analysis
