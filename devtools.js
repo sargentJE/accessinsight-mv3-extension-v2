@@ -395,7 +395,10 @@ function render() {
   if (groupMode !== 'none') {
     const groups = new Map();
     for (const f of items) {
-      const key = groupMode === 'rule' ? f.ruleId : (String(f.impact||'').toLowerCase()||'');
+      const key = groupMode === 'rule' ? f.ruleId :
+                  groupMode === 'impact' ? (String(f.impact||'').toLowerCase()||'') :
+                  groupMode === 'region' ? (f.context?.pageRegion || 'Unknown') :
+                  '';
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(f);
     }
@@ -455,9 +458,16 @@ function appendFindingItem(f) {
   const helpHtml = helpUrl ? `<a href="#" data-act=\"help\" class=\"pill\">Help</a>` : '';
     // Build enhanced priority display with accessibility
     let priorityHtml = '';
-    // Default severity pill (hidden in intelligent mode to avoid duplication)
-    let impactHtml = f.impact ? `<span class="pill" title="severity">${f.impact}</span>` : '';
-    
+    // Default severity pill with color-coding (matches priority mode colors)
+    const severityColors = {
+      critical: '#dc2626',
+      serious: '#ea580c',
+      moderate: '#ca8a04',
+      minor: '#16a34a'
+    };
+    const severityColor = severityColors[f.impact] || '#6b7280';
+    let impactHtml = f.impact ? `<span class="pill" style="background: ${severityColor}; color: white;" title="severity">${f.impact}</span>` : '';
+
     if (scanOptions.intelligentPriority && f.priorityScore !== undefined) {
       const level = getPriorityLevel(f.priorityScore);
       const icon = getPriorityIcon(f.priorityScore);

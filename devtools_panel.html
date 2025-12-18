@@ -19,6 +19,8 @@
     .item .meta { font-size: 12px; color: #bdbdbd; }
     .kvs { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; background: #1d1e1f; padding: 6px 8px; border-radius: 6px; white-space: pre-wrap; }
     .section { padding: 8px 10px; border-bottom: 1px solid #303134; }
+    /* Sticky summary bar for constant context */
+    #summary { position: sticky; top: 0; z-index: 10; background: #1f1f1f; }
     .row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
     .pill { display: inline-block; padding: 2px 6px; border-radius: 999px; font-size: 11px; background: #303134; color: #e0e0e0; }
     
@@ -100,6 +102,7 @@
             <option value="none">None</option>
             <option value="rule">By rule</option>
             <option value="impact">By impact</option>
+            <option value="region">By page region</option>
           </select>
         </label>
         <label style="display:inline-flex;align-items:center;gap:6px">Min conf <span id="conf-val">0.0</span>
