@@ -1168,6 +1168,32 @@ function renderGuidanceHtml(ruleId, showExamples = false) {
   return html;
 }
 
+/**
+ * Render guidance as Markdown for SARIF help.markdown field
+ * @param {string} ruleId - The rule identifier
+ * @returns {string} Markdown-formatted guidance with examples
+ */
+function renderGuidanceMarkdown(ruleId) {
+  const g = getGuidanceData(ruleId);
+  if (!g || !g.text) return '';
+  
+  let md = g.text + '\n\n';
+  
+  if (g.exampleBefore) {
+    md += '**Before:**\n```html\n' + g.exampleBefore + '\n```\n\n';
+  }
+  
+  if (g.exampleAfter) {
+    md += '**After:**\n```html\n' + g.exampleAfter + '\n```\n\n';
+  }
+  
+  if (g.wcag && g.wcag.length > 0) {
+    md += '**WCAG Criteria:** ' + g.wcag.map(w => `[${w.id}](${w.url})`).join(', ');
+  }
+  
+  return md;
+}
+
 // ============================================
 // EXPORT UTILITIES
 // Shared functions for JSON, HTML, CSV, SARIF exports
@@ -1514,28 +1540,94 @@ function copyJson() {
   }
 }
 
+/**
+ * Convert findings to SARIF 2.1.0 format with enhanced guidance and evidence
+ * @param {Array} findings - Array of accessibility findings
+ * @returns {Object} SARIF-compliant JSON object
+ */
 function toSarif(findings) {
+  const metadata = getExportMetadata();
+  const uniqueRuleIds = Array.from(new Set(findings.map(f => f.ruleId)));
+  
   return {
     "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
     "version": "2.1.0",
     "runs": [{
-      "tool": { "driver": { "name": "A11y Inspector Overlay (Pro Demo)",
-        "informationUri": "https://example.invalid/a11y-overlay",
-        "rules": Array.from(new Set(findings.map(f => f.ruleId))).map(id => ({
-          "id": id,
-          "name": id,
-          "shortDescription": { "text": id },
-          ...(ruleMeta && ruleMeta[id] ? { "helpUri": ruleMeta[id].helpUrl, "properties": { "tags": ruleMeta[id].tags||[] } } : {})
-        }))
-      }},
-      "properties": { "profile": (typeof window !== 'undefined' && window.__a11yProfile) || 'default' },
-      "results": findings.map(f => ({
-        "ruleId": f.ruleId,
-        "level": (f.impact === 'critical' || f.impact === 'serious') ? "error" : "warning",
-        "message": { "text": f.message },
-        "locations": [{ "physicalLocation": { "artifactLocation": { "uri": inspectedUrl || location.href }, "region": { "snippet": { "text": f.selector } } } }],
-        ...(typeof f.needsReview === 'boolean' ? { "properties": { "needsReview": f.needsReview } } : {})
-      }))
+      "tool": {
+        "driver": {
+          "name": "AccessInsight",
+          "version": "1.2.0",
+          "informationUri": "https://github.com/sargentJE/accessinsight-mv3-extension-v2",
+          "rules": uniqueRuleIds.map(ruleId => {
+            const guidance = getGuidanceData(ruleId);
+            const meta = ruleMeta && ruleMeta[ruleId];
+            const category = getRuleCategory(ruleId);
+            
+            return {
+              "id": ruleId,
+              "name": ruleId,
+              "shortDescription": { 
+                "text": guidance.text ? guidance.text.substring(0, 100) : ruleId 
+              },
+              "fullDescription": {
+                "text": guidance.text || ''
+              },
+              "help": {
+                "text": guidance.text || '',
+                "markdown": renderGuidanceMarkdown(ruleId)
+              },
+              "properties": {
+                "category": category,
+                "wcagCriteria": (guidance.wcag || []).map(w => w.id),
+                ...(meta && meta.tags ? { "tags": meta.tags } : {})
+              },
+              ...(meta && meta.helpUrl ? { "helpUri": meta.helpUrl } : {}),
+              ...(guidance.wcag && guidance.wcag.length > 0 ? {
+                "relationships": guidance.wcag.map(w => ({
+                  "target": { "id": w.id, "toolComponent": { "name": "WCAG" } },
+                  "kinds": ["superset"]
+                }))
+              } : {})
+            };
+          })
+        }
+      },
+      "properties": {
+        ...metadata,
+        "profile": (typeof window !== 'undefined' && window.__a11yProfile) || 'default'
+      },
+      "results": findings.map(f => {
+        const category = getRuleCategory(f.ruleId);
+        const evidenceHtml = f.evidence?.html || '';
+        
+        return {
+          "ruleId": f.ruleId,
+          "level": (f.impact === 'critical' || f.impact === 'serious') ? "error" : "warning",
+          "message": { "text": f.message },
+          "locations": [{
+            "physicalLocation": {
+              "artifactLocation": { 
+                "uri": inspectedUrl || location.href 
+              },
+              "region": {
+                "snippet": { 
+                  "text": evidenceHtml || f.selector || '' 
+                }
+              }
+            }
+          }],
+          "properties": {
+            "selector": f.selector,
+            "impact": f.impact || '',
+            "priorityLabel": f.priorityLabel || '',
+            "priorityScore": f.priorityScore || 0,
+            "category": category,
+            "confidence": typeof f.confidence === 'number' ? f.confidence : 0,
+            "wcag": f.wcag || [],
+            ...(typeof f.needsReview === 'boolean' ? { "needsReview": f.needsReview } : {})
+          }
+        };
+      })
     }]
   };
 }
@@ -1545,8 +1637,12 @@ function downloadSarif() {
   const sarif = JSON.stringify(toSarif(items), null, 2);
   const blob = new Blob([sarif], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'a11y-results.sarif.json'; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  const filename = generateExportFilename('a11y-report', 'sarif.json');
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
   ToastManager.show('SARIF export complete', 'success', 2000);
 }
 
@@ -2129,14 +2225,67 @@ function downloadHtmlReport() {
 
 function downloadCsv() {
   const items = getFilteredFindings();
-  const headers = ['ruleId','impact','wcag','selector','message','confidence'];
-  const esc = (s) => '"' + String(s).replace(/"/g,'""') + '"';
-  const rows = [headers.join(',')].concat(items.map(f => [f.ruleId, f.impact||'', (f.wcag||[]).join(' '), f.selector, f.message, (typeof f.confidence==='number'?(f.confidence.toFixed(2)):'')].map(esc).join(',')));
-  const csv = rows.join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
+  
+  // Enhanced CSV escape function - handles quotes, newlines, commas properly
+  const escCsv = (s) => {
+    if (s === null || s === undefined) return '';
+    const str = String(s);
+    // If contains comma, quote, newline, or carriage return - wrap in quotes and escape inner quotes
+    if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+      return '"' + str.replace(/"/g, '""') + '"';
+    }
+    return str;
+  };
+  
+  // Enhanced headers with evidence, priority, category, and guidance
+  const headers = [
+    'ruleId',
+    'impact', 
+    'priorityLabel',
+    'priorityScore',
+    'wcag',
+    'category',
+    'selector',
+    'message',
+    'evidence',
+    'guidanceText',
+    'confidence'
+  ];
+  
+  // Build rows with enhanced data
+  const rows = items.map(f => {
+    const guidance = getGuidanceData(f.ruleId);
+    const category = getRuleCategory(f.ruleId);
+    const evidenceHtml = f.evidence?.html || '';
+    
+    return [
+      f.ruleId || '',
+      f.impact || '',
+      f.priorityLabel || '',
+      f.priorityScore || '',
+      (f.wcag || []).join('; '),
+      category,
+      f.selector || '',
+      f.message || '',
+      evidenceHtml,
+      guidance.text || '',
+      typeof f.confidence === 'number' ? f.confidence.toFixed(2) : ''
+    ].map(escCsv).join(',');
+  });
+  
+  // Combine headers and rows
+  const csv = [headers.join(','), ...rows].join('\n');
+  
+  // Add UTF-8 BOM for Excel compatibility
+  const bom = '\uFEFF';
+  const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'a11y-results.csv'; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  const filename = generateExportFilename('a11y-report', 'csv');
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
   ToastManager.show('CSV export complete', 'success', 2000);
 }
 
