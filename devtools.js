@@ -1729,25 +1729,33 @@ function downloadHtmlReport() {
   });
   
   // Calculate priority breakdown
+  // Uses priorityLabel (e.g., "Critical Priority") when available, falls back to impact
   const priorityBreakdown = { critical: 0, high: 0, medium: 0, low: 0 };
   items.forEach(f => {
-    const level = f.priorityLabel || f.impact || 'medium';
-    if (level === 'critical' || level === 'serious') priorityBreakdown.critical++;
-    else if (level === 'high' || level === 'moderate') priorityBreakdown.high++;
-    else if (level === 'medium' || level === 'minor') priorityBreakdown.medium++;
-    else priorityBreakdown.low++;
+    const label = (f.priorityLabel || '').toLowerCase();
+    const impact = (f.impact || '').toLowerCase();
+    
+    if (label.includes('critical') || impact === 'critical' || impact === 'serious') {
+      priorityBreakdown.critical++;
+    } else if (label.includes('high') || impact === 'moderate') {
+      priorityBreakdown.high++;
+    } else if (label.includes('medium') || impact === 'minor') {
+      priorityBreakdown.medium++;
+    } else {
+      priorityBreakdown.low++;
+    }
   });
 
   // Generate category navigation
   const categoryNav = Object.keys(grouped).map(cat => {
     const count = grouped[cat].length;
-    const id = cat.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    const id = cat.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     return `<a href="#cat-${id}" class="nav-pill">${escapeHtml(cat)} <span class="count">${count}</span></a>`;
   }).join('');
 
   // Generate issue cards grouped by category
   const categoryBlocks = Object.entries(grouped).map(([category, findings]) => {
-    const catId = category.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    const catId = category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
     const issueCards = findings.map((f, idx) => {
       const guidance = getGuidanceData(f.ruleId);
       const wcagList = (f.wcag || []).join(', ') || 'N/A';
