@@ -762,80 +762,410 @@ function renderDetails(f) {
   }
 }
 
+/**
+ * Enhanced Guidance Database
+ * Provides structured fix guidance with before/after examples and WCAG references.
+ * Used by DevTools panel and export functions.
+ */
+const GUIDANCE_DATABASE = {
+  // ============================================
+  // IMAGES
+  // ============================================
+  'img-alt': {
+    text: 'Add meaningful alt text describing the image content, or alt="" if purely decorative. For complex images like charts, use aria-labelledby to reference a longer description.',
+    exampleBefore: '<img src="hero.jpg">',
+    exampleAfter: '<img src="hero.jpg" alt="Students collaborating in modern library">',
+    wcag: [{ id: '1.1.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/non-text-content' }]
+  },
+
+  // ============================================
+  // FORMS & LABELS
+  // ============================================
+  'label-control': {
+    text: 'Associate inputs with a visible label using <label for="id"> or by wrapping the input inside the <label> element.',
+    exampleBefore: 'Name: <input type="text" name="name">',
+    exampleAfter: '<label for="name">Name:</label>\n<input type="text" id="name" name="name">',
+    wcag: [
+      { id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' },
+      { id: '3.3.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions' }
+    ]
+  },
+  'fieldset-legend': {
+    text: 'Group related form controls (especially radio buttons and checkboxes) within a <fieldset> and provide a <legend> describing the group.',
+    exampleBefore: '<input type="radio" name="size"> Small\n<input type="radio" name="size"> Large',
+    exampleAfter: '<fieldset>\n  <legend>Select size</legend>\n  <input type="radio" name="size" id="small">\n  <label for="small">Small</label>\n  <input type="radio" name="size" id="large">\n  <label for="large">Large</label>\n</fieldset>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'autocomplete': {
+    text: 'Add the appropriate autocomplete attribute to help users complete forms faster and reduce input errors.',
+    exampleBefore: '<input type="email" name="email">',
+    exampleAfter: '<input type="email" name="email" autocomplete="email">',
+    wcag: [{ id: '1.3.5', url: 'https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose' }]
+  },
+  'button-name': {
+    text: 'Ensure buttons have discernible text via visible label, aria-label, or aria-labelledby. Icon-only buttons need aria-label.',
+    exampleBefore: '<button><svg class="icon-search"></svg></button>',
+    exampleAfter: '<button aria-label="Search">\n  <svg class="icon-search" aria-hidden="true"></svg>\n</button>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'control-name': {
+    text: 'Ensure all interactive controls have an accessible name via visible text, aria-label, or aria-labelledby.',
+    exampleBefore: '<div role="button" onclick="submit()"></div>',
+    exampleAfter: '<div role="button" onclick="submit()" aria-label="Submit form">Submit</div>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+
+  // ============================================
+  // COLOUR & CONTRAST
+  // ============================================
+  'contrast-text': {
+    text: 'Increase the colour contrast between text and background. Normal text needs 4.5:1 ratio; large text (18pt+ or 14pt bold) needs 3:1.',
+    exampleBefore: '<p style="color: #999; background: #fff;">Low contrast text</p>',
+    exampleAfter: '<p style="color: #595959; background: #fff;">Sufficient contrast text</p>',
+    wcag: [{ id: '1.4.3', url: 'https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum' }]
+  },
+  'link-in-text-block': {
+    text: 'Links within text blocks need a non-colour distinguisher (underline, bold, icon) plus 3:1 contrast against surrounding text.',
+    exampleBefore: '<p>Read our <a href="/terms" style="color: #0066cc; text-decoration: none;">terms</a></p>',
+    exampleAfter: '<p>Read our <a href="/terms" style="color: #0066cc; text-decoration: underline;">terms</a></p>',
+    wcag: [{ id: '1.4.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/use-of-color' }]
+  },
+
+  // ============================================
+  // TARGET SIZE
+  // ============================================
+  'target-size': {
+    text: 'Increase the clickable/tappable area to at least 24×24 CSS pixels. Add padding, increase button size, or ensure sufficient spacing between targets.',
+    exampleBefore: '<a href="/next" style="padding: 2px;">→</a>',
+    exampleAfter: '<a href="/next" style="display: inline-block; min-width: 44px; min-height: 44px; padding: 12px;">→</a>',
+    wcag: [{ id: '2.5.8', url: 'https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum' }]
+  },
+  'dragging-movements': {
+    text: 'Provide an alternative to dragging operations. Users must be able to complete the action with a single pointer without dragging.',
+    exampleBefore: '<div draggable="true" ondrag="reorder()">Drag to reorder</div>',
+    exampleAfter: '<div draggable="true" ondrag="reorder()">Drag to reorder</div>\n<button onclick="moveUp()">Move up</button>\n<button onclick="moveDown()">Move down</button>',
+    wcag: [{ id: '2.5.7', url: 'https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements' }]
+  },
+
+  // ============================================
+  // KEYBOARD & FOCUS
+  // ============================================
+  'tabindex-positive': {
+    text: 'Remove positive tabindex values. Use tabindex="0" to add elements to natural tab order, or tabindex="-1" for programmatic focus only.',
+    exampleBefore: '<button tabindex="5">First</button>\n<button tabindex="1">Second</button>',
+    exampleAfter: '<button>First</button>\n<button>Second</button>',
+    wcag: [{ id: '2.4.3', url: 'https://www.w3.org/WAI/WCAG21/Understanding/focus-order' }]
+  },
+  'aria-hidden-focus': {
+    text: 'Elements with aria-hidden="true" must not contain focusable elements. Either remove aria-hidden or make children non-focusable.',
+    exampleBefore: '<div aria-hidden="true">\n  <button>Hidden but focusable</button>\n</div>',
+    exampleAfter: '<div aria-hidden="true">\n  <button tabindex="-1">Hidden and not focusable</button>\n</div>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'skip-link': {
+    text: 'Add a skip link as the first focusable element that jumps to main content. Essential for keyboard users to bypass repetitive navigation.',
+    exampleBefore: '<body>\n  <nav><!-- Long navigation --></nav>\n  <main id="main">...</main>\n</body>',
+    exampleAfter: '<body>\n  <a href="#main" class="skip-link">Skip to main content</a>\n  <nav><!-- Long navigation --></nav>\n  <main id="main">...</main>\n</body>',
+    wcag: [{ id: '2.4.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks' }]
+  },
+  'focus-appearance': {
+    text: 'Ensure focus indicators have sufficient size and contrast. Focus outline should be at least 2px thick with 3:1 contrast.',
+    exampleBefore: 'button:focus { outline: none; }',
+    exampleAfter: 'button:focus {\n  outline: 2px solid #005fcc;\n  outline-offset: 2px;\n}',
+    wcag: [{ id: '2.4.7', url: 'https://www.w3.org/WAI/WCAG21/Understanding/focus-visible' }]
+  },
+  'focus-not-obscured-minimum': {
+    text: 'Ensure focused elements are not entirely hidden by sticky headers, footers, or modals. At least part of the focus indicator must be visible.',
+    exampleBefore: '.sticky-header { position: fixed; top: 0; z-index: 100; }',
+    exampleAfter: '.sticky-header { position: fixed; top: 0; z-index: 100; }\nmain { scroll-padding-top: 80px; }',
+    wcag: [{ id: '2.4.11', url: 'https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum' }]
+  },
+  'focus-not-obscured-enhanced': {
+    text: 'Ensure the entire focused element is visible when it receives focus, not obscured by any overlapping content.',
+    exampleBefore: '/* No scroll padding, focused elements hidden under sticky header */',
+    exampleAfter: 'html { scroll-padding-top: 100px; scroll-padding-bottom: 50px; }',
+    wcag: [{ id: '2.4.12', url: 'https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced' }]
+  },
+  'interactive-role-focusable': {
+    text: 'Elements with interactive ARIA roles must be focusable. Add tabindex="0" if using non-interactive HTML elements.',
+    exampleBefore: '<span role="button" onclick="save()">Save</span>',
+    exampleAfter: '<span role="button" tabindex="0" onclick="save()" onkeydown="if(event.key===\'Enter\')save()">Save</span>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+
+  // ============================================
+  // HEADINGS & STRUCTURE
+  // ============================================
+  'headings-order': {
+    text: 'Fix heading level jumps. Headings should descend logically: h1 → h2 → h3. Never skip levels.',
+    exampleBefore: '<h1>Page Title</h1>\n<h3>Subsection</h3>',
+    exampleAfter: '<h1>Page Title</h1>\n<h2>Subsection</h2>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'heading-h1': {
+    text: 'Include exactly one <h1> element identifying the main content of the page.',
+    exampleBefore: '<div class="title">Welcome</div>',
+    exampleAfter: '<h1>Welcome</h1>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'landmarks': {
+    text: 'Add landmark regions, especially <main> for primary content. Use <nav>, <header>, <footer>, <aside> for other regions.',
+    exampleBefore: '<div id="content">...</div>',
+    exampleAfter: '<main id="content">...</main>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'region-name': {
+    text: 'Provide accessible names for landmark regions using aria-label or aria-labelledby, especially when multiple landmarks of the same type exist.',
+    exampleBefore: '<nav>...</nav>\n<nav>...</nav>',
+    exampleAfter: '<nav aria-label="Main navigation">...</nav>\n<nav aria-label="Footer links">...</nav>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'list': {
+    text: 'Ensure <ul> and <ol> elements only contain <li>, <script>, or <template> as direct children.',
+    exampleBefore: '<ul>\n  <div>Not allowed here</div>\n  <li>Item</li>\n</ul>',
+    exampleAfter: '<ul>\n  <li>Item</li>\n  <li>Another item</li>\n</ul>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'dl-structure': {
+    text: 'Ensure <dl> elements only contain <dt>, <dd>, <div>, <script>, or <template> as direct children. Pair each <dt> with at least one <dd>.',
+    exampleBefore: '<dl>\n  <span>Term</span>\n</dl>',
+    exampleAfter: '<dl>\n  <dt>Term</dt>\n  <dd>Definition</dd>\n</dl>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+
+  // ============================================
+  // LINKS & NAVIGATION
+  // ============================================
+  'link-name': {
+    text: 'Provide descriptive link text that makes sense out of context. Avoid "click here" or "read more". Use aria-label for icon-only links.',
+    exampleBefore: '<a href="/report.pdf">Click here</a>',
+    exampleAfter: '<a href="/report.pdf">Download annual report (PDF)</a>',
+    wcag: [{ id: '2.4.4', url: 'https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context' }]
+  },
+  'link-button-misuse': {
+    text: 'Use <a href> for navigation to other pages. Use <button> for actions that don\'t navigate. Don\'t use <a> without href as a button.',
+    exampleBefore: '<a onclick="save()">Save</a>',
+    exampleAfter: '<button type="button" onclick="save()">Save</button>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'consistent-help': {
+    text: 'Help mechanisms (contact info, help pages, chat) must appear in the same relative order across pages.',
+    exampleBefore: '<!-- Help link in header on some pages, footer on others -->',
+    exampleAfter: '<!-- Help link consistently in header across all pages -->\n<header>\n  <a href="/help">Help</a>\n</header>',
+    wcag: [{ id: '3.2.6', url: 'https://www.w3.org/WAI/WCAG22/Understanding/consistent-help' }]
+  },
+
+  // ============================================
+  // ARIA
+  // ============================================
+  'aria-role-valid': {
+    text: 'Use valid ARIA role values from the WAI-ARIA specification. Check for typos.',
+    exampleBefore: '<div role="buton">Click</div>',
+    exampleAfter: '<div role="button">Click</div>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'aria-required-props': {
+    text: 'Add required ARIA attributes for this role. For example: role="slider" requires aria-valuenow, aria-valuemin, aria-valuemax.',
+    exampleBefore: '<div role="slider"></div>',
+    exampleAfter: '<div role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'aria-attr-valid': {
+    text: 'Remove or correct invalid aria-* attributes. Check for typos in attribute names.',
+    exampleBefore: '<button aria-lable="Save">💾</button>',
+    exampleAfter: '<button aria-label="Save">💾</button>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'aria-allowed-attr': {
+    text: 'Remove ARIA attributes not permitted on this element or role. Some aria-* attributes are only valid on specific roles.',
+    exampleBefore: '<input type="text" aria-pressed="false">',
+    exampleAfter: '<input type="text">',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'aria-allowed-role': {
+    text: 'This role is not permitted on this HTML element. Use a different element or remove the role.',
+    exampleBefore: '<input type="text" role="button">',
+    exampleAfter: '<input type="text">\n<!-- Or use: <button>Click</button> -->',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'aria-presentation-misuse': {
+    text: 'Don\'t use role="presentation" or role="none" on interactive or focusable elements. This removes semantics needed for accessibility.',
+    exampleBefore: '<button role="presentation">Save</button>',
+    exampleAfter: '<button>Save</button>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'aria-required-children': {
+    text: 'Add required child elements/roles. For example: role="list" requires children with role="listitem".',
+    exampleBefore: '<div role="list">\n  <div>Item</div>\n</div>',
+    exampleAfter: '<div role="list">\n  <div role="listitem">Item</div>\n</div>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'aria-required-parent': {
+    text: 'This element must be contained within a specific parent role. For example: role="listitem" must be inside role="list".',
+    exampleBefore: '<div role="listitem">Orphan item</div>',
+    exampleAfter: '<div role="list">\n  <div role="listitem">Item in list</div>\n</div>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+
+  // ============================================
+  // TABLES
+  // ============================================
+  'table-caption': {
+    text: 'Add a <caption> element as the first child of the <table> to describe the table\'s purpose.',
+    exampleBefore: '<table>\n  <tr><th>Name</th><th>Price</th></tr>\n</table>',
+    exampleAfter: '<table>\n  <caption>Product pricing</caption>\n  <tr><th>Name</th><th>Price</th></tr>\n</table>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+  'table-headers-association': {
+    text: 'Associate data cells with headers using <th> elements with proper scope, or id/headers attributes for complex tables.',
+    exampleBefore: '<table>\n  <tr><td>Name</td><td>Price</td></tr>\n  <tr><td>Widget</td><td>£10</td></tr>\n</table>',
+    exampleAfter: '<table>\n  <tr><th scope="col">Name</th><th scope="col">Price</th></tr>\n  <tr><td>Widget</td><td>£10</td></tr>\n</table>',
+    wcag: [{ id: '1.3.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships' }]
+  },
+
+  // ============================================
+  // MEDIA
+  // ============================================
+  'media-captions': {
+    text: 'Provide synchronised captions for video content using <track kind="captions">. Captions should include dialogue and relevant sound effects.',
+    exampleBefore: '<video src="presentation.mp4" controls></video>',
+    exampleAfter: '<video src="presentation.mp4" controls>\n  <track kind="captions" src="captions.vtt" srclang="en" label="English" default>\n</video>',
+    wcag: [{ id: '1.2.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/captions-prerecorded' }]
+  },
+  'audio-transcript': {
+    text: 'Provide a text transcript for audio-only content, including speaker identification and all spoken content.',
+    exampleBefore: '<audio src="podcast.mp3" controls></audio>',
+    exampleAfter: '<audio src="podcast.mp3" controls></audio>\n<a href="podcast-transcript.html">Read transcript</a>',
+    wcag: [{ id: '1.2.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/audio-only-and-video-only-prerecorded' }]
+  },
+
+  // ============================================
+  // DOCUMENT
+  // ============================================
+  'html-lang': {
+    text: 'Set the lang attribute on the <html> element using the correct BCP 47 language tag.',
+    exampleBefore: '<html>',
+    exampleAfter: '<html lang="en">',
+    wcag: [{ id: '3.1.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/language-of-page' }]
+  },
+  'document-title': {
+    text: 'Provide a unique, descriptive <title> that identifies the page content and site. Format: "Page Name - Site Name".',
+    exampleBefore: '<title>Untitled</title>',
+    exampleAfter: '<title>Contact Us - Acme Corporation</title>',
+    wcag: [{ id: '2.4.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/page-titled' }]
+  },
+  'meta-viewport': {
+    text: 'Add a viewport meta tag for responsive design and ensure user-scalable is not disabled.',
+    exampleBefore: '<!-- No viewport meta tag -->',
+    exampleAfter: '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    wcag: [
+      { id: '1.4.4', url: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text' },
+      { id: '1.4.10', url: 'https://www.w3.org/WAI/WCAG21/Understanding/reflow' }
+    ]
+  },
+  'iframe-title': {
+    text: 'Add a descriptive title attribute to all <iframe> elements explaining their content or purpose.',
+    exampleBefore: '<iframe src="https://maps.google.com/..."></iframe>',
+    exampleAfter: '<iframe src="https://maps.google.com/..." title="Google Maps - Office location"></iframe>',
+    wcag: [{ id: '4.1.2', url: 'https://www.w3.org/WAI/WCAG21/Understanding/name-role-value' }]
+  },
+  'duplicate-ids': {
+    text: 'Remove or rename duplicate id attributes. Each id must be unique within the document.',
+    exampleBefore: '<div id="header">...</div>\n<div id="header">...</div>',
+    exampleAfter: '<div id="main-header">...</div>\n<div id="section-header">...</div>',
+    wcag: [{ id: '4.1.1', url: 'https://www.w3.org/WAI/WCAG21/Understanding/parsing' }]
+  },
+
+  // ============================================
+  // AUTHENTICATION (WCAG 2.2)
+  // ============================================
+  'accessible-authentication-minimum': {
+    text: 'Don\'t require cognitive function tests (puzzles, memory) for authentication. Allow copy-paste for passwords and support password managers.',
+    exampleBefore: '<input type="password" oncopy="return false" onpaste="return false">',
+    exampleAfter: '<input type="password" autocomplete="current-password">',
+    wcag: [{ id: '3.3.8', url: 'https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum' }]
+  },
+  'accessible-authentication-enhanced': {
+    text: 'Authentication must not require any cognitive test. Provide alternatives like email links, OAuth, or biometrics.',
+    exampleBefore: '<!-- CAPTCHA with no alternative -->',
+    exampleAfter: '<!-- Provide alternatives -->\n<button>Sign in with Google</button>\n<button>Email me a login link</button>',
+    wcag: [{ id: '3.3.9', url: 'https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-enhanced' }]
+  },
+  'redundant-entry': {
+    text: 'Don\'t ask users to re-enter information they\'ve already provided in the same session unless essential for security.',
+    exampleBefore: '<!-- Shipping form -->\n<input name="address">\n<!-- Billing form asks for same address again -->',
+    exampleAfter: '<!-- Shipping form -->\n<input name="shipping-address">\n<!-- Billing form -->\n<label><input type="checkbox" checked> Same as shipping address</label>',
+    wcag: [{ id: '3.3.7', url: 'https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry' }]
+  }
+};
+
+/**
+ * Default guidance for unmapped rules
+ */
+const DEFAULT_GUIDANCE = {
+  text: 'Review this element and ensure it meets WCAG requirements.',
+  exampleBefore: null,
+  exampleAfter: null,
+  wcag: []
+};
+
+/**
+ * Get structured guidance data for a rule.
+ * Returns object with text, exampleBefore, exampleAfter, wcag.
+ * @param {string} ruleId - The rule identifier
+ * @returns {Object} Structured guidance object
+ */
+function getGuidanceData(ruleId) {
+  return GUIDANCE_DATABASE[ruleId] || DEFAULT_GUIDANCE;
+}
+
+/**
+ * Get guidance text only (for backwards compatibility and DevTools panel).
+ * @param {string} ruleId - The rule identifier
+ * @param {Object} f - The finding object (unused, kept for compatibility)
+ * @returns {string} Guidance text
+ */
 function guidanceForRule(ruleId, f) {
-  const map = {
-    // Images
-    'img-alt': 'Add meaningful alt text describing the image content, or alt="" if purely decorative. For complex images like charts, use aria-labelledby to reference a longer description.',
+  const data = getGuidanceData(ruleId);
+  return data.text;
+}
 
-    // Forms & Labels
-    'label-control': 'Associate inputs with a visible label using <label for="id"> or by wrapping the input inside the <label> element.',
-    'fieldset-legend': 'Group related form controls (especially radio buttons and checkboxes) within a <fieldset> and provide a <legend> describing the group.',
-    'autocomplete': 'Add the appropriate autocomplete attribute (e.g., autocomplete="email", "tel", "name", "current-password") to help users complete forms faster.',
-    'button-name': 'Ensure buttons have discernible text via visible label text, aria-label, or aria-labelledby. Icon-only buttons need aria-label.',
-    'control-name': 'Ensure all interactive controls have an accessible name via visible text, aria-label, or aria-labelledby.',
-
-    // Colour & Contrast
-    'contrast-text': 'Increase the colour contrast between text and background. Normal text needs 4.5:1 ratio; large text (18pt+) needs 3:1. Adjust colours or increase font size/weight.',
-    'link-in-text-block': 'Links within text blocks need a non-colour distinguisher (underline, bold, icon) plus 3:1 contrast against surrounding text.',
-
-    // Target Size
-    'target-size': 'Increase the clickable/tappable area to at least 24×24 CSS pixels. Add padding, increase button size, or ensure sufficient spacing between targets.',
-    'dragging-movements': 'Provide an alternative to dragging operations. Users must be able to complete the action with a single pointer without dragging.',
-
-    // Keyboard & Focus
-    'tabindex-positive': 'Remove positive tabindex values (tabindex="1", "2", etc.). Use tabindex="0" to add elements to natural tab order, or tabindex="-1" for programmatic focus only.',
-    'aria-hidden-focus': 'Elements with aria-hidden="true" must not contain focusable elements. Either remove aria-hidden or remove focusable children.',
-    'skip-link': 'Add a skip link as the first focusable element that jumps to main content. Essential for keyboard users to bypass repetitive navigation.',
-    'focus-appearance': 'Ensure focus indicators have sufficient size and contrast. Focus outline should be at least 2px thick with 3:1 contrast against adjacent colours.',
-    'focus-not-obscured-minimum': 'Ensure focused elements are not entirely hidden by other content like sticky headers or modals. At least part of the focus indicator must be visible.',
-    'focus-not-obscured-enhanced': 'Ensure the entire focused element is visible when it receives focus, not obscured by any overlapping content.',
-    'interactive-role-focusable': 'Elements with interactive ARIA roles (button, link, checkbox, etc.) must be focusable. Add tabindex="0" if using non-interactive HTML elements.',
-
-    // Headings & Structure  
-    'headings-order': 'Fix heading level jumps (e.g., h1 to h3). Headings should descend logically: h1 → h2 → h3. Never skip levels.',
-    'heading-h1': 'Include exactly one <h1> element identifying the main content of the page.',
-    'landmarks': 'Add landmark regions, especially <main> for primary content. Use <nav>, <header>, <footer>, <aside> for other regions.',
-    'region-name': 'Provide accessible names for landmark regions using aria-label or aria-labelledby, especially when multiple landmarks of the same type exist.',
-    'list': 'Ensure <ul> and <ol> elements only contain <li>, <script>, or <template> as direct children. Move other elements inside <li> items.',
-    'dl-structure': 'Ensure <dl> elements only contain <dt>, <dd>, <div>, <script>, or <template> as direct children. Pair each <dt> with at least one <dd>.',
-
-    // Links & Navigation
-    'link-name': 'Provide descriptive link text that makes sense out of context. Avoid "click here" or "read more". Use aria-label for icon-only links.',
-    'link-button-misuse': 'Use <a href> for navigation to other pages/locations. Use <button> for actions that don\'t navigate. Don\'t use <a> without href as a button.',
-    'consistent-help': 'Help mechanisms (contact info, help pages, chat) must appear in the same relative order across pages.',
-
-    // ARIA
-    'aria-role-valid': 'Use valid ARIA role values from the WAI-ARIA specification. Check for typos (e.g., "buton" instead of "button").',
-    'aria-required-props': 'Add required ARIA attributes for this role. For example: role="slider" requires aria-valuenow, aria-valuemin, aria-valuemax.',
-    'aria-attr-valid': 'Remove or correct invalid aria-* attributes. Check for typos in attribute names.',
-    'aria-allowed-attr': 'Remove ARIA attributes not permitted on this element or role. Some aria-* attributes are only valid on specific roles.',
-    'aria-allowed-role': 'This role is not permitted on this HTML element. Use a different element or remove the role.',
-    'aria-presentation-misuse': 'Don\'t use role="presentation" or role="none" on interactive or focusable elements. This removes semantics needed for accessibility.',
-    'aria-required-children': 'Add required child elements/roles. For example: role="list" requires children with role="listitem"; role="menu" requires role="menuitem".',
-    'aria-required-parent': 'This element must be contained within a specific parent role. For example: role="listitem" must be inside role="list".',
-
-    // Tables
-    'table-caption': 'Add a <caption> element as the first child of the <table> to describe the table\'s purpose.',
-    'table-headers-association': 'Associate data cells with headers using <th> elements with proper scope, or id/headers attributes for complex tables.',
-
-    // Media
-    'media-captions': 'Provide synchronised captions for video content using <track kind="captions">. Captions should include dialogue and relevant sound effects.',
-    'audio-transcript': 'Provide a text transcript for audio-only content, including speaker identification and all spoken content.',
-
-    // Document
-    'html-lang': 'Set the lang attribute on the <html> element (e.g., <html lang="en">). Use the correct BCP 47 language tag.',
-    'document-title': 'Provide a unique, descriptive <title> that identifies the page content and site. Format: "Page Name - Site Name".',
-    'meta-viewport': 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> and ensure user-scalable is not set to "no".',
-    'iframe-title': 'Add a descriptive title attribute to all <iframe> elements explaining their content or purpose.',
-    'duplicate-ids': 'Remove or rename duplicate id attributes. Each id must be unique within the document.',
-
-    // Authentication (WCAG 2.2)
-    'accessible-authentication-minimum': 'Don\'t require cognitive function tests (puzzles, memory) for authentication. Allow copy-paste for passwords and support password managers.',
-    'accessible-authentication-enhanced': 'Authentication must not require any cognitive test. Provide alternatives like email links, OAuth, or biometrics.',
-    'redundant-entry': 'Don\'t ask users to re-enter information they\'ve already provided in the same session unless essential for security.'
-  };
-  const text = map[ruleId] || 'Review this element and ensure it meets WCAG requirements.';
-  return text;
+/**
+ * Render guidance as HTML for DevTools panel display.
+ * Shows text, and optionally before/after examples.
+ * @param {string} ruleId - The rule identifier
+ * @param {boolean} showExamples - Whether to include code examples
+ * @returns {string} HTML string
+ */
+function renderGuidanceHtml(ruleId, showExamples = false) {
+  const data = getGuidanceData(ruleId);
+  let html = `<div class="guidance-text">${escapeHtml(data.text)}</div>`;
+  
+  if (showExamples && data.exampleBefore && data.exampleAfter) {
+    html += `
+      <div class="guidance-examples" style="margin-top: 8px; font-size: 12px;">
+        <div style="margin-bottom: 4px; color: var(--color-text-secondary, #888);">Example fix:</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 200px;">
+            <div style="color: #e57373; font-size: 11px; margin-bottom: 2px;">✗ Before</div>
+            <pre style="margin: 0; padding: 6px; background: var(--color-bg-input, #2a2a2a); border-radius: 4px; overflow-x: auto; font-size: 11px; border-left: 3px solid #e57373;">${escapeHtml(data.exampleBefore)}</pre>
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <div style="color: #81c784; font-size: 11px; margin-bottom: 2px;">✓ After</div>
+            <pre style="margin: 0; padding: 6px; background: var(--color-bg-input, #2a2a2a); border-radius: 4px; overflow-x: auto; font-size: 11px; border-left: 3px solid #81c784;">${escapeHtml(data.exampleAfter)}</pre>
+          </div>
+        </div>
+      </div>`;
+  }
+  
+  if (data.wcag && data.wcag.length > 0) {
+    const wcagLinks = data.wcag.map(w => 
+      `<a href="${w.url}" target="_blank" rel="noopener" class="pill" style="font-size: 11px;">${w.id}</a>`
+    ).join(' ');
+    html += `<div class="guidance-wcag" style="margin-top: 6px;">WCAG: ${wcagLinks}</div>`;
+  }
+  
+  return html;
 }
 
 function persistIgnores() {
