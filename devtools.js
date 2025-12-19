@@ -764,36 +764,77 @@ function renderDetails(f) {
 
 function guidanceForRule(ruleId, f) {
   const map = {
-    'img-alt': 'Add meaningful alt text, or alt="" if decorative. Prefer labeling graphics via aria-labelledby for complex images.',
-    'control-name': 'Ensure controls have an accessible name via visible text, aria-label, or aria-labelledby.',
-    'label-control': 'Associate inputs with <label for> or wrap them with <label>.',
-    'headings-order': 'Adjust headings to avoid level jumps. Use h2 under h1, etc.',
-    'landmarks': 'Add a single main landmark. Prefer semantic <main>.',
-    'aria-role-valid': 'Use a valid ARIA role token and ensure it matches the element semantics.',
-    'aria-required-props': 'Provide required ARIA attributes for this role (e.g., aria-level for role=heading).',
-    'aria-attr-valid': 'Remove invalid aria-* attributes or correct typos.',
-    'aria-presentation-misuse': 'Avoid role=presentation/none on interactive elements.',
-    'target-size': 'Increase control size to at least 24×24px (or provide sufficient spacing).',
-    'contrast-text': 'Increase color contrast or font size/weight to meet thresholds.',
-    'button-name': 'Provide discernible text via visible label, aria-label, or aria-labelledby.',
-    'link-name': 'Provide discernible text via link text, aria-label, or aria-labelledby.',
-    'aria-hidden-focus': 'Remove focusable elements from aria-hidden containers or remove aria-hidden.',
-    'list': 'Ensure <ul>/<ol> have only <li>, <script>, or <template> as direct children.',
-    'html-lang': 'Set <html lang="…"> appropriately.',
-    'document-title': 'Provide a concise, descriptive <title>.',
-    'skip-link': 'Include a skip link to the main content.',
-    'link-button-misuse': 'Use <button> for actions; use <a href> for navigation.',
-    'tabindex-positive': 'Avoid tabindex>0; rely on DOM order and tabindex="0" for widgets.',
-    'fieldset-legend': 'Group related radio controls within <fieldset> with a <legend>.',
-    'autocomplete': 'Add proper autocomplete tokens (e.g., email, tel, name, current-password).',
-    'media-captions': 'Provide captions/subtitles via <track> for videos.',
-    'audio-transcript': 'Provide a transcript or text alternative for audio.',
-    'heading-h1': 'Include a top-level <h1> for document structure.',
-    'region-name': 'Provide an accessible name for region landmarks via aria-label/labelledby.',
-    'iframe-title': 'Add a descriptive title to iframes.',
-    'meta-viewport': 'Add <meta name="viewport"> for responsive/zoom behavior.'
+    // Images
+    'img-alt': 'Add meaningful alt text describing the image content, or alt="" if purely decorative. For complex images like charts, use aria-labelledby to reference a longer description.',
+
+    // Forms & Labels
+    'label-control': 'Associate inputs with a visible label using <label for="id"> or by wrapping the input inside the <label> element.',
+    'fieldset-legend': 'Group related form controls (especially radio buttons and checkboxes) within a <fieldset> and provide a <legend> describing the group.',
+    'autocomplete': 'Add the appropriate autocomplete attribute (e.g., autocomplete="email", "tel", "name", "current-password") to help users complete forms faster.',
+    'button-name': 'Ensure buttons have discernible text via visible label text, aria-label, or aria-labelledby. Icon-only buttons need aria-label.',
+    'control-name': 'Ensure all interactive controls have an accessible name via visible text, aria-label, or aria-labelledby.',
+
+    // Colour & Contrast
+    'contrast-text': 'Increase the colour contrast between text and background. Normal text needs 4.5:1 ratio; large text (18pt+) needs 3:1. Adjust colours or increase font size/weight.',
+    'link-in-text-block': 'Links within text blocks need a non-colour distinguisher (underline, bold, icon) plus 3:1 contrast against surrounding text.',
+
+    // Target Size
+    'target-size': 'Increase the clickable/tappable area to at least 24×24 CSS pixels. Add padding, increase button size, or ensure sufficient spacing between targets.',
+    'dragging-movements': 'Provide an alternative to dragging operations. Users must be able to complete the action with a single pointer without dragging.',
+
+    // Keyboard & Focus
+    'tabindex-positive': 'Remove positive tabindex values (tabindex="1", "2", etc.). Use tabindex="0" to add elements to natural tab order, or tabindex="-1" for programmatic focus only.',
+    'aria-hidden-focus': 'Elements with aria-hidden="true" must not contain focusable elements. Either remove aria-hidden or remove focusable children.',
+    'skip-link': 'Add a skip link as the first focusable element that jumps to main content. Essential for keyboard users to bypass repetitive navigation.',
+    'focus-appearance': 'Ensure focus indicators have sufficient size and contrast. Focus outline should be at least 2px thick with 3:1 contrast against adjacent colours.',
+    'focus-not-obscured-minimum': 'Ensure focused elements are not entirely hidden by other content like sticky headers or modals. At least part of the focus indicator must be visible.',
+    'focus-not-obscured-enhanced': 'Ensure the entire focused element is visible when it receives focus, not obscured by any overlapping content.',
+    'interactive-role-focusable': 'Elements with interactive ARIA roles (button, link, checkbox, etc.) must be focusable. Add tabindex="0" if using non-interactive HTML elements.',
+
+    // Headings & Structure  
+    'headings-order': 'Fix heading level jumps (e.g., h1 to h3). Headings should descend logically: h1 → h2 → h3. Never skip levels.',
+    'heading-h1': 'Include exactly one <h1> element identifying the main content of the page.',
+    'landmarks': 'Add landmark regions, especially <main> for primary content. Use <nav>, <header>, <footer>, <aside> for other regions.',
+    'region-name': 'Provide accessible names for landmark regions using aria-label or aria-labelledby, especially when multiple landmarks of the same type exist.',
+    'list': 'Ensure <ul> and <ol> elements only contain <li>, <script>, or <template> as direct children. Move other elements inside <li> items.',
+    'dl-structure': 'Ensure <dl> elements only contain <dt>, <dd>, <div>, <script>, or <template> as direct children. Pair each <dt> with at least one <dd>.',
+
+    // Links & Navigation
+    'link-name': 'Provide descriptive link text that makes sense out of context. Avoid "click here" or "read more". Use aria-label for icon-only links.',
+    'link-button-misuse': 'Use <a href> for navigation to other pages/locations. Use <button> for actions that don\'t navigate. Don\'t use <a> without href as a button.',
+    'consistent-help': 'Help mechanisms (contact info, help pages, chat) must appear in the same relative order across pages.',
+
+    // ARIA
+    'aria-role-valid': 'Use valid ARIA role values from the WAI-ARIA specification. Check for typos (e.g., "buton" instead of "button").',
+    'aria-required-props': 'Add required ARIA attributes for this role. For example: role="slider" requires aria-valuenow, aria-valuemin, aria-valuemax.',
+    'aria-attr-valid': 'Remove or correct invalid aria-* attributes. Check for typos in attribute names.',
+    'aria-allowed-attr': 'Remove ARIA attributes not permitted on this element or role. Some aria-* attributes are only valid on specific roles.',
+    'aria-allowed-role': 'This role is not permitted on this HTML element. Use a different element or remove the role.',
+    'aria-presentation-misuse': 'Don\'t use role="presentation" or role="none" on interactive or focusable elements. This removes semantics needed for accessibility.',
+    'aria-required-children': 'Add required child elements/roles. For example: role="list" requires children with role="listitem"; role="menu" requires role="menuitem".',
+    'aria-required-parent': 'This element must be contained within a specific parent role. For example: role="listitem" must be inside role="list".',
+
+    // Tables
+    'table-caption': 'Add a <caption> element as the first child of the <table> to describe the table\'s purpose.',
+    'table-headers-association': 'Associate data cells with headers using <th> elements with proper scope, or id/headers attributes for complex tables.',
+
+    // Media
+    'media-captions': 'Provide synchronised captions for video content using <track kind="captions">. Captions should include dialogue and relevant sound effects.',
+    'audio-transcript': 'Provide a text transcript for audio-only content, including speaker identification and all spoken content.',
+
+    // Document
+    'html-lang': 'Set the lang attribute on the <html> element (e.g., <html lang="en">). Use the correct BCP 47 language tag.',
+    'document-title': 'Provide a unique, descriptive <title> that identifies the page content and site. Format: "Page Name - Site Name".',
+    'meta-viewport': 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> and ensure user-scalable is not set to "no".',
+    'iframe-title': 'Add a descriptive title attribute to all <iframe> elements explaining their content or purpose.',
+    'duplicate-ids': 'Remove or rename duplicate id attributes. Each id must be unique within the document.',
+
+    // Authentication (WCAG 2.2)
+    'accessible-authentication-minimum': 'Don\'t require cognitive function tests (puzzles, memory) for authentication. Allow copy-paste for passwords and support password managers.',
+    'accessible-authentication-enhanced': 'Authentication must not require any cognitive test. Provide alternatives like email links, OAuth, or biometrics.',
+    'redundant-entry': 'Don\'t ask users to re-enter information they\'ve already provided in the same session unless essential for security.'
   };
-  const text = map[ruleId] || '';
+  const text = map[ruleId] || 'Review this element and ensure it meets WCAG requirements.';
   return text;
 }
 
