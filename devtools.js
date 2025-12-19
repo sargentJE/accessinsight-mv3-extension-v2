@@ -1364,6 +1364,19 @@ function getExportMetadata() {
 }
 
 /**
+ * Generate timestamped filename for exports
+ * @param {string} baseName - Base filename (e.g., 'a11y-report')
+ * @param {string} extension - File extension (e.g., 'html', 'csv')
+ * @returns {string} Filename with timestamp
+ */
+function generateExportFilename(baseName, extension) {
+  const date = new Date();
+  const timestamp = date.toISOString().slice(0, 10); // YYYY-MM-DD
+  const time = date.toTimeString().slice(0, 5).replace(':', ''); // HHMM
+  return `${baseName}-${timestamp}-${time}.${extension}`;
+}
+
+/**
  * Calculate summary statistics for findings
  * @param {Array} findings - Array of finding objects
  * @returns {Object} Summary statistics
@@ -1701,55 +1714,404 @@ optIntelligentPriority?.addEventListener('change', () => {
   render(); // Re-render to show/hide priority scores
 });
 
+/**
+ * Generate professional HTML accessibility report
+ * Features: Executive summary, category navigation, card-based issues,
+ * code snippets, fix guidance with before/after examples
+ */
 function downloadHtmlReport() {
   ToastManager.show('Generating HTML report...', 'info', 1000);
   const items = getFilteredFindings();
+  const grouped = groupFindingsByCategory(items);
+  const pageUrl = inspectedUrl || 'Unknown URL';
+  const timestamp = new Date().toLocaleString('en-GB', { 
+    dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/London' 
+  });
   
-  // Enhanced row generation with priority data
-  const rows = items.map(f => {
-    const priorityInfo = (scanOptions.intelligentPriority && f.priorityScore !== undefined) 
-      ? `<td><span class="priority-${getPriorityLevel(f.priorityScore)}">${f.priorityScore} (${f.priorityLabel})</span></td>
-         <td title="${f.contextExplanation || ''}">${f.context?.pageRegion || 'N/A'}</td>`
-      : '<td colspan="2">Traditional Mode</td>';
-    
-    return `<tr>
-      <td>${f.ruleId}</td>
-      <td><span class="${f.impact}">${f.impact||''}</span></td>
-      ${priorityInfo}
-      <td>${(f.wcag||[]).join(', ')}</td>
-      <td><code>${f.selector}</code></td>
-      <td>${f.message}</td>
-    </tr>`;
+  // Calculate priority breakdown
+  const priorityBreakdown = { critical: 0, high: 0, medium: 0, low: 0 };
+  items.forEach(f => {
+    const level = f.priorityLabel || f.impact || 'medium';
+    if (level === 'critical' || level === 'serious') priorityBreakdown.critical++;
+    else if (level === 'high' || level === 'moderate') priorityBreakdown.high++;
+    else if (level === 'medium' || level === 'minor') priorityBreakdown.medium++;
+    else priorityBreakdown.low++;
+  });
+
+  // Generate category navigation
+  const categoryNav = Object.keys(grouped).map(cat => {
+    const count = grouped[cat].length;
+    const id = cat.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    return `<a href="#cat-${id}" class="nav-pill">${escapeHtml(cat)} <span class="count">${count}</span></a>`;
   }).join('');
-  
-  const presetName = presetSel?.value || 'default';
-  const meta = `Preset: ${presetName} • Live: ${scanOptions.live} • ViewportOnly: ${scanOptions.viewportOnly} • Shadow: ${scanOptions.shadow} • Iframes: ${scanOptions.iframes} • HideNeedsReview: ${scanOptions.hideNeedsReview} • MinConf: ${(parseFloat(minConf?.value||'0')||0).toFixed(2)} • IntelligentPriority: ${scanOptions.intelligentPriority}`;
-  
-  const priorityHeaders = scanOptions.intelligentPriority ? '<th>Priority Score</th><th>Context</th>' : '';
-  const html = `<!doctype html><meta charset="utf-8"><title>A11y Report</title>
+
+  // Generate issue cards grouped by category
+  const categoryBlocks = Object.entries(grouped).map(([category, findings]) => {
+    const catId = category.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    const issueCards = findings.map((f, idx) => {
+      const guidance = getGuidanceData(f.ruleId);
+      const wcagList = (f.wcag || []).join(', ') || 'N/A';
+      const impactClass = f.impact || 'medium';
+      const codeSnippet = f.evidence?.html ? truncateCode(f.evidence.html, 500) : '';
+      
+      // Build fix guidance section
+      let fixSection = `<div class="fix-text">${escapeHtml(guidance.text)}</div>`;
+      if (guidance.exampleBefore && guidance.exampleAfter) {
+        fixSection += `
+          <div class="code-examples">
+            <div class="example bad">
+              <div class="example-label">✗ Before</div>
+              <pre><code>${escapeHtml(guidance.exampleBefore)}</code></pre>
+            </div>
+            <div class="example good">
+              <div class="example-label">✓ After</div>
+              <pre><code>${escapeHtml(guidance.exampleAfter)}</code></pre>
+            </div>
+          </div>`;
+      }
+      
+      // WCAG links
+      const wcagLinks = (guidance.wcag || []).map(w => 
+        `<a href="${w.url}" target="_blank" rel="noopener" class="wcag-link">${w.id}</a>`
+      ).join(' ');
+
+      return `
+        <article class="issue-card impact-${impactClass}">
+          <header class="issue-header">
+            <div class="issue-title">
+              <span class="impact-badge ${impactClass}">${escapeHtml(impactClass)}</span>
+              <h3>${escapeHtml(f.ruleId)}</h3>
+            </div>
+            <div class="wcag-badges">${wcagLinks || `<span class="wcag-ref">${escapeHtml(wcagList)}</span>`}</div>
+          </header>
+          <p class="issue-message">${escapeHtml(f.message)}</p>
+          ${codeSnippet ? `
+            <details class="evidence-section">
+              <summary>View Element Code</summary>
+              <pre class="code-block"><code>${escapeHtml(codeSnippet)}</code></pre>
+            </details>` : ''}
+          <div class="selector-info">
+            <strong>Selector:</strong> <code>${escapeHtml(f.selector)}</code>
+          </div>
+          <section class="fix-guidance">
+            <h4>How to Fix</h4>
+            ${fixSection}
+          </section>
+        </article>`;
+    }).join('');
+
+    return `
+      <section class="category-section" id="cat-${catId}">
+        <h2 class="category-heading">${escapeHtml(category)} <span class="category-count">(${findings.length} issue${findings.length !== 1 ? 's' : ''})</span></h2>
+        ${issueCards}
+      </section>`;
+  }).join('');
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Report - ${escapeHtml(pageUrl)}</title>
   <style>
-    body{font:14px system-ui}
-    table{border-collapse:collapse;width:100%}
-    td,th{border:1px solid #ccc;padding:6px;text-align:left}
-    .priority-critical{background:#dc2626;color:white}
-    .priority-high{background:#ea580c;color:white}
-    .priority-medium{background:#ca8a04;color:white}
-    .priority-low{background:#16a34a;color:white}
-    .priority-minimal{background:#6b7280;color:white}
-    code{background:#f5f5f5;padding:2px 4px;border-radius:3px}
+    :root {
+      --color-critical: #dc2626;
+      --color-serious: #dc2626;
+      --color-high: #ea580c;
+      --color-moderate: #ea580c;
+      --color-medium: #ca8a04;
+      --color-minor: #ca8a04;
+      --color-low: #16a34a;
+      --color-bg: #ffffff;
+      --color-surface: #f8fafc;
+      --color-border: #e2e8f0;
+      --color-text: #1e293b;
+      --color-text-secondary: #64748b;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    
+    /* Header */
+    .report-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--color-border);
+    }
+    .report-header h1 { font-size: 1.75rem; margin-bottom: 8px; }
+    .report-meta { color: var(--color-text-secondary); font-size: 0.875rem; }
+    .report-meta a { color: inherit; }
+    
+    /* Executive Summary */
+    .summary-section {
+      background: var(--color-surface);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .summary-section h2 { font-size: 1.25rem; margin-bottom: 16px; }
+    .summary-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      flex: 1;
+      min-width: 120px;
+      background: var(--color-bg);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      border-left: 4px solid var(--color-border);
+    }
+    .stat-card.critical { border-left-color: var(--color-critical); }
+    .stat-card.high { border-left-color: var(--color-high); }
+    .stat-card.medium { border-left-color: var(--color-medium); }
+    .stat-card.low { border-left-color: var(--color-low); }
+    .stat-number { font-size: 2rem; font-weight: 700; }
+    .stat-label { font-size: 0.75rem; text-transform: uppercase; color: var(--color-text-secondary); }
+    
+    /* Category Navigation */
+    .category-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+      padding: 16px;
+      background: var(--color-surface);
+      border-radius: 8px;
+    }
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--color-text);
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+    .nav-pill:hover { background: var(--color-text); color: var(--color-bg); }
+    .nav-pill .count {
+      background: var(--color-border);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+    }
+    
+    /* Category Sections */
+    .category-section { margin-bottom: 40px; }
+    .category-heading {
+      font-size: 1.25rem;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .category-count { font-weight: 400; color: var(--color-text-secondary); }
+    
+    /* Issue Cards */
+    .issue-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--color-border);
+    }
+    .issue-card.impact-critical, .issue-card.impact-serious { border-left-color: var(--color-critical); }
+    .issue-card.impact-high, .issue-card.impact-moderate { border-left-color: var(--color-high); }
+    .issue-card.impact-medium, .issue-card.impact-minor { border-left-color: var(--color-medium); }
+    .issue-card.impact-low { border-left-color: var(--color-low); }
+    
+    .issue-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .issue-title { display: flex; align-items: center; gap: 10px; }
+    .issue-title h3 { font-size: 1rem; font-weight: 600; }
+    
+    .impact-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: white;
+    }
+    .impact-badge.critical, .impact-badge.serious { background: var(--color-critical); }
+    .impact-badge.high, .impact-badge.moderate { background: var(--color-high); }
+    .impact-badge.medium, .impact-badge.minor { background: var(--color-medium); }
+    .impact-badge.low { background: var(--color-low); }
+    
+    .wcag-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+    .wcag-link, .wcag-ref {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      background: #e0e7ff;
+      color: #3730a3;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .wcag-link:hover { background: #c7d2fe; }
+    
+    .issue-message { margin-bottom: 12px; color: var(--color-text-secondary); }
+    
+    .selector-info {
+      font-size: 0.875rem;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      background: var(--color-surface);
+      border-radius: 4px;
+    }
+    .selector-info code {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 0.8rem;
+      word-break: break-all;
+    }
+    
+    /* Evidence/Code */
+    .evidence-section { margin-bottom: 12px; }
+    .evidence-section summary {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 8px 0;
+    }
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 12px 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      font-family: 'SF Mono', Consolas, monospace;
+      margin-top: 8px;
+    }
+    .code-block code { background: none; padding: 0; }
+    
+    /* Fix Guidance */
+    .fix-guidance {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+    .fix-guidance h4 {
+      font-size: 0.875rem;
+      color: #166534;
+      margin-bottom: 8px;
+    }
+    .fix-text { margin-bottom: 12px; font-size: 0.9rem; }
+    
+    .code-examples { display: flex; gap: 12px; flex-wrap: wrap; }
+    .example {
+      flex: 1;
+      min-width: 250px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .example-label {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .example.bad .example-label { background: #fecaca; color: #991b1b; }
+    .example.good .example-label { background: #bbf7d0; color: #166534; }
+    .example pre {
+      margin: 0;
+      padding: 12px;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 0.75rem;
+      overflow-x: auto;
+    }
+    .example pre code { background: none; }
+    
+    /* Print Styles */
+    @media print {
+      body { padding: 0; font-size: 11pt; }
+      .category-nav { display: none; }
+      .issue-card { break-inside: avoid; page-break-inside: avoid; }
+      .evidence-section { display: block; }
+      .evidence-section[open] summary { display: none; }
+      a { color: inherit; text-decoration: none; }
+      .wcag-link::after { content: ' (' attr(href) ')'; font-size: 0.6rem; }
+    }
   </style>
-  <h1>A11y Report</h1>
-  <div style="margin:16px 0;padding:8px;background:#f9f9f9;border-radius:4px">${meta}</div>
-  <table>
-    <thead>
-      <tr><th>Rule</th><th>Impact</th>${priorityHeaders}<th>WCAG</th><th>Selector</th><th>Message</th></tr>
-    </thead>
-    <tbody>${rows}</tbody>
-  </table>`;
+</head>
+<body>
+  <header class="report-header">
+    <h1>Accessibility Report</h1>
+    <p class="report-meta">
+      <strong>URL:</strong> <a href="${escapeHtml(pageUrl)}">${escapeHtml(pageUrl)}</a><br>
+      <strong>Generated:</strong> ${timestamp}<br>
+      <strong>Total Issues:</strong> ${items.length}
+    </p>
+  </header>
+
+  <section class="summary-section">
+    <h2>Executive Summary</h2>
+    <div class="summary-stats">
+      <div class="stat-card critical">
+        <div class="stat-number">${priorityBreakdown.critical}</div>
+        <div class="stat-label">Critical</div>
+      </div>
+      <div class="stat-card high">
+        <div class="stat-number">${priorityBreakdown.high}</div>
+        <div class="stat-label">High</div>
+      </div>
+      <div class="stat-card medium">
+        <div class="stat-number">${priorityBreakdown.medium}</div>
+        <div class="stat-label">Medium</div>
+      </div>
+      <div class="stat-card low">
+        <div class="stat-number">${priorityBreakdown.low}</div>
+        <div class="stat-label">Low</div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="category-nav" aria-label="Jump to category">
+    ${categoryNav}
+  </nav>
+
+  <main>
+    ${categoryBlocks}
+  </main>
+
+  <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--color-border); color: var(--color-text-secondary); font-size: 0.875rem;">
+    <p>Report generated by AccessInsight browser extension.</p>
+  </footer>
+</body>
+</html>`;
+
   const blob = new Blob([html], { type: 'text/html' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'a11y-report.html'; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+  const filename = generateExportFilename('a11y-report', 'html');
+  const a = document.createElement('a'); 
+  a.href = url; 
+  a.download = filename; 
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
   ToastManager.show('HTML report downloaded', 'success', 2000);
 }
 
