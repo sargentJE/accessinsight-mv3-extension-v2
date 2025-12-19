@@ -1168,6 +1168,240 @@ function renderGuidanceHtml(ruleId, showExamples = false) {
   return html;
 }
 
+// ============================================
+// EXPORT UTILITIES
+// Shared functions for JSON, HTML, CSV, SARIF exports
+// ============================================
+
+/**
+ * Rule category mappings for grouping findings
+ */
+const RULE_CATEGORIES = {
+  // Images
+  'img-alt': 'Images',
+  
+  // Forms & Labels
+  'label-control': 'Forms',
+  'fieldset-legend': 'Forms',
+  'autocomplete': 'Forms',
+  'button-name': 'Forms',
+  'control-name': 'Forms',
+  
+  // Colour & Contrast
+  'contrast-text': 'Contrast',
+  'link-in-text-block': 'Contrast',
+  
+  // Target Size
+  'target-size': 'Target Size',
+  'dragging-movements': 'Target Size',
+  
+  // Keyboard & Focus
+  'tabindex-positive': 'Keyboard & Focus',
+  'aria-hidden-focus': 'Keyboard & Focus',
+  'skip-link': 'Keyboard & Focus',
+  'focus-appearance': 'Keyboard & Focus',
+  'focus-not-obscured-minimum': 'Keyboard & Focus',
+  'focus-not-obscured-enhanced': 'Keyboard & Focus',
+  'interactive-role-focusable': 'Keyboard & Focus',
+  
+  // Headings & Structure
+  'headings-order': 'Structure',
+  'heading-h1': 'Structure',
+  'landmarks': 'Structure',
+  'region-name': 'Structure',
+  'list': 'Structure',
+  'dl-structure': 'Structure',
+  
+  // Links & Navigation
+  'link-name': 'Links',
+  'link-button-misuse': 'Links',
+  'consistent-help': 'Links',
+  
+  // ARIA
+  'aria-role-valid': 'ARIA',
+  'aria-required-props': 'ARIA',
+  'aria-attr-valid': 'ARIA',
+  'aria-allowed-attr': 'ARIA',
+  'aria-allowed-role': 'ARIA',
+  'aria-presentation-misuse': 'ARIA',
+  'aria-required-children': 'ARIA',
+  'aria-required-parent': 'ARIA',
+  
+  // Tables
+  'table-caption': 'Tables',
+  'table-headers-association': 'Tables',
+  
+  // Media
+  'media-captions': 'Media',
+  'audio-transcript': 'Media',
+  
+  // Document
+  'html-lang': 'Document',
+  'document-title': 'Document',
+  'meta-viewport': 'Document',
+  'iframe-title': 'Document',
+  'duplicate-ids': 'Document',
+  
+  // Authentication (WCAG 2.2)
+  'accessible-authentication-minimum': 'Authentication',
+  'accessible-authentication-enhanced': 'Authentication',
+  'redundant-entry': 'Authentication'
+};
+
+/**
+ * Category display order for consistent presentation
+ */
+const CATEGORY_ORDER = [
+  'Images', 'Forms', 'Contrast', 'Target Size', 'Keyboard & Focus',
+  'Structure', 'Links', 'ARIA', 'Tables', 'Media', 'Document', 'Authentication', 'Other'
+];
+
+/**
+ * Get the category for a rule ID
+ * @param {string} ruleId - The rule identifier
+ * @returns {string} Category name
+ */
+function getRuleCategory(ruleId) {
+  return RULE_CATEGORIES[ruleId] || 'Other';
+}
+
+/**
+ * Group findings by category
+ * @param {Array} findings - Array of finding objects
+ * @returns {Object} Findings grouped by category, in display order
+ */
+function groupFindingsByCategory(findings) {
+  const groups = {};
+  
+  // Initialize all categories to maintain order
+  CATEGORY_ORDER.forEach(cat => { groups[cat] = []; });
+  
+  // Group findings
+  findings.forEach(f => {
+    const category = getRuleCategory(f.ruleId);
+    if (!groups[category]) groups[category] = [];
+    groups[category].push(f);
+  });
+  
+  // Remove empty categories
+  Object.keys(groups).forEach(cat => {
+    if (groups[cat].length === 0) delete groups[cat];
+  });
+  
+  return groups;
+}
+
+/**
+ * Truncate code snippet for display
+ * @param {string} code - The code to truncate
+ * @param {number} maxLength - Maximum length (default 500)
+ * @returns {string} Truncated code with ellipsis if needed
+ */
+function truncateCode(code, maxLength = 500) {
+  if (!code || typeof code !== 'string') return '';
+  if (code.length <= maxLength) return code;
+  return code.substring(0, maxLength) + '…';
+}
+
+/**
+ * Format WCAG criteria array for display
+ * @param {Array} wcag - Array of WCAG criterion IDs
+ * @returns {string} Formatted string like "1.1.1, 1.4.3"
+ */
+function formatWcagCriteria(wcag) {
+  if (!wcag || !Array.isArray(wcag)) return '';
+  return wcag.join(', ');
+}
+
+/**
+ * Get priority level from score
+ * @param {number} score - Priority score (0-100)
+ * @returns {string} Priority level
+ */
+function getPriorityLevel(score) {
+  if (score >= 80) return 'critical';
+  if (score >= 60) return 'high';
+  if (score >= 40) return 'medium';
+  if (score >= 20) return 'low';
+  return 'minimal';
+}
+
+/**
+ * Get impact badge colour class
+ * @param {string} impact - Impact level
+ * @returns {string} CSS class for badge colour
+ */
+function getImpactColour(impact) {
+  const colours = {
+    critical: '#dc2626',
+    serious: '#ea580c',
+    moderate: '#ca8a04',
+    minor: '#65a30d'
+  };
+  return colours[impact] || '#6b7280';
+}
+
+/**
+ * Generate export metadata
+ * @returns {Object} Standard metadata for exports
+ */
+function getExportMetadata() {
+  return {
+    exportedAt: new Date().toISOString(),
+    url: inspectedUrl || 'unknown',
+    tool: 'AccessInsight Chrome Extension',
+    version: '1.2.0',
+    preset: presetSel?.value || 'default',
+    totalFindings: findings.length,
+    scanOptions: {
+      intelligentPriority: scanOptions.intelligentPriority,
+      live: scanOptions.live,
+      viewportOnly: scanOptions.viewportOnly,
+      shadow: scanOptions.shadow,
+      iframes: scanOptions.iframes
+    }
+  };
+}
+
+/**
+ * Calculate summary statistics for findings
+ * @param {Array} findings - Array of finding objects
+ * @returns {Object} Summary statistics
+ */
+function calculateSummaryStats(findings) {
+  const byImpact = { critical: 0, serious: 0, moderate: 0, minor: 0 };
+  const byCategory = {};
+  const byPriority = { critical: 0, high: 0, medium: 0, low: 0, minimal: 0 };
+  
+  findings.forEach(f => {
+    // By impact
+    if (byImpact.hasOwnProperty(f.impact)) {
+      byImpact[f.impact]++;
+    }
+    
+    // By category
+    const cat = getRuleCategory(f.ruleId);
+    byCategory[cat] = (byCategory[cat] || 0) + 1;
+    
+    // By priority (if intelligent priority enabled)
+    if (f.priorityScore !== undefined) {
+      const level = getPriorityLevel(f.priorityScore);
+      byPriority[level]++;
+    }
+  });
+  
+  return {
+    total: findings.length,
+    byImpact,
+    byCategory,
+    byPriority,
+    topCategories: Object.entries(byCategory)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([name, count]) => ({ name, count }))
+  };
+}
+
 function persistIgnores() {
   try {
     const payload = {
