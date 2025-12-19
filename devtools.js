@@ -1729,20 +1729,24 @@ function downloadHtmlReport() {
   });
   
   // Calculate priority breakdown
-  // Uses priorityLabel (e.g., "Critical Priority") when available, falls back to impact
+  // priorityLabel takes full precedence when present; impact is only used as fallback
   const priorityBreakdown = { critical: 0, high: 0, medium: 0, low: 0 };
   items.forEach(f => {
     const label = (f.priorityLabel || '').toLowerCase();
-    const impact = (f.impact || '').toLowerCase();
     
-    if (label.includes('critical') || impact === 'critical' || impact === 'serious') {
-      priorityBreakdown.critical++;
-    } else if (label.includes('high') || impact === 'moderate') {
-      priorityBreakdown.high++;
-    } else if (label.includes('medium') || impact === 'minor') {
-      priorityBreakdown.medium++;
+    if (label) {
+      // Use priorityLabel when available (e.g., "Critical Priority", "High Priority")
+      if (label.includes('critical')) priorityBreakdown.critical++;
+      else if (label.includes('high')) priorityBreakdown.high++;
+      else if (label.includes('medium')) priorityBreakdown.medium++;
+      else priorityBreakdown.low++; // catches "Low Priority" and any other label
     } else {
-      priorityBreakdown.low++;
+      // Fall back to impact level when no priorityLabel
+      const impact = (f.impact || '').toLowerCase();
+      if (impact === 'critical' || impact === 'serious') priorityBreakdown.critical++;
+      else if (impact === 'moderate') priorityBreakdown.high++;
+      else if (impact === 'minor') priorityBreakdown.medium++;
+      else priorityBreakdown.low++;
     }
   });
 
